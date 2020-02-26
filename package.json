@@ -1,47 +1,28 @@
 {
-  "name": "paper-kit-react",
+  "name": "mernstack",
   "version": "1.0.0",
-  "private": true,
-  "dependencies": {
-    "classnames": "2.2.6",
-    "moment": "2.24.0",
-    "node-sass": "4.12.0",
-    "nouislider": "13.1.5",
-    "react": "16.8.6",
-    "react-bootstrap-switch": "15.5.3",
-    "react-datetime": "2.16.3",
-    "react-dom": "16.8.6",
-    "react-router": "5.0.1",
-    "react-router-dom": "5.0.1",
-    "react-scripts": "3.0.1",
-    "reactstrap": "8.0.0"
-  },
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
-    "compile-sass": "node-sass src/assets/scss/paper-kit.scss src/assets/css/paper-kit.css",
-    "minify-sass": "node-sass src/assets/scss/paper-kit.scss src/assets/css/paper-kit.min.css --output-style compressed",
-    "map-sass": "node-sass src/assets/scss/paper-kit.scss src/assets/css/paper-kit.css --source-map true"
+    "start": "node server",
+    "server": "nodemon server",
+    "client": "npm start --prefix client",
+    "dev":"concurrently \"npm run server\" \"npm run client\""
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "author": "Nizar",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.2.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "gravatar": "^1.8.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.8.11",
+    "request": "^2.88.0"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "optionalDependencies": {
-    "typescript": "3.5.2"
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2"
   }
 }

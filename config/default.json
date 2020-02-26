@@ -1,0 +1,7 @@
+{
+"mongoURI": "mongodb://niz:vRDveD5JR8EfnnPQ@cluster0-shard-00-00-jb8hh.mongodb.net:27017,cluster0-shard-00-01-jb8hh.mongodb.net:27017,cluster0-shard-00-02-jb8hh.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority",
+"jwtSecret": "mysecrettoken",
+"githubClientId":"942a56d59c11bd4ddb9a",
+"githubClientSecret":"709c89777ab4b4ed8c0cd71bff84ee41f8832d85"
+
+}
