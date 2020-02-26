@@ -1,29 +1,41 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {Link} from  'react-router-dom';
-import {
-  Button,
-  Collapse,
-  NavbarBrand,
-  
-  NavItem,
-  NavLink,
-  Nav,
-  Container
-} from "reactstrap";
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {logout} from '../../actions/auth';
+export const Navbar = ({logout,auth:{isAuthenticated, loading}}) => {
+  const authLinks = (
+<ul>
+  <li>
+    <a onClick={logout} href='#!'>
+      <i className="fas fa-sign-out-alt"></i>{' '}
+     <span className="hide-sm"> LOGOUT </span> </a>
+  </li>
+</ul>
+  );
+  const guestsLinks = (
+      
+    
+    <ul>
+      <li><Link to="/register">Register</Link></li>
+      <li><Link to="/login">Login</Link></li>
+    </ul>
 
-export const Navbar = () => {
-  
+  );
     return (
         <nav className="navbar bg-dark">
       <h1>
         <Link to="/"><i className="fas fa-code"></i>EDUPS</Link>
       </h1>
-      <ul>
-        <li><Link to="!#">Developers</Link></li>
-        <li><Link to="/register">Register</Link></li>
-        <li><Link to="/login">Login</Link></li>
-      </ul>
+    {!loading && (<Fragment>{isAuthenticated ? authLinks : guestsLinks}</Fragment>)}
     </nav>
     )
-}
-export default Navbar;
+};
+Navbar.propTypes = {
+  logout: PropTypes.func.isRequired,
+  auth: PropTypes.bool,
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(mapStateToProps,{logout}) (Navbar);

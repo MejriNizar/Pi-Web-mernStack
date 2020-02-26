@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
     {alert.msg}
 </div>
  ));
-Alert.PropTypes = {
+Alert.propTypes = {
 alerts: PropTypes.array.isRequired
 }
 const mapStateToProps = state => ({
