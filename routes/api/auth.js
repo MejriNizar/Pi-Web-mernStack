@@ -19,6 +19,29 @@ router.get('/',auth, async(req , res) => {
         res.status(500).send('server message');
     }
 });
+
+// @route    POST api/auth/act
+// @desc     verfier  user 
+// @access   Public
+router.post('/act', async(req,res) => {
+   try{
+        const {secretToken} = req.body;
+        const user = await User.findOne({ secretToken });
+    if(!user){
+        return res 
+        .status(400)
+        .json({errors: [{msg: 'invalid credentials'}]});
+  }
+    user.activated=true
+    user.secretToken='';
+    await user.save();
+        console.log(secretToken);
+    res.json(secretToken);
+
+   }catch(err){console.error(error.message);
+    res.status(500).send('server message');}
+});
+
 // @route    POST api/auth
 // @desc     Authenticate  user & get token
 // @access   Public
@@ -40,6 +63,11 @@ if(!user){
    return res 
    .status(400)
    .json({errors: [{msg: 'invalid credentials'}]});
+}
+if(user.activated === false) {
+    return res 
+   .status(400)
+   .json({errors: [{msg: 'account is disabeld'}]});
 }
 const isMatch = await bcrypt.compare(password,user.password);
 if(!isMatch) {

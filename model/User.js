@@ -20,6 +20,13 @@ const UserSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    activated:{
+        type: Boolean,
+        default: false,
+    },
+    secretToken:{
+        type: String
     }
 });
 module.exports =  User = mongoose.model('user', UserSchema);

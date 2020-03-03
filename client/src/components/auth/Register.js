@@ -3,7 +3,7 @@
 import {connect} from 'react-redux';
 import {setAlert} from '../../actions/alert';
 import {register} from '../../actions/auth';
-
+import VerifyAccount from './verifyAccount';
 import PropTypes from 'prop-types';
 
  export const Register = ({setAlert, register,isAuthenticated }) => {
@@ -23,10 +23,11 @@ import PropTypes from 'prop-types';
 
          } else {
            register({name,email,password});
+           return <Redirect to='/VerifyAccount' />;
          }
      };
      if(isAuthenticated) {
-       return <Redirect to='/dashboard' />;
+       return <Redirect to='/verify' />;
      }
      return (
          <Fragment>
