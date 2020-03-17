@@ -14,6 +14,8 @@ export const PROFILE_ERROR='PROFILE_ERROR';
 export const CLEAR_PROFILE='CLEAR_PROFILE';
 export const UPDATE_PROFILE='UPDATE_PROFILE';
 
+export const GET_PROJECT='GET_PROJECT';
+export const PROJECT_ERROR='PROJECT_ERROR';
 
 
 

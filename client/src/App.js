@@ -23,6 +23,7 @@ import createProfile from './components/profile-form/createProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExpe from './components/profile-form/AddExpe';
 import AddEdu from './components/profile-form/AddEdu';
+import Allproject from './components/project/Allproject';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -51,6 +52,7 @@ const App=()=> {
 
 
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+    <PrivateRoute exact path="/all-project" component={Allproject}/>
 
 
 </Switch>
