@@ -24,6 +24,7 @@
     "jwks-rsa": "^1.7.0",
     "mongoose": "^5.8.11",
     "nodemailer": "^6.4.4",
+    "passport": "^0.4.1",
     "randomstring": "^1.1.5",
     "request": "^2.88.0"
   },

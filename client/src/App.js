@@ -21,6 +21,8 @@ import './App.css';
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
 import EditProfile from './components/profile-form/EditProfile';
+import AddExpe from './components/profile-form/AddExpe';
+import AddEdu from './components/profile-form/AddEdu';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -42,6 +44,10 @@ const App=()=> {
     <Route exact path="/verify" component={VerifyAccount}/>
     <Route exact path="/create-profile" component={createProfile}/>
     <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+    <PrivateRoute exact path="/add-experience" component={AddExpe}/>
+    <PrivateRoute exact path="/add-education" component={AddEdu}/>
+
+
 
 
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
