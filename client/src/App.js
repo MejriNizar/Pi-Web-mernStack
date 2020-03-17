@@ -6,17 +6,13 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
-
-
 import Alert from './components/layout/Alert';
-
 // redux
 import {Provider} from 'react-redux';
 import store from './store';
 //auth
 import {loadUser} from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
-
 import './App.css';
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
@@ -47,14 +43,8 @@ const App=()=> {
     <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
     <PrivateRoute exact path="/add-experience" component={AddExpe}/>
     <PrivateRoute exact path="/add-education" component={AddEdu}/>
-
-
-
-
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
     <PrivateRoute exact path="/all-project" component={Allproject}/>
-
-
 </Switch>
  </section>
 </Fragment>

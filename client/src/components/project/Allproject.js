@@ -4,17 +4,12 @@ import {connect} from 'react-redux';
 import { getallprojects} from '../../actions/project';
 
 const Allproject = ({getallprojects,project: {project,loading}}) => {
-        
     useEffect(()=>{
         getallprojects();
-        
-    }, [getallprojects]);
-    
-   
-   
+    }, [loading]);
     return (
      <Fragment>
-        <Table id="newsTable" hover responsive>
+        <Table id="newsTable" hover responsive> 
             <thead>
                 <tr>
                     <th>Name</th>
@@ -40,4 +35,4 @@ Allproject.propTypes = {
 const mapStateToProps = state => ({
     project: state.project
 });
-export default connect(mapStateToProps,{getallprojects}) (Allproject);
+export default connect(mapStateToProps,{getallprojects})(Allproject);
