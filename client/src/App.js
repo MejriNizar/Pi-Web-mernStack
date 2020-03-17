@@ -44,7 +44,7 @@ const App=()=> {
     <PrivateRoute exact path="/add-experience" component={AddExpe}/>
     <PrivateRoute exact path="/add-education" component={AddEdu}/>
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-    <PrivateRoute exact path="/all-project" component={Allproject}/>
+    <PrivateRoute exact path="/all-project" component={Allproject}/>    
 </Switch>
  </section>
 </Fragment>

@@ -7,7 +7,7 @@ const {check, validationResult} = require('express-validator');
 // @route  GET api/documentation/all
 // @desc  get all documentations
 // @access Private
-router.get('/all',async(req , res) => {
+router.get('/all',auth,async(req , res) => {
     try {
         const documentations = await Documentation.find();
     
