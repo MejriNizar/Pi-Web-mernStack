@@ -63,14 +63,20 @@ router.post('/',[auth,[
      if(instagram) profileFileds.social.instagram=instagram;
      if(linkedin) profileFileds.social.linkedin=linkedin;
 try {
-    
+   let profile = await Profile.findOne({user: req.user.id});
+   if(profile) {
+    profile = await Profile.findOneAndUpdate({user: req.user.id},{$set: profileFileds}, {new: true});
+    return res.json(profile);
+   }
+
+   profile = new Profile(profileFileds);
+   await profile.save();
+   res.json(profile)
 } catch (error) {
     console.error(error.message);
     res.status(500).send('server error');
     
 }
-res.send('ok');
-
 
 });
 module.exports = router;

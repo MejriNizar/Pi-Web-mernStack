@@ -12,13 +12,19 @@
   "author": "Nizar",
   "license": "MIT",
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.6.4",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.5",
     "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "express-jwt-authz": "^2.3.1",
     "express-validator": "^6.4.0",
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.7.0",
     "mongoose": "^5.8.11",
+    "nodemailer": "^6.4.4",
+    "randomstring": "^1.1.5",
     "request": "^2.88.0"
   },
   "devDependencies": {
