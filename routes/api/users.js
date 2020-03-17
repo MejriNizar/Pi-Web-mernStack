@@ -6,6 +6,10 @@ const config = require('config');
 const bcrypt = require('bcryptjs');
 const {check,validationResult} = require('express-validator');
 const User = require('../../model/User');
+const nodemailer = require('nodemailer');
+const randomstring = require ('randomstring');
+const mailer = require('../../misc/mailer');
+const transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
@@ -42,10 +46,24 @@ user = new User({
     //encrypt passsword
 const salt = await bcrypt.genSalt(10);
 user.password = await bcrypt.hash(password, salt);
-
+// generate secret token 
+const secretToken = randomstring.generate(6);
+user.secretToken =secretToken;
 await user.save();
+//send email
 
-    //return json webtoken
+const html = `hi there, 
+<br/>
+thank you for regestering!
+<br/><br/>
+please verify you account<br/>
+Token <b>${secretToken}</b>
+<a href ="http://localhost:3000/verify">http://localhost:3000/verify</a>`;
+   
+
+await mailer.sendMail('nizar.mejri@esprit.tn',user.email,'please verify your account',html)
+
+//return json webtoken
     const payload = {
         user:{
             id: user.id
