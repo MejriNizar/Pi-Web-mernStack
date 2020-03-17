@@ -57,7 +57,7 @@ router.post('/',[auth,[
          documentation
      }= req.body;
      const projectFileds = {};
-     //projectFileds.projectOwner= req.user.id;
+     projectFileds.projectOwner= req.user.id;
      if(name) projectFileds.name=name;
      if(description) projectFileds.description=description;
      if(startDate) projectFileds.startDate=startDate;

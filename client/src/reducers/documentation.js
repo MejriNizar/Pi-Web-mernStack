@@ -1,8 +1,8 @@
-import { GET_PROJECT, PROJECT_ERROR } from "../actions/types";
+import { GET_DOC, DOC_ERROR } from "../actions/types";
 
 const initialState = {
-    projects:[],
-    project: null,
+    docs:[],
+    doc: null,
     repos:[],
     loading:true,
     error:{}
@@ -11,13 +11,13 @@ const initialState = {
 export default function(state=initialState,action){
     const  {type, payload} = action;
     switch(type) {
-      case  GET_PROJECT:
+      case  GET_DOC:
           return{
               ...state,
-              projects:payload,
+              docs:payload,
               loading:false
           }
-      case PROJECT_ERROR:
+      case DOC_ERROR:
           return {
               ...state,
               error:payload,
