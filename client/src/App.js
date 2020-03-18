@@ -6,17 +6,13 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
-
-
 import Alert from './components/layout/Alert';
-
 // redux
 import {Provider} from 'react-redux';
 import store from './store';
 //auth
 import {loadUser} from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
-
 import './App.css';
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
