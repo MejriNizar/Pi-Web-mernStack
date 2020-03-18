@@ -1,8 +1,8 @@
-import { GET_PROJECT, PROJECT_ERROR } from "../actions/types";
+import { GET_PROJECT, PROJECT_ERROR, GET_PROJECT_DETAILS, DELETE_PROJECT } from "../actions/types";
 
 const initialState = {
-    projects:[],
     project: null,
+    projects:[],
     repos:[],
     loading:true,
     error:{}
@@ -15,6 +15,18 @@ export default function(state=initialState,action){
           return{
               ...state,
               projects:payload,
+              loading:false
+          }
+      case  GET_PROJECT_DETAILS:
+          return{
+              ...state,
+              project:payload,
+              loading:false
+          }
+      case  DELETE_PROJECT:
+           return{
+              ...state,
+              projects:state.projects.filter(p => p._id !== payload),
               loading:false
           }
       case PROJECT_ERROR:
