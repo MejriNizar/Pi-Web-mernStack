@@ -3,7 +3,7 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_PROFILE,PROFILE_ERROR, UPDATE_PROFILE
+    GET_PROFILE,PROFILE_ERROR, UPDATE_PROFILE,ACCOUNT_DELETE,CLEAR_PROFILE
 } from './types'
 
 export const getCurrentProfile = () => async dispatch =>{
@@ -113,3 +113,64 @@ export const addeducation = (formData, history)=>async dispatch => {
     }
   
 }  
+
+// Delete Exp
+export const deleteExp = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/experience/${id}`);
+        console.log('expe delet');
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        dispatch(setAlert('Expirience Deleted', 'success'));
+    } catch (error) {
+
+         dispatch({
+          type: PROFILE_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+// Delete Exp
+export const deleteEdu = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/education/${id}`);
+
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        dispatch(setAlert('Education Deleted', 'success'));
+    } catch (error) {
+
+         dispatch({
+          type: PROFILE_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+
+// Delete account
+export const deleteAccount = () => async dispatch => {
+    if(window.confirm('AreYou sure ? This can Not be Undone!')) {
+        try {
+            const res = await axios.delete(`/api/profile`);
+    
+            dispatch({
+                type: CLEAR_PROFILE
+            });
+            dispatch({
+                type: ACCOUNT_DELETE
+            });
+            dispatch(setAlert('Account has been permenetly Deleted'));
+        } catch (error) {
+    
+             dispatch({
+              type: PROFILE_ERROR,
+              payload: {msg:error.response.statusText, status: error.response.status }
+          });
+        }
+    }
+   
+}

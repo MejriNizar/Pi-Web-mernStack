@@ -23,6 +23,8 @@ export const GET_GROUP='GET_GROUP';
 export const GROUP_ERROR='GROUP_ERROR';
 export const GET_GROUP_DETAILS='GET_GROUP_DETAILS';
 export const DELETE_GROUP='DELETE_GROUP';
+export const ACCOUNT_DELETE='ACCOUNT_DELETE';
+
 
 
 
