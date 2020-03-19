@@ -14,6 +14,7 @@ const GroupSchema = mongoose.Schema({
         required:true
     },
     logo: {
+        data: Buffer,
         type: String
 
     },

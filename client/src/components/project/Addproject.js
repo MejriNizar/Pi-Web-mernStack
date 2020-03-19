@@ -15,17 +15,18 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
        description:'',
        startDate:'',
        endDate:'',
+       documentation:''
        
    });
    const [dispalaySocialInputs, toggleSocialInputs] = useState(false);
 
-   const {name, description, startDate, endDate} = formData;
+   const {name, description, startDate, endDate,documentation} = formData;
 
    const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
    let options = docs.map((d) =>
                 <option 
-                    key={d.id}
-                    value={d.id}
+                    key={d._id}
+                    value={d}
                 >
                     {d.label}
                 </option>
@@ -67,7 +68,7 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
       <span>Optional</span>
     </div>
 {dispalaySocialInputs && <Fragment>
-    <select name="documentation" className="custom-search-select" onChange={e => onChange(e)}>
+    <select name="documentation" className="custom-search-select" value={documentation} onChange={e => onChange(e)}>
                 <option>Select Item</option>
                 {options}
            </select>

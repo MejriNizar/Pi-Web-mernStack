@@ -23,7 +23,7 @@ router.get('/all',async(req , res) => {
 // @access Private
 router.get('/details/:id',auth,async(req , res) => {
     try {
-        const project = await Project.findById(req.params.id);
+        const project = await Project.findById(req.params.id).populate('documentation', ['label']);
         if(!project)
         {
             return res.status(400).json({msg:'There is no project'});
@@ -63,7 +63,7 @@ router.post('/',[auth,[
      if(startDate) projectFileds.startDate=startDate;
      if(endDate) projectFileds.endDate=endDate;
      if(group) projectFileds.group=group;
-     if(documentation) projectFileds.documentation=documentation;
+     if(documentation) projectFileds.documentation=documentation._id;
      
      
 try {

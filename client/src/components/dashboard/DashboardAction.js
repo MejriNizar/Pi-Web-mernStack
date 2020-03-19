@@ -10,9 +10,13 @@ const DashboardAction = () => {
         <Link to="/add-education" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Add Education</Link>
           <Link to="/all-project" className="btn btn-light"
-          ><i className="fas fa-graduation-cap text-primary"></i> List Project</Link>
+          ><i className="fas fa-graduation-cap text-primary"></i> List Projects</Link>
           <Link to="/add-project" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Add Project</Link>
+          <Link to="/all-group" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> List Groups</Link>
+          <Link to="/add-group" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> Add Group</Link>
       </div>
     )
 }
