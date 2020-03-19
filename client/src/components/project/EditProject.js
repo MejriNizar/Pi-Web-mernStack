@@ -1,14 +1,19 @@
 import React, {Fragment, useState,useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
-import {addProject,getproject} from '../../actions/project'
+import {editProject,getproject} from '../../actions/project'
 import {getalldocs} from '../../actions/documentation'
 
-const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => {
+const EditProject = ({editProject, history, getalldocs ,getproject,docs: {docs,loading},project: {project},match}) => {
     useEffect(()=>{
         getalldocs();
-       
-        
+        getproject(match.params.id);
+        setFormData({
+            name: loading || !project.name? '': project.name,
+            description: loading || !project.description? '': project.description,
+            startDate: loading || !project.startDate? '': project.startDate,
+            endDate: loading || !project.endDate? '': project.endDate,           
+        });
     }, [loading]);
    const [formData, setFormData] = useState({
        name:'',
@@ -33,13 +38,13 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
     return (
         <Fragment>
              <h1 className="large text-primary">
-       ADD A PROJECT
+       EDIT A PROJECT
       </h1>
       
       <small>* = required field</small>
       <form className="form" onSubmit={e => {
           e.preventDefault();
-          addProject(formData,history);
+          editProject(formData,history,true,match.params.id);
       }}>
         <div className="form-group">
           <input type="text" placeholder="* name" name="name" value={name} onChange={e => onChange(e)}  required />
@@ -79,11 +84,13 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
     )
 }
 
-Addproject.propTypes = {
-    addProject:PropTypes.func.isRequired,
+EditProject.propTypes = {
+    editProject:PropTypes.func.isRequired,
     getalldocs:PropTypes.func.isRequired,
+    getproject: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
     docs: state.docs,
+    project: state.project
 });
-export default connect(mapStateToProps,{addProject,getalldocs})(Addproject)
+export default connect(mapStateToProps,{editProject,getalldocs,getproject})(EditProject)

@@ -20,8 +20,9 @@ import EditProfile from './components/profile-form/EditProfile';
 import AddExpe from './components/profile-form/AddExpe';
 import AddEdu from './components/profile-form/AddEdu';
 import Allproject from './components/project/Allproject';
-import AdDproject from './components/project/Addproject';
 import Addproject from './components/project/Addproject';
+import ProjectDetails from './components/project/ProjectDetails';
+import EditProject from './components/project/EditProject';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -47,7 +48,9 @@ const App=()=> {
     <PrivateRoute exact path="/add-education" component={AddEdu}/>
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
     <PrivateRoute exact path="/all-project" component={Allproject}/>
-    <PrivateRoute exact path="/add-project" component={Addproject}/>    
+    <PrivateRoute exact path="/add-project" component={Addproject}/>
+    <PrivateRoute exact path="/project-details/:id" component={ProjectDetails}/>
+    <PrivateRoute exact path="/project-edit/:id" component={EditProject}/>
 
 </Switch>
  </section>

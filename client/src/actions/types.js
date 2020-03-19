@@ -17,6 +17,8 @@ export const GET_PROJECT='GET_PROJECT';
 export const PROJECT_ERROR='PROJECT_ERROR';
 export const GET_DOC='GET_DOC';
 export const DOC_ERROR='DOC_ERROR';
+export const GET_PROJECT_DETAILS='GET_PROJECT_DETAILS';
+export const DELETE_PROJECT='DELETE_PROJECT';
 
 
 
