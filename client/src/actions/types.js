@@ -19,6 +19,8 @@ export const GET_DOC='GET_DOC';
 export const DOC_ERROR='DOC_ERROR';
 export const GET_PROJECT_DETAILS='GET_PROJECT_DETAILS';
 export const DELETE_PROJECT='DELETE_PROJECT';
+export const ACCOUNT_DELETE='ACCOUNT_DELETE';
+
 
 
 
