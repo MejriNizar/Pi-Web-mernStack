@@ -12,8 +12,9 @@ import PropTypes from 'prop-types';
          email:'',
          password:'',
          password2:'',
+         role:'',
      });
-     const {name, email, password,password2} =formData;
+     const {name, email, password,password2,role} =formData;
      const onChange = e =>
      setFormData({...formData, [e.target.name]: e.target.value});
      const onSubmit = async e => {
@@ -22,8 +23,8 @@ import PropTypes from 'prop-types';
              setAlert('Passwords do not match','danger');
 
          } else {
-           register({name,email,password});
-           return <Redirect to='/VerifyAccount' />;
+           register({name,email,password,role});
+           return <Redirect to='/verify' />;
          }
      };
      if(isAuthenticated) {
@@ -50,6 +51,18 @@ import PropTypes from 'prop-types';
           <small className="form-text"
             >This site uses Gravatar so if you want a profile image, use a
             Gravatar email</small>
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Role"
+            value={role}
+            onChange={e => onChange(e)}
+
+            name="role"
+            
+          /> <small className="form-text"
+          >Role can be only Student, Teacher or Admin</small>
         </div>
         <div className="form-group">
           <input
