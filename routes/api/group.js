@@ -52,7 +52,8 @@ router.post('/',[auth,[
      const {
          name,
          logo,
-         slogan
+         slogan,
+         members
          
      }= req.body;
      const groupFileds = {};
@@ -60,7 +61,7 @@ router.post('/',[auth,[
      if(name) groupFileds.name=name;
      if(logo) groupFileds.logo=logo;
      if(slogan) groupFileds.slogan=slogan;
-     
+     if(members) groupFileds.members=members;
      
      
 try {
@@ -91,7 +92,8 @@ router.put('/:id',[auth,[
      const {
          name,
          logo,
-         slogan
+         slogan,
+         members
          
      }= req.body;
      const groupFileds = {};
@@ -99,7 +101,8 @@ router.put('/:id',[auth,[
      if(name) groupFileds.name=name;
      if(logo) groupFileds.logo=logo;
      if(slogan) groupFileds.slogan=slogan;
-     
+     if(members) groupFileds.members=members;
+
      
      
 try {
@@ -128,6 +131,9 @@ router.delete('/:id', auth,async(req , res) => {
             return res.status(400).json({msg:'There is no group'});
         }
     await Group.remove(group);
+    const groups = await Group.find();
+    
+    res.json(groups);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
