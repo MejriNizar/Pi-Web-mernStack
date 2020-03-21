@@ -14,6 +14,7 @@ const GroupSchema = mongoose.Schema({
         required:true
     },
     logo: {
+        data: Buffer,
         type: String
 
     },
@@ -21,6 +22,7 @@ const GroupSchema = mongoose.Schema({
         type: String
 
     }
+    
     
 });
 module.exports = Group = mongoose.model('group',GroupSchema);

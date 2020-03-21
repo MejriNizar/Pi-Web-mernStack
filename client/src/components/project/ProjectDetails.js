@@ -15,6 +15,7 @@ const ProjectDetails = ({match,getproject,project: {project,loading}}) => {
               {project.name}<br></br>
               {project.description}<br></br>
               {project.startDate}<br></br>
+              {project.documentation.map((d) =>(d.label))}<br></br>
               <h1>{match.params.id}</h1>
            </Fragment>
        )    

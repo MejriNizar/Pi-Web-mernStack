@@ -1,8 +1,8 @@
-import { GET_PROJECT, PROJECT_ERROR, GET_PROJECT_DETAILS, DELETE_PROJECT } from "../actions/types";
+import { GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS } from "../actions/types";
 
 const initialState = {
-    project: null,
-    projects:[],
+    group: null,
+    groups:[],
     repos:[],
     loading:true,
     error:{}
@@ -11,25 +11,25 @@ const initialState = {
 export default function(state=initialState,action){
     const  {type, payload} = action;
     switch(type) {
-      case  GET_PROJECT:
+      case  GET_GROUP:
           return{
               ...state,
-              projects:payload,
+              groups:payload,
               loading:false
           }
-      case  GET_PROJECT_DETAILS:
+      case  GET_GROUP_DETAILS:
           return{
               ...state,
-              project:payload,
+              group:payload,
               loading:false
           }
-      case  DELETE_PROJECT:
+      case  DELETE_GROUP:
            return{
               ...state,
-              projects:payload,
+              groups:payload,
               loading:false
           }
-      case PROJECT_ERROR:
+      case GROUP_ERROR:
           return {
               ...state,
               error:payload,

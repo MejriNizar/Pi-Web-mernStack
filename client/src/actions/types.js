@@ -23,6 +23,11 @@ export const GET_DOC='GET_DOC';
 export const DOC_ERROR='DOC_ERROR';
 export const GET_PROJECT_DETAILS='GET_PROJECT_DETAILS';
 export const DELETE_PROJECT='DELETE_PROJECT';
+export const GET_GROUP='GET_GROUP';
+export const GROUP_ERROR='GROUP_ERROR';
+export const GET_GROUP_DETAILS='GET_GROUP_DETAILS';
+export const DELETE_GROUP='DELETE_GROUP';
+export const ACCOUNT_DELETE='ACCOUNT_DELETE';
 
 
 
