@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 const DashboardAction = ({auth:{user}}) => {
     return (
         <div className="dash-buttons">
-          {user.role !== 'etudiant' ?( <Fragment><Link to="/edit-profile" className="btn btn-light"
+          {user.role === 'etudiant' ?( <Fragment><Link to="/edit-profile" className="btn btn-light"
           ><i className="fas fa-user-circle text-primary"></i> Edit Profile</Link>
         <Link to="/add-experience" className="btn btn-light"
           ><i className="fab fa-black-tie text-primary"></i> Add Experience</Link>
