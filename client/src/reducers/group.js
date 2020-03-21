@@ -26,7 +26,7 @@ export default function(state=initialState,action){
       case  DELETE_GROUP:
            return{
               ...state,
-              groups:state.groups.filter(p => p._id !== payload),
+              groups:payload,
               loading:false
           }
       case GROUP_ERROR:

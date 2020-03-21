@@ -135,6 +135,9 @@ router.delete('/:id', auth,async(req , res) => {
             return res.status(400).json({msg:'There is no project'});
         }
     await Project.remove(project);
+    const projects = await Project.find();
+    
+    res.json(projects);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

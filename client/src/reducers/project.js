@@ -26,7 +26,7 @@ export default function(state=initialState,action){
       case  DELETE_PROJECT:
            return{
               ...state,
-              projects:state.projects.filter(p => p._id !== payload),
+              projects:payload,
               loading:false
           }
       case PROJECT_ERROR:

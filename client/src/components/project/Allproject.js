@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { getallprojects , deleteproject } from '../../actions/project';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
+import Moment from 'react-moment';
 
 
 const Allproject = ({history,deleteproject,getallprojects,projects: {projects,loading}}) => {
@@ -13,7 +14,26 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
         
     }, [loading]);
 
-   
+    const projectss=projects.map(p => (
+        <tr key={p._id}>
+            <td>{p.name}</td>
+    <td className='hide-sm'>{p.description.substring(0, 30)}</td>
+    <td>
+        <Moment format='YYYY/MM/DD'>{p.startDate}</Moment> - 
+        <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
+        
+    </td>
+    <td>
+    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
+    </td>
+    <td>
+    <Link to={`/project-edit/${p._id}`} ><i className="fas fa-edit"></i> </Link>
+    </td>
+    <td>
+            <Link onClick={e=>deleteproject(p._id)}  ><i className='fas fa-trash'></i></Link>
+    </td>
+        </tr >
+    ))
      
     return loading || projects === null ?<Spinner /> : (
         <Fragment>       
@@ -22,17 +42,13 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
                    <tr>
                        <th>Name</th>
                        <th>Description</th>
-                       <th>Start Date</th>
-                       <th>End Date</th>
+                       <th>Duration</th>
                        <th colSpan="3">Actions</th>
                        
                    </tr>
                </thead>
                <tbody>
-               { projects.map((d) => (<tr key={d._id}><td>{d.name}</td><td>{d.description.substring(0, 30)}</td><td>{d.startDate}</td><td>{d.endDate}</td><td> <Link to={`/project-details/${d._id}`} 
-          ><i className="fas fa-eye"></i> </Link></td><td><Link onClick={e=>deleteproject(d._id)}  ><i className='fas fa-trash'></i></Link></td><td><Link to={`/project-edit/${d._id}`} 
-          ><i className="fas fa-edit"></i> </Link></td></tr>))}
-   
+               {projectss}   
                </tbody>
            </table>
            </Fragment>

@@ -117,7 +117,7 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
         console.log("response data",res.data)
         dispatch({
             type: DELETE_GROUP,
-            payload: id
+            payload: res.data
         });
         dispatch(setAlert('Project Removed', 'success'));
         
