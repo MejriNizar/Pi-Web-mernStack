@@ -3,62 +3,66 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS
+    GET_EVENT, GET_EVENT_DETAILS,DELETE_EVENT, EVENT_ERROR
 } from './types'
 
-export const getallgroups = () => async dispatch =>{
+export const getallevents = () => async dispatch =>{
     try {
-        const res = await axios.get('/api/group/all');
+        const res = await axios.get('/api/event/all');
         console.log("response object",res)
         console.log("response data",res.data)
         dispatch({
-            type: GET_GROUP,
+            type: GET_EVENT,
             payload: res.data
         });
         
     } catch (error) {
         console.log("err response",error)
         dispatch({
-            type: GROUP_ERROR,
+            type: EVENT_ERROR,
             payload: {msg:error.response.statusText, status: error.response.status }
         });
     }
 }
 
-export const getgroup = id => async dispatch =>{
+
+export const getevent = id => async dispatch =>{
     try {
         console.log(id)
-        const res = await axios.get(`/api/group/details/${id}`);
+        const res = await axios.get(`/api/event/details/${id}`);
         console.log(id)
         console.log("response object",res)
         console.log("response data",res.data)
         dispatch({
-            type: GET_GROUP_DETAILS,
+            type: GET_EVENT_DETAILS,
             payload: res.data
         });
         
     } catch (error) {
         console.log("err response",error)
         dispatch({
-            type: GROUP_ERROR,
+            type: EVENT_ERROR,
             payload: {msg:error.response.statusText, status: error.response.status }
         });
     }
 }
 
-export const addGroup = (FormData,history,edit= false) => async dispatch => {
+
+
+
+export const addevent = (FormData,history,edit= false) => async dispatch => {
     try {
         const config = {
             headers:{
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('/api/group/',FormData,config);
+        const res = await axios.post('/api/event',FormData,config);
         dispatch({
-          type: GET_GROUP,
+          type: GET_EVENT,
           payload: res.data
       });
-      dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
+      dispatch(setAlert(edit ? 'event Updated': 'event added', 'success'));
   if(!edit) {
       history.push('/dashboard');
   }
@@ -69,7 +73,7 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
           errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
       }
       dispatch({
-          type: GROUP_ERROR,
+          type: EVENT_ERROR,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }
@@ -77,19 +81,21 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
   
   }
 
-  export const editGroup = (FormData,history,edit= false,id) => async dispatch => {
+
+
+  export const editEvent = (FormData,history,edit= false,id) => async dispatch => {
     try {
         const config = {
             headers:{
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.put(`/api/group/${id}`,FormData,config);
+        const res = await axios.put(`/api/event/${id}`,FormData,config);
         dispatch({
-          type: GET_GROUP,
+          type: GET_EVENT,
           payload: res.data
       });
-      dispatch(setAlert(edit ? 'Project Updated': 'Project created', 'success'));
+      dispatch(setAlert(edit ? 'Event Updated': 'Event created', 'success'));
   if(!edit) {
       history.push('/dashboard');
   }
@@ -100,7 +106,7 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
           errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
       }
       dispatch({
-          type: GROUP_ERROR,
+          type: EVENT_ERROR,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }
@@ -108,31 +114,24 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
   
   }
 
-  export const deletegroup = id => async dispatch =>{
+  export const deleteevent = id => async dispatch =>{
     try {
         console.log(id)
-        const res = await axios.delete(`/api/group/${id}`);
+        const res = await axios.delete(`/api/event/${id}`);
         console.log(id)
         console.log("response object",res)
         console.log("response data",res.data)
         dispatch({
-            type: DELETE_GROUP,
-            payload: res.data
+            type: DELETE_EVENT,
+            payload: id
         });
-        dispatch(setAlert('Project Removed', 'success'));
+        dispatch(setAlert('Event Removed', 'success'));
         
     } catch (error) {
         console.log("err response",error)
         dispatch({
-            type: GROUP_ERROR,
+            type: EVENT_ERROR,
             payload: {msg:error.response.statusText, status: error.response.status }
         });
     }
 }
-
-
-
-
-
-
-

@@ -13,6 +13,12 @@ const DashboardAction = ({auth:{user}}) => {
         <Link to="/add-education" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Add Education</Link>
           <Link to="/all-project" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> List Project</Link>
+          <Link to="/all-events" className="btn btn-light"
+          ><i className="fa fa-th-list text-primary"></i> List events</Link>
+          <Link to="/add-event" className="btn btn-light"
+          ><i className="fa fa-plus-square text-primary"></i> add event</Link>
+          <Link to="/add-project" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> List Projects</Link></Fragment>):( <Fragment><Link to="/add-project" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Add Project</Link>
           <Link to="/all-group" className="btn btn-light"

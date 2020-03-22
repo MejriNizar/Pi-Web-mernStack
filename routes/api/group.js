@@ -11,7 +11,7 @@ const {check, validationResult} = require('express-validator');
 // @access Private
 router.get('/all',auth,async(req , res) => {
     try {
-        const groups = await Group.find();
+        const groups = await Group.find().populate('project', ['name']);
     
     res.json(groups);
     } catch (error) {

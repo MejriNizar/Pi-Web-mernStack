@@ -132,5 +132,35 @@ export const addProject = (FormData,history,edit= false) => async dispatch => {
 
 
 
+export const affectproject = (idg,idp) => async dispatch => {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post(`/api/group/assign/${idg}/${idp}/`,config);
+        dispatch({
+          type: GET_PROJECT,
+          payload: res.data
+      });
+      dispatch(setAlert( 'Project affected', 'success'));
+        
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if(errors) {
+          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+      }
+      dispatch({
+          type: PROJECT_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+  
+  
+  }
+
+
+
 
 
