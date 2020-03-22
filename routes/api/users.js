@@ -15,6 +15,8 @@ const transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@sm
 // @access   Public
 router.post('/',[
     check('name', 'name is required').not().isEmpty(),
+    check('role', 'role is required').not().isEmpty(),
+
     check('email', 'please include a valid email').isEmail(),
     check('password', 'enter a password with 6 or greater').isLength({min:6})
 ], async(req, res) => {
@@ -23,7 +25,7 @@ router.post('/',[
    if(!errors.isEmpty()) {
        return res.status(400).json({ errors: errors.array() });
    }
-const {name, email, password} = req.body;
+const {name, email, password,role} = req.body;
 try {
     //see if user exists
 let user = await User.findOne({ email});
@@ -41,7 +43,8 @@ user = new User({
     name,
     email,
     avatar,
-    password
+    password,
+    role
 });
     //encrypt passsword
 const salt = await bcrypt.genSalt(10);
@@ -66,7 +69,8 @@ await mailer.sendMail('nizar.mejri@esprit.tn',user.email,'please verify your acc
 //return json webtoken
     const payload = {
         user:{
-            id: user.id
+            id: user.id,
+            role:user.role
         }
     }
 
