@@ -6,6 +6,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@material-ui/core": "^4.9.7",
+    "@syncfusion/ej2-react-buttons": "^17.4.51",
     "@syncfusion/ej2-react-dropdowns": "^17.4.51",
     "@syncfusion/ej2-react-grids": "^17.4.55",
     "@testing-library/jest-dom": "^4.2.4",
@@ -13,6 +15,7 @@
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "material-table": "1.57.2",
     "moment": "^2.24.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -24,9 +27,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "uuid": "^3.4.0",
-    "@material-ui/core": "^4.9.7",
-    "material-table": "1.57.2"
+    "uuid": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

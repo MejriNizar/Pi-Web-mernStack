@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {editProject,getproject} from '../../actions/project'
 import {getalldocs} from '../../actions/documentation'
+import Spinner from '../layout/spinner';
 
 const EditProject = ({editProject, history, getalldocs ,getproject,docs: {docs,loading},project: {project},match}) => {
     useEffect(()=>{
@@ -35,7 +36,7 @@ const EditProject = ({editProject, history, getalldocs ,getproject,docs: {docs,l
                     {d.label}
                 </option>
             );
-    return (
+    return loading || project === null ?<Spinner /> :(
         <Fragment>
              <h1 className="large text-primary">
        EDIT A PROJECT

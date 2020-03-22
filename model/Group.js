@@ -21,7 +21,33 @@ const GroupSchema = mongoose.Schema({
     slogan: {
         type: String
 
-    }
+    },
+    settings: 
+        {
+            numberOfStudents: {
+                type: Number,
+            },
+            numberTolerence:{
+                type: Number,
+            },
+            skills:{
+                type: Boolean,
+               
+            },
+            dueDate: {
+                type:Date,
+
+            },
+            votingSystem:{
+                type:String
+
+            },
+            requiredSkills:{
+                type: [String]
+            }
+           
+        }
+    
     
     
 });

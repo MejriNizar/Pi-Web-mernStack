@@ -1,11 +1,12 @@
-import {RGISTER_SUCCESS,RGISTER_FAIL,USER_LOADED,AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DISABELD_ACCOUNT, ENABELD_ACCOUNT, ACCOUNT_DELETE,GET_USERS} from '../actions/types';
+import {RGISTER_SUCCESS,RGISTER_FAIL,USER_LOADED,AUTH_ERROR, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, DISABELD_ACCOUNT, ENABELD_ACCOUNT, ACCOUNT_DELETE,GET_USERS,GET_STUDENTS} from '../actions/types';
 
 const initialState= {
     users:[],
     token: localStorage.getItem('token'),
     isAuthenticated: null,
     loading: true,
-    user: null
+    user: null,
+    students:[]
 }
 
 export default function(state = initialState, action) {
@@ -24,6 +25,12 @@ export default function(state = initialState, action) {
                 ...state,
                 loading:false,
                 users: payload
+            };
+        case GET_STUDENTS:
+            return{
+                ...state,
+                loading:false,
+                students: payload
             };
         case RGISTER_SUCCESS:
         case ENABELD_ACCOUNT:

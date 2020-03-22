@@ -53,15 +53,33 @@ router.post('/',[auth,[
          name,
          logo,
          slogan,
-         members
+         members,
+         numberOfStudents,
+         numberTolerence,
+         skills,
+         dueDate,
+         votingSystem,
+         requiredSkills
+
+         
          
      }= req.body;
      const groupFileds = {};
-     //projectFileds.projectOwner= req.user.id;
      if(name) groupFileds.name=name;
      if(logo) groupFileds.logo=logo;
      if(slogan) groupFileds.slogan=slogan;
      if(members) groupFileds.members=members;
+     groupFileds.project=null;
+     groupFileds.settings = {};
+    if (numberOfStudents) groupFileds.settings.numberOfStudents = numberOfStudents;
+    if (numberTolerence) groupFileds.settings.numberTolerence = numberTolerence;
+    if (skills) groupFileds.settings.skills = skills;
+    if (dueDate) groupFileds.settings.dueDate = dueDate;
+    if (votingSystem) groupFileds.settings.votingSystem = votingSystem;
+    if (typeof requiredSkills !== 'undefined') {
+        groupFileds.settings.requiredSkills = requiredSkills.split(',');
+      }
+
      
      
 try {
