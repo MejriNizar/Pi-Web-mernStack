@@ -104,4 +104,17 @@ router.get('/all',async(req , res) => {
         res.status(500).send('server error');
     }
 });
+// @route  GET api/users/allStudents
+// @desc  get all students
+// @access Private
+router.get('/allStudents',async(req , res) => {
+    try {
+        const users = await User.find({role:'Student'});
+    
+    res.json(users);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
 module.exports = router;
