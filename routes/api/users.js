@@ -87,4 +87,17 @@ await mailer.sendMail('nizar.mejri@esprit.tn',user.email,'please verify your acc
 }
 
 });
+// @route  GET api/users/all
+// @desc  get all users
+// @access Private
+router.get('/all',async(req , res) => {
+    try {
+        const users = await User.find();
+    
+    res.json(users);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
 module.exports = router;

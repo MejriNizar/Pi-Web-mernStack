@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE} from './types';
+import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE,GET_USERS} from './types';
 
 import {setAlert} from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -24,6 +24,20 @@ export const loadUser = () => async dispatch => {
     }
 }
 
+export const loadUsers = () => async dispatch => {
+    try {
+        const res = await axios.get('/api/users/all');
+        dispatch({
+            type:GET_USERS,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR
+        })
+        
+    }
+}
 // REGISTER
 export const register = ({name, email, password}) => async dispatch => {
     const config =  {

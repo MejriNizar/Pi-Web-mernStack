@@ -7,7 +7,8 @@ import docs from './documentation';
 import project from './project';
 import groups from './group';
 import group from './group';
+import users from './auth'
 
 export default combineReducers({
-    alert,auth,profile,projects,docs,project,groups,group
+    alert,auth,profile,projects,docs,project,groups,group,users
 });

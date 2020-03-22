@@ -63,7 +63,7 @@ router.post('/',[auth,[
      if(startDate) projectFileds.startDate=startDate;
      if(endDate) projectFileds.endDate=endDate;
      if(group) projectFileds.group=group;
-     if(documentation) projectFileds.documentation=documentation._id;
+     if(documentation) projectFileds.documentation=documentation;
      
      
 try {

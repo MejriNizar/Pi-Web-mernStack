@@ -26,7 +26,7 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
    let options = docs.map((d) =>
                 <option 
                     key={d._id}
-                    value={d}
+                    value={d._id}
                 >
                     {d.label}
                 </option>

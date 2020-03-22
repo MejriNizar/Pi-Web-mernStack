@@ -25,7 +25,7 @@ router.get('/all',auth,async(req , res) => {
 // @access Private
 router.get('/details/:id',auth,async(req , res) => {
     try {
-        const group = await Group.findOne({_id: req.params.id});
+        const group = await  Group.findOne({_id: req.params.id}).populate('members',['name','email']);
         if(!group)
         {
             return res.status(400).json({msg:'There is no group'});

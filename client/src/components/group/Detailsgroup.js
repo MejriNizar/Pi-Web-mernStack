@@ -15,6 +15,10 @@ const Detailsgroup = ({match,getgroup,group: {group,loading}}) => {
               {group.name}<br></br>
               {group.logo}<br></br>
               {group.slogan}<br></br>
+              {group.members.map(p => (
+       
+            <td>{p.name}</td>
+              ))}
            </Fragment>
        )    
 };

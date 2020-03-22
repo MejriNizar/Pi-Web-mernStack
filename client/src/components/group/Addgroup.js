@@ -2,20 +2,33 @@ import React, {Fragment, useState,useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {addGroup} from '../../actions/group'
+import {loadUsers} from '../../actions/auth'
+import { MultiSelectComponent,CheckBoxSelection,Inject,MultiSelect } from '@syncfusion/ej2-react-dropdowns';
+import  '../../assets/css/syncfusions.css';
 
-const Addgroup = ({addGroup, history}) => {
-
+const Addgroup = ({addGroup, history,loadUsers,users:{users,loading}}) => {
+  useEffect(()=>{
+    loadUsers();
+   
+    
+}, [loading]);
    const [formData, setFormData] = useState({
        name:'',
        logo:'',
-       slogan:''
+       slogan:'',
+       members:[]
        
    });
 
-   const {name, logo, slogan} = formData;
+   const {name, logo, slogan,members} = formData;
+   const fields = {
+     text: 'name', value: '_id'
+   }
 
-   const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
-   
+   const onChange=e=>setFormData({...formData,
+     [e.target.name]: e.target.value});
+   const onChangeMembers=e=>setFormData({...formData, members: e});
+
     return (
         <Fragment>
              <h1 className="large text-primary">
@@ -36,6 +49,9 @@ const Addgroup = ({addGroup, history}) => {
         <div className="form-group">
           <input type="text" placeholder="* slogan" name="slogan" value={slogan} onChange={e => onChange(e)}  required />
         </div>
+        <MultiSelectComponent id="membersS" name="members"  dataSource={users} fields={fields} placeholder="Select a member" mode="CheckBox" selectAllText="Select All" unSelectAllText="unSelect All" showSelectAll={true} change={e => onChangeMembers(e.value)} >
+        <Inject services={[CheckBoxSelection]} />
+        </MultiSelectComponent>
         
 
         <input type="submit" className="btn btn-primary my-1" />
@@ -46,7 +62,10 @@ const Addgroup = ({addGroup, history}) => {
 }
 
 Addgroup.propTypes = {
-    addGroup:PropTypes.func.isRequired,
+    loadUsers:PropTypes.func.isRequired,
+    addGroup:PropTypes.func.isRequired
 }
-
-export default connect(null,{addGroup})(Addgroup)
+const mapStateToProps = state => ({
+  users: state.users
+});
+export default connect(mapStateToProps,{addGroup,loadUsers})(Addgroup)
