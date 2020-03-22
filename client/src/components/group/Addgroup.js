@@ -52,8 +52,6 @@ const Addgroup = ({addGroup, history,loadUsers,users:{users,loading}}) => {
         <MultiSelectComponent id="membersS" name="members"  dataSource={users} fields={fields} placeholder="Select a member" mode="CheckBox" selectAllText="Select All" unSelectAllText="unSelect All" showSelectAll={true} change={e => onChangeMembers(e.value)} >
         <Inject services={[CheckBoxSelection]} />
         </MultiSelectComponent>
-        
-
         <input type="submit" className="btn btn-primary my-1" />
         <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
       </form>

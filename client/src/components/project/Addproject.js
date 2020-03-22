@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {addProject,getproject} from '../../actions/project'
 import {getalldocs} from '../../actions/documentation'
+import { MultiSelectComponent, Inject, CheckBoxSelection } from '@syncfusion/ej2-react-dropdowns'
 
 const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => {
     useEffect(()=>{
@@ -21,16 +22,12 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
    const [dispalaySocialInputs, toggleSocialInputs] = useState(false);
 
    const {name, description, startDate, endDate,documentation} = formData;
-
+   const fields = {
+    text: 'label', value: '_id'
+  }
    const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
-   let options = docs.map((d) =>
-                <option 
-                    key={d._id}
-                    value={d._id}
-                >
-                    {d.label}
-                </option>
-            );
+   const onChangeDoc=e=>setFormData({...formData, documentation: e});
+
     return (
         <Fragment>
              <h1 className="large text-primary">
@@ -68,10 +65,9 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
       <span>Optional</span>
     </div>
 {dispalaySocialInputs && <Fragment>
-    <select name="documentation" className="custom-search-select" value={documentation} onChange={e => onChange(e)}>
-                <option>Select Item</option>
-                {options}
-           </select>
+  <MultiSelectComponent id="doc" name="documentation"  dataSource={docs} fields={fields} placeholder="Select a documentation" mode="CheckBox" selectAllText="Select All" unSelectAllText="unSelect All" showSelectAll={true} change={e => onChangeDoc(e.value)} >
+        <Inject services={[CheckBoxSelection]} />
+        </MultiSelectComponent>
 </Fragment>}
         <input type="submit" className="btn btn-primary my-1" />
         <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
