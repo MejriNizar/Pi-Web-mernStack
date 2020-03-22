@@ -23,12 +23,14 @@ const Allgroup = ({history,deletegroup,getallgroups,groups:{groups,loading}}) =>
                        <th>Name</th>
                        <th>logo</th>
                        <th>slogan</th>
+                       <th colSpan="2">Project</th>
                        <th colSpan="3">Actions</th>
                        
                    </tr>
                </thead>
                <tbody>
-               { groups.map((d) => (<tr key={d._id}><td>{d.name}</td><td>{d.logo}</td><td>{d.slogan}</td><td> <Link to={`/group-details/${d._id}`} 
+               { groups.map((d) => (<tr key={d._id}><td>{d.name}</td><td>{d.logo}</td><td>{d.slogan}</td><td>{d.project.name}</td><td><Link to={`/affect-project/${d._id}`} 
+          ><i className="fas fa-plus"></i> </Link></td><td> <Link to={`/group-details/${d._id}`} 
           ><i className="fas fa-eye"></i> </Link></td><td><Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link></td><td><Link to={`/group-edit/${d._id}`} 
           ><i className="fas fa-edit"></i> </Link></td></tr>))}
    

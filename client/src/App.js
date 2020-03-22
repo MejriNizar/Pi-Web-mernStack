@@ -33,6 +33,7 @@ import Detailsgroup from './components/group/Detailsgroup';
 import Editgroup from './components/group/Editgroup';
 import Allgroups from './components/group/Allgroups';
 import Addgroup from './components/group/Addgroup';
+import AffectProject from './components/group/AffectProject';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -68,6 +69,7 @@ const App=()=> {
     <PrivateRoute exact path="/add-group" component={Addgroup}/>
     <PrivateRoute exact path="/group-details/:id" component={Detailsgroup}/>
     <PrivateRoute exact path="/group-edit/:id" component={Editgroup}/>
+    <PrivateRoute exact path="/affect-project/:id" component={AffectProject}/>
 
 </Switch>
  </section>
