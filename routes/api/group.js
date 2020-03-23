@@ -5,14 +5,12 @@ const Group = require('../../model/Group');
 const Project = require('../../model/Project');
 
 const {check, validationResult} = require('express-validator');
-
 // @route  GET api/group/all
 // @desc  get all groups
 // @access Private
 router.get('/all',auth,async(req , res) => {
     try {
         const groups = await Group.find().populate('project', ['name']);
-    
     res.json(groups);
     } catch (error) {
         console.error(error.message);
@@ -47,7 +45,7 @@ router.post('/',[auth,[
 ]],async(req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()});   
+        return res.status(400).json({ errors: errors.array()});
      }
      const {
          name,
@@ -61,8 +59,6 @@ router.post('/',[auth,[
          votingSystem,
          requiredSkills
 
-         
-         
      }= req.body;
      const groupFileds = {};
      if(name) groupFileds.name=name;
@@ -79,22 +75,15 @@ router.post('/',[auth,[
     if (typeof requiredSkills !== 'undefined') {
         groupFileds.settings.requiredSkills = requiredSkills.split(',');
       }
-
-     
-     
 try {
-   
-
    group = new Group(groupFileds);
    await group.save();
    res.json(group)
 } catch (error) {
     console.error(error.message);
     res.status(500).send('server error');
-    
 }
 });
-
 // @route  PUT api/group
 // @desc   update a group
 // @access Private
@@ -105,14 +94,13 @@ router.put('/:id',[auth,[
 ]],async(req,res)=>{
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array()});   
+        return res.status(400).json({ errors: errors.array()});
      }
      const {
          name,
          logo,
          slogan,
          members
-         
      }= req.body;
      const groupFileds = {};
      //projectFileds.projectOwner= req.user.id;
@@ -120,21 +108,15 @@ router.put('/:id',[auth,[
      if(logo) groupFileds.logo=logo;
      if(slogan) groupFileds.slogan=slogan;
      if(members) groupFileds.members=members;
-
-     
-     
 try {
    let group = await Group.findOne({_id: req.params.id});
    if(group) {
     group = await Group.findOneAndUpdate({_id: req.params.id},{$set: groupFileds}, {new: true});
     return res.json(group);
    }
-
-   
 } catch (error) {
     console.error(error.message);
     res.status(500).send('server error');
-    
 }
 });
 
@@ -150,7 +132,6 @@ router.delete('/:id', auth,async(req , res) => {
         }
     await Group.remove(group);
     const groups = await Group.find();
-    
     res.json(groups);
     } catch (error) {
         console.error(error.message);
