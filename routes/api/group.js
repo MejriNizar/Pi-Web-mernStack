@@ -218,13 +218,13 @@ module.exports = router;
 // @route  DELETE api/group/assign
 // @desc  assign members to group
 // @access Private
-router.post('/assign/:idG', async (req, res) => {
+router.put('/assign/:idG', async (req, res) => {
     try {
         const {members} = req.body;
         members.forEach(async (element) => {
             const userFileds = {};
             userFileds.invitation = {};
-            userFileds.invitation.group = req.params.idG;
+            userFileds.invitation.groupe = req.params.idG;
             userFileds.invitation.etat = false;
             await User.findOneAndUpdate({
                 _id: element
@@ -236,13 +236,14 @@ router.post('/assign/:idG', async (req, res) => {
             const groupFileds = {};
             if (members) 
             groupFileds.members = members;
-            await Group.findOneAndUpdate({
+            const group = await Group.findOneAndUpdate({
                 _id: req.params.idG
             }, {
                 $set: {
                     members: element
                 }
             }, {new: true});
+             res.json(group);
         });       
     } catch (error) {
         console.error(error.message);
