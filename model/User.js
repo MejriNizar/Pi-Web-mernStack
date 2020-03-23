@@ -32,6 +32,16 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    
+    invitation: [
+        {
+            etat: {
+                type: Boolean,
+                default:false
+            },
+            groupe:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref:'group'
+            },
+        }]
 });
 module.exports =  User = mongoose.model('user', UserSchema);
