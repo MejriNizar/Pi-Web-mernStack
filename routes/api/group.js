@@ -7,7 +7,6 @@ const User = require('../../model/User');
 const Affectation = require('../../model/Affectation');
 
 const {check, validationResult} = require('express-validator');
-
 // @route  GET api/group/all
 // @desc  get all groups
 // @access Private
@@ -114,7 +113,6 @@ router.post('/', [
 
     }
 });
-
 // @route  PUT api/group
 // @desc   update a group
 // @access Private
