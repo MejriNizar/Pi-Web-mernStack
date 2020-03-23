@@ -10,6 +10,7 @@ const nodemailer = require('nodemailer');
 const randomstring = require ('randomstring');
 const mailer = require('../../misc/mailer');
 const transporter = nodemailer.createTransport('smtps://user%40gmail.com:pass@smtp.gmail.com');
+const Profile = require('../../model/Profile');
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
@@ -109,9 +110,13 @@ router.get('/all',async(req , res) => {
 // @access Private
 router.get('/allStudents',async(req , res) => {
     try {
-        const users = await User.find({role:'Student'});
-    
-    res.json(users);
+        let Students=[];
+        const {skills}=req.body
+        console.log(skills)
+        const profiles = await Profile.find({skills: { "$in" : skills}},{skills:0,_id:0,company:0,website:0,location:0,bio:0,status:0,experience:0,education:0,date:0,__v:0});
+      
+        console.log(profiles)
+    res.json(profiles);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -123,9 +128,13 @@ router.get('/allStudents',async(req , res) => {
 // @access Private
 router.get('/:id',async(req , res) => {
     try {
-        const users = await User.find({_id:req.params._id});
-    
-    res.json(users);
+
+        const users = await User.find({_id:req.params.id,role:'Student'});
+    if(users)
+  {  return res.json(users);}
+  else {
+      return res.json({err:'not found'});
+  }
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
