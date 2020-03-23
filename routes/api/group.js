@@ -4,6 +4,7 @@ const auth = require('../../middleware/auth');
 const Group = require('../../model/Group');
 const Project = require('../../model/Project');
 const User = require('../../model/User');
+const Affectation = require('../../model/Affectation');
 
 const {check, validationResult} = require('express-validator');
 
@@ -225,26 +226,15 @@ router.put('/assign/:idG', async (req, res) => {
             const userFileds = {};
             userFileds.invitation = {};
             userFileds.invitation.groupe = req.params.idG;
-            userFileds.invitation.etat = false;
-            await User.findOneAndUpdate({
+            const user = await User.findOneAndUpdate({
                 _id: element
             }, {
-                $set: {
+               
                     $set: userFileds
                 }
-            }, {new: true});
-            const groupFileds = {};
-            if (members) 
-            groupFileds.members = members;
-            const group = await Group.findOneAndUpdate({
-                _id: req.params.idG
-            }, {
-                $set: {
-                    members: element
-                }
-            }, {new: true});
-             res.json(group);
+            , {new: false}); 
         });       
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
