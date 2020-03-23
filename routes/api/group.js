@@ -70,32 +70,41 @@ router.post('/', [
     if (name) 
         groupFileds.name = name;
     
+
     if (logo) 
         groupFileds.logo = logo;
     
+
     if (slogan) 
         groupFileds.slogan = slogan;
     
+
     if (members) 
         groupFileds.members = members;
     
+
     groupFileds.project = null;
     groupFileds.settings = {};
     if (numberOfStudents) 
         groupFileds.settings.numberOfStudents = numberOfStudents;
     
+
     if (numberTolerence) 
         groupFileds.settings.numberTolerence = numberTolerence;
     
+
     if (skills) 
         groupFileds.settings.skills = skills;
     
+
     if (dueDate) 
         groupFileds.settings.dueDate = dueDate;
     
+
     if (votingSystem) 
         groupFileds.settings.votingSystem = votingSystem;
     
+
     if (typeof requiredSkills !== 'undefined') {
         groupFileds.settings.requiredSkills = requiredSkills.split(',');
     }
@@ -134,12 +143,15 @@ router.put('/:id', [
     if (name) 
         groupFileds.name = name;
     
+
     if (logo) 
         groupFileds.logo = logo;
     
+
     if (slogan) 
         groupFileds.slogan = slogan;
     
+
     if (members) 
         groupFileds.members = members;
     
@@ -224,26 +236,25 @@ router.put('/assign/:idG', async (req, res) => {
             const userFileds = {};
             userFileds.invitation = {};
             userFileds.invitation.groupe = req.params.idG;
-           
+
             await User.findOneAndUpdate({
                 _id: element
-            },  { $set: userFileds }, 
-            {new: false});
-
-            //
-            const groupFileds = {};
-            if (members) 
-            groupFileds.members = members;
-            const group = await Group.findOneAndUpdate({
-                _id: req.params.idG
             }, {
-                $set: {
-                    members: element
-                }
+                $set: userFileds
             }, {new: false});
-            res.json(group);
+
+            // //
+            // const groupFileds = {};
+            // if (members)
+            // groupFileds.members = members;
+            // const group = await Group.findOneAndUpdate({
+            //     _id: req.params.idG
+            // },
+            //     { $push: { members: element }
+            // }, {new: false});
+            // res.json(group);
         });
-         
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -253,37 +264,56 @@ router.put('/assign/:idG', async (req, res) => {
 // @route  DELETE api/group/accpterInv/:id
 // @desc  assign members to group
 // @access Private
-router.put('/accpterInv/:id',auth, async (req, res) => {
+router.put('/accpterInv/:id', auth, async (req, res) => {
     try {
-            const {etat}= req.body;
-            if(etat){ const userFileds = {};
+        const {etat} = req.body;
+        if (etat) {
+            const userFileds = {};
             userFileds.invitation = {};
             userFileds.invitation.etat = etat;
-            User.findOneAndUpdate({ _id: req.user.id } ,{$set:userFileds});
+            User.findOneAndUpdate({
+                _id: req.user.id
+            }, {$set: userFileds});
             const groupFileds = {};
-            let user = await User.findOne({ _id:req.user.id });
+            let user = await User.findOne({_id: req.user.id});
             user.invitation.forEach(async (element) => {
-if(element._id == req.params.id) {
-    console.log(element.groupe)
-    const group = await Group.findOneAndUpdate({
-        _id: element.groupe
-    }, {
-        $push: {
-            members: user._id
-        }
-    }, {new: false});
-  
+                if (element._id == req.params.id) {
+                    console.log(element.groupe)
+                    const group = await Group.findOneAndUpdate({
+                        _id: element.groupe
+                    }, {
+                        $push: {
+                            members: user._id
+                        }
+                    }, {new: false});
 
-}
+
+                }
             })
-           
-           await User.findOneAndUpdate({ _id: user._id } ,{$pull: { invitation: { _id: req.params.id } } });
+
+            await User.findOneAndUpdate({
+                _id: user._id
+            }, {
+                $pull: {
+                    invitation: {
+                        _id: req.params.id
+                    }
+                }
+            });
 
         } else {
-          await  User.findOneAndUpdate({_id: user._id } ,{$pull: { invitation: { _id: req.params.id } } });
-           
+            await User.findOneAndUpdate({
+                _id: user._id
+            }, {
+                $pull: {
+                    invitation: {
+                        _id: req.params.id
+                    }
+                }
+            });
+            
         }
- 
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
