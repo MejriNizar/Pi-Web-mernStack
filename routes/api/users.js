@@ -108,7 +108,7 @@ router.get('/all',async(req , res) => {
 // @route  GET api/users/allStudents
 // @desc  get all students
 // @access Private
-router.get('/allStudents',async(req , res) => {
+router.post('/allStudents',async(req , res) => {
     try {
         let Students=[];
         const {skills}=req.body

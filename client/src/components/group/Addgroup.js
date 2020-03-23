@@ -36,10 +36,7 @@ const Addgroup = ({
         votingSystem,
         requiredSkills
     } = formData;
-    const fields = {
-        text: 'name',
-        value: '_id'
-    }
+    
     const votetype = ['Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const onChange = e => setFormData({
         ...formData,

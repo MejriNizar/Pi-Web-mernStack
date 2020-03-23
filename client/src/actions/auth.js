@@ -39,20 +39,31 @@ export const loadUsers = () => async dispatch => {
     }
 }
 
-export const loadStudents = () => async dispatch => {
+
+export const loadStudents = (FormData) => async dispatch => {
     try {
-        const res = await axios.get('/api/users/allStudents');
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post('/api/users/allStudents',FormData,config);
         dispatch({
             type:GET_STUDENTS,
             payload: res.data
         });
-    } catch (err) {
-        dispatch({
-            type: AUTH_ERROR
-        })
+
         
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if(errors) {
+          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+      }
+      
     }
-}
+  
+  
+  }
 // REGISTER
 export const register = ({name, email, password,role}) => async dispatch => {
     const config =  {

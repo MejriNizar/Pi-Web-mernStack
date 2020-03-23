@@ -60,7 +60,7 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
       });
       dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
   if(!edit) {
-      history.push(`/add-members/${res.data._id}/${res.data.settings.numberOfStudents}`);
+      history.push(`/add-members/${res.data._id}/${res.data.settings.numberOfStudents}/${res.data.settings.requiredSkills}`);
   }
         
     } catch (error) {

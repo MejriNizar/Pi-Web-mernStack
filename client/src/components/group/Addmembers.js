@@ -22,9 +22,16 @@ const Addmembers = ({
     },
     match
 }) => {
+    const [skillsData, setskillsData] = useState({skills: []});
+ 
+    
     useEffect(() => {
-        loadStudents();
-
+        console.log(match.params.Skills);
+        setskillsData({
+            ...skillsData,
+            skills: match.params.Skills
+        });
+        loadStudents(skillsData);
 
     }, [loading]);
     const [formData, setFormData] = useState({members: []});
