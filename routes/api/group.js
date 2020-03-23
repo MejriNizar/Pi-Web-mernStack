@@ -226,8 +226,8 @@ router.post('/assign/:idG/:idP', async (req, res) => {
 });
 module.exports = router;
 
-// @route  DELETE api/group/assign
-// @desc  assign members to group
+// @route  PUT api/group/assign
+// @desc  invit members to group
 // @access Private
 router.put('/assign/:idG', async (req, res) => {
     try {
@@ -261,7 +261,7 @@ router.put('/assign/:idG', async (req, res) => {
     }
 });
 
-// @route  DELETE api/group/accpterInv/:id
+// @route  PUT api/group/accpterInv/:id
 // @desc  assign members to group
 // @access Private
 router.put('/accpterInv/:id', auth, async (req, res) => {

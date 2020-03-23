@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const GroupSchema = mongoose.Schema({
     members:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'user'
+        ref:'user',
+        unique: true
     }],
     project:{
         type: mongoose.Schema.Types.ObjectId,
@@ -11,7 +12,8 @@ const GroupSchema = mongoose.Schema({
     },
     name:{
         type: String,
-        required:true
+        required:true,
+        unique: true
     },
     logo: {
         data: Buffer,

@@ -7,7 +7,8 @@ const ProjectSchema = mongoose.Schema({
     },
     documentation:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'documentation'
+        ref:'documentation',
+        unique: true
     }],
     group:{
         type: mongoose.Schema.Types.ObjectId,
@@ -18,11 +19,13 @@ const ProjectSchema = mongoose.Schema({
         required:true
     },
     description: {
-        type: String
+        type: String,
+        required:true
 
     },
     startDate: {
-        type: Date
+        type: Date,
+        required:true
 
     },
     endDate: {

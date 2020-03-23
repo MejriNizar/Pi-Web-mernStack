@@ -7,11 +7,15 @@ const DocumentationSchema = mongoose.Schema({
         required:true
     },
     description: {
-        type: String
+        type: String,
+        required:true
+
 
     },
     content: {
-        type: String
+        type: String,
+        required:true
+
     }
     
 });
