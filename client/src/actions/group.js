@@ -55,12 +55,12 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
         }
         const res = await axios.post('/api/group/',FormData,config);
         dispatch({
-          type: GET_GROUP,
+          type: GET_GROUP_DETAILS,
           payload: res.data
       });
       dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
   if(!edit) {
-      history.push('/dashboard');
+      history.push(`/add-members/${res.data._id}/${res.data.settings.numberOfStudents}`);
   }
         
     } catch (error) {
@@ -129,6 +129,36 @@ export const addGroup = (FormData,history,edit= false) => async dispatch => {
         });
     }
 }
+export const invitMember = (FormData,history,edit= false,id) => async dispatch => {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put(`/api/group/assign/${id}`,FormData,config);
+        dispatch({
+          type: GET_GROUP,
+          payload: res.data
+      });
+      dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
+  if(!edit) {
+      history.push('/dashboard');
+  }
+        
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if(errors) {
+          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+      }
+      dispatch({
+          type: GROUP_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+  
+  
+  }
 
 
 

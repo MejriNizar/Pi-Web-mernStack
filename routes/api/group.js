@@ -237,11 +237,11 @@ router.put('/assign/:idG', async (req, res) => {
             userFileds.invitation = {};
             userFileds.invitation.groupe = req.params.idG;
 
-            await User.findOneAndUpdate({
+           const user = await User.findOneAndUpdate({
                 _id: element
-            }, {
-                $set: userFileds
-            }, {new: false});
+            }, 
+                { $push: { invitation: userFileds.invitation }
+            });
 
             // //
             // const groupFileds = {};
@@ -252,7 +252,7 @@ router.put('/assign/:idG', async (req, res) => {
             // },
             //     { $push: { members: element }
             // }, {new: false});
-            // res.json(group);
+            return res.json(user);
         });
 
     } catch (error) {

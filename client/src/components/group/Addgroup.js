@@ -2,7 +2,6 @@ import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
-import {loadStudents} from '../../actions/auth'
 import {
     MultiSelectComponent,
     CheckBoxSelection,
@@ -12,29 +11,24 @@ import {
 } from '@syncfusion/ej2-react-dropdowns';
 import '../../assets/css/syncfusions.css';
 import { SwitchComponent } from '@syncfusion/ej2-react-buttons';
+import { Link, Redirect } from 'react-router-dom';
 
 
 const Addgroup = ({
     addGroup,
     history,
-    loadStudents,
-    students: {
-        students,
-        loading
-    }
+    group:{group , loading}
+  
 }) => {
-    useEffect(() => {
-        loadStudents();
-
-
+    useEffect(()=>{
+        
     }, [loading]);
-    const [formData, setFormData] = useState({name: '', logo: '', slogan: '', members: [],skills:false});
+    const [formData, setFormData] = useState({name: '', logo: '', slogan: '', skills:false});
 
     const {
         name,
         logo,
         slogan,
-        members,
         numberOfStudents,
         numberTolerence,
         skills,
@@ -51,10 +45,7 @@ const Addgroup = ({
         ...formData,
         [e.target.name]: e.target.value
     });
-    const onChangeMembers = e => setFormData({
-        ...formData,
-        members: e
-    });
+    
     const onChangeVote = e => setFormData({
         ...formData,
         votingSystem: e
@@ -64,7 +55,6 @@ const Addgroup = ({
       ...formData,
       skills: e
   });
-    const [dispalayMemberlist, toggleMemberlist] = useState(false);
     const [dispalaySettingsInput, toggleSettingsInput] = useState(false);
     const [dispalaySkillsInput, toggleSkillsInput] = useState(false);
 
@@ -80,6 +70,7 @@ const Addgroup = ({
                     e => {
                         e.preventDefault();
                         addGroup(formData, history);
+
                     }
             }>
                 <div className="form-group">
@@ -106,35 +97,8 @@ const Addgroup = ({
                         }
                         required/>
                 </div>
-                <div className="my-2">
-
-                    <button onClick={
-                            () => toggleMemberlist(!dispalayMemberlist)
-                        }
-                        type="button"
-                        className="btn btn-light">
-                        Manually
-                    </button>
-                </div>
-                {
-                dispalayMemberlist && <Fragment>
-                    <MultiSelectComponent id="membersS" name="members"
-                        dataSource={students}
-                        fields={fields}
-                        placeholder="Select members"
-                        mode="CheckBox"
-                        selectAllText="Select All"
-                        unSelectAllText="unSelect All"
-                        showSelectAll={true}
-                        change={
-                            e => onChangeMembers(e.value)
-                    }>
-                        <Inject services={
-                            [CheckBoxSelection]
-                        }/>
-                    </MultiSelectComponent>
-                </Fragment>
-            }
+                
+               
                 <div className="my-2">
 
                     <button onClick={
@@ -211,8 +175,10 @@ const Addgroup = ({
     )
 } 
 Addgroup.propTypes = {
-    loadStudents: PropTypes.func.isRequired,
-    addGroup: PropTypes.func.isRequired
+    addGroup: PropTypes.func.isRequired,
+    group: PropTypes.func.isRequired
 }
-const mapStateToProps = state => ({students: state.students});
-export default connect(mapStateToProps, {addGroup, loadStudents})(Addgroup)
+const mapStateToProps = state => ({
+    group: state.group
+});
+export default connect(mapStateToProps, {addGroup})(Addgroup)

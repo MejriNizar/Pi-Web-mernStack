@@ -40,7 +40,8 @@ const UserSchema = new mongoose.Schema({
             },
             groupe:{
                 type: mongoose.Schema.Types.ObjectId,
-                ref:'group'
+                ref:'group',
+                unique: true
             },
         }]
 });
