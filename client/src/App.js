@@ -72,6 +72,8 @@ const App=()=> {
     <PrivateRoute exact path="/group-edit/:id" component={Editgroup}/>
     <PrivateRoute exact path="/affect-project/:id" component={AffectProject}/>
     <PrivateRoute exact path="/add-members/:id/:nbS/:Skills" component={Addmembers}/>
+    <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
+
 
 </Switch>
  </section>

@@ -110,13 +110,17 @@ router.get('/all',async(req , res) => {
 // @access Private
 router.post('/allStudents',async(req , res) => {
     try {
-        let Students=[];
-        const {skills}=req.body
+        const {skills}=req.body;
+        if(skills){
         console.log(skills)
-        const profiles = await Profile.find({skills: { "$in" : skills}},{skills:0,_id:0,company:0,website:0,location:0,bio:0,status:0,experience:0,education:0,date:0,__v:0});
-      
-        console.log(profiles)
-    res.json(profiles);
+        const profiles = await Profile.find({skills: { "$in" : skills}},{skills:0,_id:0,company:0,website:0,location:0,bio:0,status:0,experience:0,education:0,date:0,__v:0}).populate('user', ['name', 'email']);
+        return res.json(profiles);
+    } else {
+        const users = await User.find({role:'Student'});
+        return  res.json(users);
+    }
+        
+    
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

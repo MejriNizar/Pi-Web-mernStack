@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE,GET_USERS,GET_STUDENTS} from './types';
+import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE,GET_USERS,GET_STUDENTS, GET_STUDENT} from './types';
 
 import {setAlert} from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -14,6 +14,22 @@ export const loadUser = () => async dispatch => {
         const res = await axios.get('/api/auth');
         dispatch({
             type:USER_LOADED,
+            payload: res.data
+        });
+    } catch (err) {
+        dispatch({
+            type: AUTH_ERROR
+        })
+        
+    }
+}
+
+export const loadStudent = (id) => async dispatch => {
+    
+    try {
+        const res = await axios.get(`/api/users/${id}`);
+        dispatch({
+            type:GET_STUDENT,
             payload: res.data
         });
     } catch (err) {

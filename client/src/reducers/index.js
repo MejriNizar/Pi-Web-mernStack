@@ -9,10 +9,13 @@ import groups from './group';
 import group from './group';
 import event from './event';
 import events from './event';
-import users from './auth'
-import students from './auth'
+import users from './auth';
+import students from './auth';
+import student from './auth'
+
+
 export default combineReducers({
-    alert,auth,profile,projects,docs,project,groups,group,event,events,users,students
+    alert,auth,profile,projects,docs,project,groups,group,event,events,users,students,student
 
 
 
