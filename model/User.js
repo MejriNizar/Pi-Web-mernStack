@@ -43,6 +43,10 @@ const UserSchema = new mongoose.Schema({
                 ref:'group',
                 unique: true
             },
+            groupeName:{
+                type:String,
+                unique:true
+            }
         }]
 });
 module.exports =  User = mongoose.model('user', UserSchema);

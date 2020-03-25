@@ -24,6 +24,7 @@ export default function(state = initialState, action) {
         case GET_USERS:
             return{
                 ...state,
+                isAuthenticated:true,
                 loading:false,
                 users: payload
             };
@@ -39,7 +40,7 @@ export default function(state = initialState, action) {
                 loading:false,
                 student: payload
             };
-        case RGISTER_SUCCESS:
+        
         case ENABELD_ACCOUNT:
         case LOGIN_SUCCESS:
             localStorage.setItem('token',payload.token);
