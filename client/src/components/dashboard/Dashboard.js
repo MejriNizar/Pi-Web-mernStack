@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import DashboardActions from './DashboardAction'
 import Experience from './Experience'
 import Education from './Education'
+import Invitations from './Invitations'
+
 
 
 
@@ -26,18 +28,21 @@ const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profi
             <DashboardActions></DashboardActions>
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
+            <Invitations invitation={user.invitation} />
+
             <div className="my-2">
                 <button onClick={()=> deleteAccount()} className="btn btn-danger"> <i className="fas fa-user-minus"></i> Delete my account</button>
 
             </div>
         </Fragment>)
-         :( <Fragment>
+         :(  <Fragment> {user && user.role === 'Student' ? (<Fragment>
             <p>You have not yet setup a profile , please add some info</p>
             <Link to='/create-profile' className="btn btn-primary my-1">
                 Create Profile
-                </Link> 
+                </Link>
+         </Fragment>):(<Fragment>
+            <DashboardActions></DashboardActions> </Fragment>)}
          </Fragment>)}
-         
     </Fragment>
 }
 
