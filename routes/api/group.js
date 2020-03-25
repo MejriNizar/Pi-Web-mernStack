@@ -229,7 +229,19 @@ module.exports = router;
 // @route  PUT api/group/assign
 // @desc  invit members to group
 // @access Private
-router.put('/assign/:idG', async (req, res) => {
+router.put('/assign/:idG',[
+    check('name', 'name is required').isLength({ min: 5 }),
+    check('logo', 'role is required').not().isEmpty(),
+
+    check('slogan', 'role is required').isLength({ min: 15 }),
+    check('settings.numberOfStudents', 'student number is required').not().isEmpty(),
+    check('settings.numberTolerence', 'tolerence number is required').not().isEmpty(),
+    check('settings.dueDate', 'Due date is required').not().isEmpty()
+], async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     try {
         const {members} = req.body;
         members.forEach(async (element) => {
