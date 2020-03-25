@@ -48,15 +48,16 @@ const Addproject = ({addProject, history, getalldocs ,docs: {docs,loading}}) => 
             cols="30"
             rows="5"
             placeholder="Description" value={description} onChange={e => onChange(e)}
+            required
           ></textarea>
         </div>
         <div className="form-group">
         <h4>* Start Date</h4>
-          <input type="date" name="startDate" value={startDate} onChange={e => onChange(e)} />
+          <input type="date" name="startDate" value={startDate} onChange={e => onChange(e)} required/>
         </div>
         <div className="form-group">
         <h4>* End Date</h4>
-          <input type="date" name="endDate" value={endDate} onChange={e => onChange(e)} />
+          <input type="date" name="endDate" value={endDate} onChange={e => onChange(e)} required/>
         </div>
         <div className="my-2">
       <button onClick={() => toggleSocialInputs(!dispalaySocialInputs)} type="button" className="btn btn-light">

@@ -45,7 +45,8 @@ router.post('/', [
     [
         check('name', 'name is required').not().isEmpty(),
         check('logo', 'logo is required').not().isEmpty(),
-        check('slogan', 'slogan is required').not().isEmpty()
+        check('slogan', 'slogan is required').not().isEmpty(),
+        check('name','name id bad').isAlpha()
     ]
 ], async (req, res) => {
     const errors = validationResult(req);

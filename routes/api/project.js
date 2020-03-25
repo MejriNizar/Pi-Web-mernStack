@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../../middleware/auth');
 const Project = require('../../model/Project');
 const {check, validationResult} = require('express-validator');
+const Validator = require('validator');
+
 
 // @route  GET api/project/all
 // @desc  get all projects
@@ -40,12 +42,17 @@ router.get('/details/:id',auth,async(req , res) => {
 // @access Private
 router.post('/',[auth,[
     check('name','name is required').not().isEmpty(),
+    check('name','name id bad').isAlpha(),
+    check('name', 'enter a name with 6 or greater').isLength({min:6}),
     check('description','description is required').not().isEmpty(),
+    check('description', 'enter a description with 20 or greater').isLength({min:20}),   
     check('startDate','startDate is required').not().isEmpty(),
     check('endDate','endDate is required').not().isEmpty()
 ]],async(req,res)=>{
     const errors = validationResult(req);
+    
     if (!errors.isEmpty()) {
+       
         return res.status(400).json({ errors: errors.array()});   
      }
      const {
@@ -56,6 +63,7 @@ router.post('/',[auth,[
          group,
          documentation
      }= req.body;
+     
      const projectFileds = {};
      projectFileds.projectOwner= req.user.id;
      if(name) projectFileds.name=name;
@@ -84,7 +92,10 @@ try {
 // @access Private
 router.put('/:id',[auth,[
     check('name','name is required').not().isEmpty(),
+    check('name','name id bad').isAlpha(),
+    check('name', 'enter a name with 6 or greater').isLength({min:6}),
     check('description','description is required').not().isEmpty(),
+    check('description', 'enter a description with 20 or greater').isLength({min:20}),   
     check('startDate','startDate is required').not().isEmpty(),
     check('endDate','endDate is required').not().isEmpty()
 ]],async(req,res)=>{
