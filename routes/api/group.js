@@ -243,11 +243,16 @@ router.put('/assign/:idG',[
         return res.status(400).json({ errors: errors.array() });
     }
     try {
+        let id = req.params.idG
+        const group=await Group.findOne({_id: req.params.idG});
         const {members} = req.body;
         members.forEach(async (element) => {
             const userFileds = {};
             userFileds.invitation = {};
             userFileds.invitation.groupe = req.params.idG;
+            userFileds.invitation.groupeName = group.name;
+            console.log(group)
+
 
            const user = await User.findOneAndUpdate({
                 _id: element
@@ -278,6 +283,7 @@ router.put('/assign/:idG',[
 // @access Private
 router.put('/accpterInv/:id', auth, async (req, res) => {
     try {
+        const user = await User.findOne({_id: req.user.id});
         const {etat} = req.body;
         if (etat) {
             const userFileds = {};
@@ -287,7 +293,7 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
                 _id: req.user.id
             }, {$set: userFileds});
             const groupFileds = {};
-            let user = await User.findOne({_id: req.user.id});
+            
             user.invitation.forEach(async (element) => {
                 if (element._id == req.params.id) {
                     console.log(element.groupe)
@@ -325,7 +331,7 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
             });
             
         }
-
+res.json(user)
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

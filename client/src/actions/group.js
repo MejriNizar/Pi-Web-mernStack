@@ -3,7 +3,7 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS
+    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS
 } from './types'
 
 export const getallgroups = () => async dispatch =>{
@@ -162,8 +162,54 @@ export const invitMember = (FormData,history,edit= false,id) => async dispatch =
   
   }
 
+export const AcceptInvitation=(id)=>async dispatch =>  {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+       const data ={etat:true}
+       
+        const res = await axios.put(`/api/group/accpterInv/${id}`,data,config);
+        console.log('inv accep');
+        dispatch({
+            type: GET_USERS,
+            payload: res.data
+        });
+        dispatch(setAlert('Invitation Accepted', 'success'));
+    } catch (error) {
 
+         dispatch({
+          type: GET_USERS,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
 
+export const DelteInvitation=(id)=>async dispatch =>  {
+    try {
+        const data ={etat:false}
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put(`/api/group/accpterInv/${id}`,data,config);
+        console.log('inv delet');
+        dispatch({
+            type: GET_USERS,
+            payload: res.data
+        });
+        dispatch(setAlert('Invitation Deleted', 'danger'));
+    } catch (error) {
+
+         dispatch({
+          type: GET_USERS,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
 
 
 
