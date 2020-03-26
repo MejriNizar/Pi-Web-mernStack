@@ -11,7 +11,21 @@ const Validator = require('validator');
 // @access Private
 router.get('/all',async(req , res) => {
     try {
-        const projects = await Project.find();
+        const projects = await Project.find().sort( { creationDate: -1 } );
+    
+    res.json(projects);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+
+// @route  GET api/project/all
+// @desc  get all projectslimit
+// @access Private
+router.get('/alllimit',async(req , res) => {
+    try {
+        const projects = await Project.find().sort( { creationDate: -1 } ).limit(4);
     
     res.json(projects);
     } catch (error) {
@@ -21,7 +35,7 @@ router.get('/all',async(req , res) => {
 });
 
 // @route  GET api/project/details
-// @desc  get all projects
+// @desc  get  projectby id
 // @access Private
 router.get('/details/:id',auth,async(req , res) => {
     try {
@@ -72,6 +86,7 @@ router.post('/',[auth,[
      if(endDate) projectFileds.endDate=endDate;
      if(group) projectFileds.group=group;
      if(documentation) projectFileds.documentation=documentation;
+     projectFileds.creationDate = Date.now();
      
      
 try {

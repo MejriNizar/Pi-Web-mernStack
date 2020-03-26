@@ -24,7 +24,24 @@ export const getallprojects = () => async dispatch =>{
         });
     }
 }
-
+export const getallprojectslimit = () => async dispatch =>{
+    try {
+        const res = await axios.get('/api/project/alllimit');
+        console.log("response object",res)
+        console.log("response data",res.data)
+        dispatch({
+            type: GET_PROJECT,
+            payload: res.data
+        });
+        
+    } catch (error) {
+        console.log("err response",error)
+        dispatch({
+            type: PROJECT_ERROR,
+            payload: {msg:error.response.statusText, status: error.response.status }
+        });
+    }
+}
 export const getproject = id => async dispatch =>{
     try {
         console.log(id)

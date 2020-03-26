@@ -25,6 +25,25 @@ export const getallgroups = () => async dispatch =>{
     }
 }
 
+export const getallgroupslimit = () => async dispatch =>{
+    try {
+        const res = await axios.get('/api/group/alllimit');
+        console.log("response object",res)
+        console.log("response data",res.data)
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+        
+    } catch (error) {
+        console.log("err response",error)
+        dispatch({
+            type: GROUP_ERROR,
+            payload: {msg:error.response.statusText, status: error.response.status }
+        });
+    }
+}
+
 export const getgroup = id => async dispatch =>{
     try {
         console.log(id)
@@ -174,14 +193,14 @@ export const AcceptInvitation=(id)=>async dispatch =>  {
         const res = await axios.put(`/api/group/accpterInv/${id}`,data,config);
         console.log('inv accep');
         dispatch({
-            type: GET_USERS,
+            type: USER_LOADED,
             payload: res.data
         });
         dispatch(setAlert('Invitation Accepted', 'success'));
     } catch (error) {
 
          dispatch({
-          type: GET_USERS,
+          type: USER_LOADED,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }

@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    group:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'group'
+    },
     invitation: [
         {
             etat: {

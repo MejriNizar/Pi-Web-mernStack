@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const GroupSchema = mongoose.Schema({
+    groupOwner:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'user'
+    },
     members:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'user',
@@ -23,6 +27,9 @@ const GroupSchema = mongoose.Schema({
     slogan: {
         type: String
 
+    },
+    creationDate: {
+        type: Date
     },
     settings: 
         {

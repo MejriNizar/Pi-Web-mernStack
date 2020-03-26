@@ -31,6 +31,9 @@ const ProjectSchema = mongoose.Schema({
     endDate: {
         type: Date,
         required:true
+    },
+    creationDate: {
+        type: Date
     }
     
 });
