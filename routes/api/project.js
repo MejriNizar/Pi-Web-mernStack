@@ -75,7 +75,14 @@ router.post('/',[auth,[
          startDate,
          endDate,
          group,
-         documentation
+         documentation,
+         numberOfStudents,
+        numberTolerence,
+        skills,
+        dueDate,
+        votingSystem,
+        requiredSkills,
+        numberGroups
      }= req.body;
      
      const projectFileds = {};
@@ -87,6 +94,36 @@ router.post('/',[auth,[
      if(group) projectFileds.group=group;
      if(documentation) projectFileds.documentation=documentation;
      projectFileds.creationDate = Date.now();
+     projectFileds.settings = {};
+    if (numberOfStudents) 
+    projectFileds.settings.numberOfStudents = numberOfStudents;
+    
+
+    if (numberGroups) 
+    projectFileds.settings.numberGroups = numberGroups;
+    if (numberTolerence) 
+    projectFileds.settings.numberTolerence = numberTolerence;
+    
+
+
+    if (skills) 
+    projectFileds.settings.skills = skills;
+    
+
+
+    if (dueDate) 
+    projectFileds.settings.dueDate = dueDate;
+    
+
+
+    if (votingSystem) 
+    projectFileds.settings.votingSystem = votingSystem;
+    
+
+
+    if (typeof requiredSkills !== 'undefined') {
+        projectFileds.settings.requiredSkills = requiredSkills.split(',');
+    }
      
      
 try {
@@ -124,7 +161,14 @@ router.put('/:id',[auth,[
          startDate,
          endDate,
          group,
-         documentation
+         documentation,
+         numberOfStudents,
+        numberTolerence,
+        skills,
+        dueDate,
+        votingSystem,
+        requiredSkills,
+        numberGroups
      }= req.body;
      const projectFileds = {};
      projectFileds.projectOwner= req.user.id;
@@ -134,6 +178,36 @@ router.put('/:id',[auth,[
      if(endDate) projectFileds.endDate=endDate;
      if(group) projectFileds.group=group;
      if(documentation) projectFileds.documentation=documentation;
+     projectFileds.settings = {};
+    if (numberOfStudents) 
+    projectFileds.settings.numberOfStudents = numberOfStudents;
+    
+
+    if (numberGroups) 
+    projectFileds.settings.numberGroups = numberGroups;
+    if (numberTolerence) 
+    projectFileds.settings.numberTolerence = numberTolerence;
+    
+
+
+    if (skills) 
+    projectFileds.settings.skills = skills;
+    
+
+
+    if (dueDate) 
+    projectFileds.settings.dueDate = dueDate;
+    
+
+
+    if (votingSystem) 
+    projectFileds.settings.votingSystem = votingSystem;
+    
+
+
+    if (typeof requiredSkills !== 'undefined') {
+        projectFileds.settings.requiredSkills = requiredSkills.split(',');
+    }
      
      
 try {

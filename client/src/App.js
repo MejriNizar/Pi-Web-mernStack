@@ -67,7 +67,7 @@ const App=()=> {
     <PrivateRoute exact path="/project-details/:id" component={ProjectDetails}/>
     <PrivateRoute exact path="/project-edit/:id" component={EditProject}/>
     <PrivateRoute exact path="/all-group" component={Allgroups}/>
-    <PrivateRoute exact path="/add-group" component={Addgroup}/>
+    <PrivateRoute exact path="/add-group/:id" component={Addgroup}/>
     <PrivateRoute exact path="/group-details/:id" component={Detailsgroup}/>
     <PrivateRoute exact path="/group-edit/:id" component={Editgroup}/>
     <PrivateRoute exact path="/affect-project/:id" component={AffectProject}/>

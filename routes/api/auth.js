@@ -13,7 +13,7 @@ const {check,validationResult} = require('express-validator');
 // @access Public
 router.get('/',auth, async(req , res) => {
     try {
-        const user = await User.findById(req.user.id).select('-password');
+        const user = await User.findById(req.user.id).select('-password').populate('group',['request']);
         res.json(user);
     } catch (error) {
         console.error(error.message);

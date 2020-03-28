@@ -1,12 +1,12 @@
 import React, {useState,useEffect, Table, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getallgroups,deletegroup } from '../../actions/group';
+import { getallgroups,deletegroup,sendRequest } from '../../actions/group';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 
 
-const Allgroup = ({history,deletegroup,getallgroups,groups:{groups,loading}}) => {
+const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,loading},auth:{user}}) => {
         
     useEffect(()=>{
         getallgroups();
@@ -23,7 +23,7 @@ const Allgroup = ({history,deletegroup,getallgroups,groups:{groups,loading}}) =>
                        <th>Name</th>
                        <th>logo</th>
                        <th>slogan</th>
-                       <th colSpan="2">Project</th>
+                       <th>Project</th>
                        <th colSpan="3">Actions</th>
                        
                    </tr>
@@ -34,11 +34,11 @@ const Allgroup = ({history,deletegroup,getallgroups,groups:{groups,loading}}) =>
                <td>{d.name}</td>
                <td>{d.logo}</td>
                <td>{d.slogan}</td>
-               {d.project != null ?( <td>{d.project.name}</td> ): <td>no project</td> }
-               <td><Link to={`/affect-project/${d._id}`}><i className="fas fa-plus"></i> </Link></td>
-               <td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link></td>
-               <td><Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link></td>
-               <td><Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>
+               <td>{d.project.name}</td>  
+               {d.groupOwner === user.id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>
+              <Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link>
+              ><Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>): (<td><Link onClick={e=>sendRequest(d._id)} ><i className='fas fa-user'></i>Send Request</Link></td>)}
+               
                </tr>))}
    
                </tbody>
@@ -50,9 +50,11 @@ const Allgroup = ({history,deletegroup,getallgroups,groups:{groups,loading}}) =>
 Allgroup.propTypes = {
     getallgroups: PropTypes.func.isRequired,
     deletegroup: PropTypes.func.isRequired,
+    sendRequest: PropTypes.func.isRequired,
     groups: PropTypes.func.isRequired
     };
 const mapStateToProps = state => ({
+    auth: state.auth,
     groups: state.groups
 });
-export default connect(mapStateToProps,{getallgroups,deletegroup})(Allgroup);
+export default connect(mapStateToProps,{getallgroups,deletegroup,sendRequest})(Allgroup);

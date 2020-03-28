@@ -8,7 +8,7 @@ const GroupSchema = mongoose.Schema({
     members:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'user',
-        unique: true
+        
     }],
     project:{
         type: mongoose.Schema.Types.ObjectId,
@@ -31,31 +31,23 @@ const GroupSchema = mongoose.Schema({
     creationDate: {
         type: Date
     },
-    settings: 
+    request: [
         {
-            numberOfStudents: {
-                type: Number,
-            },
-            numberTolerence:{
-                type: Number,
-            },
-            skills:{
+            etat: {
                 type: Boolean,
-               
+                default:false
             },
-            dueDate: {
-                type:Date,
-
+            user:{
+                type: mongoose.Schema.Types.ObjectId,
+                ref:'user',
+                unique: true
             },
-            votingSystem:{
-                type:String
-
-            },
-            requiredSkills:{
-                type: [String]
+            userName:{
+                type:String,
+                unique:true
             }
-           
-        }
+        }]
+    
     
     
     

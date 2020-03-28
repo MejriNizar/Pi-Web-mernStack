@@ -8,7 +8,7 @@ const ProjectSchema = mongoose.Schema({
     documentation:[{
         type: mongoose.Schema.Types.ObjectId,
         ref:'documentation',
-        unique: true
+        
     }],
     group:{
         type: mongoose.Schema.Types.ObjectId,
@@ -34,7 +34,35 @@ const ProjectSchema = mongoose.Schema({
     },
     creationDate: {
         type: Date
-    }
+    },
+    settings: 
+        {
+            numberOfStudents: {
+                type: Number,
+            },
+            numberTolerence:{
+                type: Number,
+            },
+            skills:{
+                type: Boolean,
+               
+            },
+            dueDate: {
+                type:Date,
+
+            },
+            votingSystem:{
+                type:String
+
+            },
+            requiredSkills:{
+                type: [String]
+            },
+            numberGroups:{
+                type: Number
+            }
+           
+        }
     
 });
 module.exports = Project = mongoose.model('project',ProjectSchema);

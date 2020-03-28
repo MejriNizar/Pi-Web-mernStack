@@ -3,7 +3,7 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS
+    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS,GET_PROJECT_DETAILS
 } from './types'
 
 export const getallgroups = () => async dispatch =>{
@@ -65,23 +65,22 @@ export const getgroup = id => async dispatch =>{
     }
 }
 
-export const addGroup = (FormData,history,edit= false) => async dispatch => {
+export const addGroup = (FormData,history,edit= false,id) => async dispatch => {
     try {
         const config = {
             headers:{
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('/api/group/',FormData,config);
+        const res = await axios.post(`/api/group/${id}`,FormData,config);
         dispatch({
-          type: GET_GROUP_DETAILS,
+          type: GET_PROJECT_DETAILS,
           payload: res.data
       });
       dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
-  if(!edit) {
-      if(res.data.settings.requiredSkills){history.push(`/add-members/${res.data._id}/${res.data.settings.numberOfStudents}/${res.data.settings.requiredSkills}`);}
-      else{history.push(`/add-members/${res.data._id}/${res.data.settings.numberOfStudents}`);}
-
+   if(!edit) {
+       if(res.data.settings.requiredSkills){history.push(`/add-members/${res.data.group}/${res.data.settings.numberOfStudents}/${res.data.settings.requiredSkills}`);}
+      else{history.push(`/add-members/${res.data.group}/${res.data.settings.numberOfStudents}`);}
   }
         
     } catch (error) {
@@ -163,9 +162,33 @@ export const invitMember = (FormData,history,edit= false,id) => async dispatch =
           payload: res.data
       });
       dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
-  if(!edit) {
+  if(edit) {
       history.push('/dashboard');
   }
+        
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if(errors) {
+          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+      }
+      dispatch({
+          type: GROUP_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+  
+  
+  }
+  export const sendRequest = (id) => async dispatch => {
+    try {
+        
+        const res = await axios.put(`/api/group/request/${id}`);
+        dispatch({
+          type: GET_GROUP,
+          payload: res.data
+      });
+      dispatch(setAlert('Request send'));
+  
         
     } catch (error) {
       const errors = error.response.data.errors;
@@ -225,6 +248,54 @@ export const DelteInvitation=(id)=>async dispatch =>  {
 
          dispatch({
           type: GET_USERS,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+export const AcceptRequest=(idG,idI)=>async dispatch =>  {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+       const data ={etat:true}
+       
+        const res = await axios.put(`/api/group/accpterReq/${idG}/${idI}`,data,config);
+        console.log('req accep');
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+        dispatch(setAlert('Request Accepted', 'success'));
+    } catch (error) {
+
+         dispatch({
+          type: GET_GROUP,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+
+export const DelteRequest=(idG,idI)=>async dispatch =>  {
+    try {
+        const data ={etat:false}
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.put(`/api/group/accpterReq/${idG}/${idI}`,data,config);
+        console.log('req delet');
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+        dispatch(setAlert('Request Deleted', 'danger'));
+    } catch (error) {
+
+         dispatch({
+          type: GET_GROUP,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }

@@ -10,6 +10,7 @@ import Education from './Education'
 import Invitations from './Invitations'
 import Projects from './Projects'
 import Groups from './Groups'
+import Request from './Request'
 
 
 const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profile, loading}}) => {
@@ -28,8 +29,8 @@ const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profi
             <DashboardActions></DashboardActions>
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
-            <Invitations invitation={user.invitation} />
-           
+            <Invitations invitation={user.invitation} /> 
+            <Request group={user.group} request={user.group.request} />
             <div className="my-2">
                 <button onClick={()=> deleteAccount()} className="btn btn-danger"> <i className="fas fa-user-minus"></i> Delete my account</button>
 
