@@ -23,7 +23,7 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
         <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
         
     </td>
-    { user.id != p.projectOwner ? ( 
+    { user._id != p.projectOwner ? ( 
         <td><Link to={`/add-group/${p._id}`} ><i className="fas fa-plus"></i> ADD GROUP </Link></td>):
       
         <td>

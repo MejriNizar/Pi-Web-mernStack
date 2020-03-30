@@ -14,7 +14,8 @@ const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,l
     }, [loading]);
 
    
-     
+    const [dispalaypending, togglePending] = useState(false);
+
     return loading || groups === null ?<Spinner /> : (
         <Fragment>       
            <table  className="table">
@@ -35,9 +36,11 @@ const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,l
                <td>{d.logo}</td>
                <td>{d.slogan}</td>
                <td>{d.project.name}</td>  
-               {d.groupOwner === user.id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>
+               { d.groupOwner === user._id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>
               <Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link>
-              ><Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>): (<td><Link onClick={e=>sendRequest(d._id)} ><i className='fas fa-user'></i>Send Request</Link></td>)}
+              <Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>): 
+              
+              (<td><Link onClick={e=>sendRequest(d._id)} ><i className='fas fa-user'></i>Send Request</Link></td>)}
                
                </tr>))}
    

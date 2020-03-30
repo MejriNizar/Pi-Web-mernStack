@@ -29,8 +29,8 @@ const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profi
             <DashboardActions></DashboardActions>
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
-            <Invitations invitation={user.invitation} /> 
-            <Request group={user.group} request={user.group.request} />
+            {/* <Invitations invitation={user.invitation} />  */}
+             <Request group={user.group} request={user.group.request} /> 
             <div className="my-2">
                 <button onClick={()=> deleteAccount()} className="btn btn-danger"> <i className="fas fa-user-minus"></i> Delete my account</button>
 

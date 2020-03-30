@@ -10,10 +10,10 @@ const ProjectSchema = mongoose.Schema({
         ref:'documentation',
         
     }],
-    group:{
+    group:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'group'
-    },
+    }],
     name:{
         type: String,
         required:true
