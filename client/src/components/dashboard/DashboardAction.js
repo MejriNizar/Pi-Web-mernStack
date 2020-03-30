@@ -22,7 +22,9 @@ const DashboardAction = ({auth:{user}}) => {
           <Link to="/add-event" className="btn btn-light"
           ><i className="fa fa-plus-square text-primary"></i> add event</Link>
               <Link to="/add-project" className="btn btn-light"
-          ><i className="fas fa-graduation-cap text-primary"></i> Add Project</Link></Fragment>) }
+          ><i className="fas fa-graduation-cap text-primary"></i> Add Project</Link>
+           <Link to="/upload" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> Upload file</Link></Fragment>) }
       </div>
     )
 }
