@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallprojects , deleteproject } from '../../actions/project';
@@ -12,7 +12,7 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
     useEffect(()=>{
         getallprojects();
         
-    }, [loading]);
+    }, [getallprojects]);
 
     const projectss=projects.map(p => (
         <tr key={p._id}>
@@ -69,4 +69,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
     projects: state.projects
 });
-export default connect(mapStateToProps,{getallprojects,deleteproject})(Allproject);
+export default connect(mapStateToProps,{getallprojects,deleteproject})(withRouter(Allproject));

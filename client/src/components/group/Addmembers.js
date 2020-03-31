@@ -2,7 +2,7 @@ import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {invitMember} from '../../actions/group'
-import {loadStudents} from '../../actions/auth'
+import {loadStudents, loadStudent} from '../../actions/auth'
 import {
     MultiSelectComponent,
     CheckBoxSelection,
@@ -35,7 +35,7 @@ const Addmembers = ({
         loadStudents(skillsData);
         
 
-    }, [loading]);
+    }, [loadStudent]);
     const [formData, setFormData] = useState({members: []});
 
     const {

@@ -1,5 +1,5 @@
 import React, {useState, Fragment} from 'react'
-import {Link, withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { createprofile} from '../../actions/profile';
@@ -17,7 +17,8 @@ const CreateProfile = ({createprofile, history}) => {
         facebook:'',
         linkedin:'',
         youtube:'',
-        instagram:''
+        instagram:'',
+        filename:''
 
     });
 
@@ -34,7 +35,8 @@ const CreateProfile = ({createprofile, history}) => {
         facebook,
         linkedin,
         youtube,
-        instagram
+        instagram,
+        filename
     }  = formData;
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
    const onSubmit = e =>{

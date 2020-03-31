@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getevent } from '../../actions/event';
@@ -9,7 +9,7 @@ const EventDetails = ({match,getevent,event: {event,loading}}) => {
     useEffect(()=>{
         getevent(match.params.id);
         
-    }, [loading]);
+    }, [getevent]);
     return loading || event === null ?<Spinner /> : (
         <Fragment>       
               {event.title}<br></br>

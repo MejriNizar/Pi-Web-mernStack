@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Fragment} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import {getallevents, deleteevent} from '../../actions/event';
@@ -18,7 +18,7 @@ const Allevents = ({deleteevent,getallevents,events: {events,loading}}) => {
         getallevents();
         
         
-    }, [loading]);
+    }, [getallevents]);
     
    
    
@@ -70,4 +70,4 @@ Allevents.propTypes = {
 const mapStateToProps = state => ({
     events: state.events
 });
-export default connect(mapStateToProps,{deleteevent,getallevents}) (Allevents);
+export default connect(mapStateToProps,{deleteevent,getallevents}) (withRouter(Allevents));

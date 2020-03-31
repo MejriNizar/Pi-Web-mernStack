@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallprojects , deleteproject , affectproject} from '../../actions/project';
@@ -63,4 +63,4 @@ Allproject.propTypes = {
 const mapStateToProps = state => ({
     projects: state.projects
 });
-export default connect(mapStateToProps,{getallprojects,deleteproject,affectproject})(Allproject);
+export default connect(mapStateToProps,{getallprojects,deleteproject,affectproject})(withRouter(Allproject));

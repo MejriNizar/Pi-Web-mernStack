@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallgroups,deletegroup,sendRequest } from '../../actions/group';
@@ -60,4 +60,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
     groups: state.groups
 });
-export default connect(mapStateToProps,{getallgroups,deletegroup,sendRequest})(Allgroup);
+export default connect(mapStateToProps,{getallgroups,deletegroup,sendRequest})(withRouter(Allgroup));

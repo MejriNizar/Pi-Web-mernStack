@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import Moment from 'react-moment'
+
 import {DelteInvitation,AcceptInvitation} from '../../actions/group'
 
 

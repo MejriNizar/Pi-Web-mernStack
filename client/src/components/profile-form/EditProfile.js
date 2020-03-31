@@ -40,7 +40,7 @@ const EditProfile = ({createprofile, history, getCurrentProfile,profile: {profil
             instagram: loading || !profile.social? '': profile.social.instagram
 
         });
-    }, [loading]);
+    }, [getCurrentProfile]);
     const {
         company,
         website,

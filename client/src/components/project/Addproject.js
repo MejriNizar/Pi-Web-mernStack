@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {addProject, getproject} from '../../actions/project'
+import {addProject} from '../../actions/project'
 import {getalldocs} from '../../actions/documentation'
 import {MultiSelectComponent, Inject, CheckBoxSelection, DropDownListComponent} from '@syncfusion/ej2-react-dropdowns'
 import { SwitchComponent } from '@syncfusion/ej2-react-buttons'
