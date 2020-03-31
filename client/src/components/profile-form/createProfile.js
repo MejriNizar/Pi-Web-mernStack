@@ -101,6 +101,7 @@ const CreateProfile = ({createprofile, history}) => {
       <textarea placeholder="A short bio of yourself" name="bio"value={bio} onChange={e => onChange(e)}></textarea>
       <small className="form-text">Tell us a little about yourself</small>
     </div>
+  
 
     <div className="my-2">
       <button onClick={() => toggleSocialInputs(!dispalaySocialInputs)} type="button" className="btn btn-light">

@@ -33,6 +33,9 @@ const ProfileSchema = mongoose.Schema({
         type: String,
         
     },
+    curriculum_vitae: {
+        type: String,
+    },
     experience: [
         {
             title: {

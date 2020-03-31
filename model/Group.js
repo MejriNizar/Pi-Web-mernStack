@@ -20,7 +20,7 @@ const GroupSchema = mongoose.Schema({
         unique: true
     },
     logo: {
-        data: Buffer,
+        
         type: String
 
     },

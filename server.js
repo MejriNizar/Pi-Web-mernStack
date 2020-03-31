@@ -17,7 +17,6 @@ app.use('/api/group', require('./routes/api/group'));
 app.use('/api/event', require('./routes/api/event'));
 
 
-
 app.use('/api/documentation', require('./routes/api/documentation'));
 const PORT =  process.env.PORT || 5000;
 
