@@ -31,6 +31,11 @@ export const DELETE_GROUP='DELETE_GROUP';
 export const ACCOUNT_DELETE='ACCOUNT_DELETE';
 export const GET_STUDENTS='GET_STUDENTS';
 export const GET_STUDENT='GET_STUDENT';
+export const GET_PROFILES='GET_PROFILES';
+export const GET_REPOS='GET_REPOS';
+
+
+
 
 
 

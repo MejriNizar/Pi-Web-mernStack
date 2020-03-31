@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
-import {Link , withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import {addeducation} from '../../actions/profile'
 const AddEdu = ({addeducation, history}) => {
    
@@ -73,4 +73,4 @@ AddEdu.propTypes = {
 addeducation:PropTypes.func.isRequired,
 }
 
-export default connect(null,{addeducation})(AddEdu)
+export default connect(null,{addeducation})(withRouter(AddEdu))

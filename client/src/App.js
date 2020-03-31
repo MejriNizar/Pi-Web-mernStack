@@ -23,6 +23,8 @@ import Allproject from './components/project/Allproject';
 import Allevents from './components/event/Allevents';
 import Addevent from './components/event/Addevent';
 
+import Profiles from './components/Profiles/Profiles'
+import Profile from './components/Profiles/Profile'
 
 
 import Addproject from './components/project/Addproject';
@@ -55,6 +57,10 @@ const App=()=> {
     <Route exact path="/register" component={Register}/>
     <Route exact path="/login" component={Login}/>
     <Route exact path="/verify" component={VerifyAccount}/>
+    <Route exact path="/profiles" component={Profiles}/>
+    <Route exact path="/profile/:id" component={Profile}/>
+
+
     <Route exact path="/create-profile" component={createProfile}/>
     <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
     <PrivateRoute exact path="/add-experience" component={AddExpe}/>

@@ -1,4 +1,4 @@
-import React, {Fragment, useState, useEffect} from 'react'
+import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
@@ -14,9 +14,7 @@ const Addgroup = ({
     match
   
 }) => {
-    useEffect(()=>{
-        
-    }, [loading]);
+   
     const [formData, setFormData] = useState({name: '', logo: '', slogan: ''});
 
     const {
