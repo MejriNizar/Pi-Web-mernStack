@@ -1,12 +1,12 @@
 import React, {useEffect,  Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getallgroups,deletegroup,sendRequest } from '../../actions/group';
+import { getallgroups,sendRequest } from '../../actions/group';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 
 
-const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,loading},auth:{user}}) => {
+const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth}) => {
         
     useEffect(()=>{
         getallgroups();
@@ -14,50 +14,59 @@ const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,l
     }, [loading]);
 
    
-    const [dispalaypending, togglePending] = useState(false);
 
     return loading || groups === null ?<Spinner /> : (
-        <Fragment>       
-           <table  className="table">
-               <thead>
-                   <tr>
-                       <th>Name</th>
-                       <th>logo</th>
-                       <th>slogan</th>
-                       <th>Project</th>
-                       <th colSpan="3">Actions</th>
-                       
-                   </tr>
-               </thead>
-               <tbody>
-               { groups.map((d) => 
-               (<tr key={d._id}>
-               <td>{d.name}</td>
-               <td>{d.logo}</td>
-               <td>{d.slogan}</td>
-               <td>{d.project.name}</td>  
-               { d.groupOwner === user._id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>&nbsp;&nbsp;
-              <Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link>&nbsp;&nbsp;&nbsp;
-              <Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>): 
-              
-              (<td><Link onClick={e=>sendRequest(d._id)} ><i className='fas fa-user'></i>Send Request</Link></td>)}
-               
-               </tr>))}
+        <Fragment>    
+            
+      <h1 className="large text-primary">Groups</h1>
+      <p className="lead">
+        <i className="fab fa-connectdevelop"></i> Check groups list 
+      </p>
+      <div className="profiles">
+      {groups.length > 0 ? (
+        groups.map(group => (    
+ <div className="profile bg-light">
+          <img
+            className="round-img"
+            src={group.logo} 
+            alt=""
+          />
+          <div>
+            <h2>{group.name}</h2>
+            <p className="my-1">{group.slogan && <span> {group.slogan}</span>}</p>
+            {auth.isAuthenticated && auth.loading === false &&  group.members.map((member,index)=>auth.user._id === member._id ?(<Link to={`/group-details/${group._id}`} className="btn btn-primary">View Details</Link>)
+            :(<Link onClick={e=>sendRequest(group._id)} ><i className='fas fa-user'></i>Send Request</Link>))} 
+            
+          </div>
+
+          <ul>
+           {group.members.map((member,index)=>(<li key={index} className="text-primary">
+               <Link to={`/profile/${member._id}`}><i className="fas fa-user"></i>{member.name}</Link>
+           </li>))}
+          </ul>
+        </div> 
+    
+))
+) : <h4> No Groups found ..</h4>}
+
+        
+      </div>
+  
+            </Fragment>
+    )
    
-               </tbody>
-           </table>
-           </Fragment>
-       )    
-};
+}  
+     
+
 
 Allgroup.propTypes = {
     getallgroups: PropTypes.func.isRequired,
-    deletegroup: PropTypes.func.isRequired,
     sendRequest: PropTypes.func.isRequired,
-    groups: PropTypes.func.isRequired
+    groups: PropTypes.func.isRequired,
+    auth : PropTypes.object.isRequired
     };
 const mapStateToProps = state => ({
     auth: state.auth,
     groups: state.groups
 });
-export default connect(mapStateToProps,{getallgroups,deletegroup,sendRequest})(withRouter(Allgroup));
+export default connect(mapStateToProps,{getallgroups,sendRequest})(withRouter(Allgroup));

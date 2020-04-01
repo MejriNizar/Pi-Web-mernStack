@@ -36,7 +36,7 @@ getProfileById(match.params.id)
                    {profile.education.length > 0 ? (
                        <Fragment>
                            {profile.education.map(exp =>(
-                               <ProfileExp key={exp._id} education={exp}/>
+                               <ProfileEdu key={exp._id} education={exp}/>
                            ))}
                        </Fragment>
                    ) : (<h4> No Education Found</h4>)}

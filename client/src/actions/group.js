@@ -111,7 +111,7 @@ export const addGroup = (FormData,history,edit= false,id) => async dispatch => {
       });
       dispatch(setAlert(edit ? 'Project Updated': 'Project created', 'success'));
   if(!edit) {
-      history.push('/dashboard');
+      history.push('/all-groups');
   }
         
     } catch (error) {

@@ -42,7 +42,12 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
     ))
      
     return loading || projects === null ?<Spinner /> : (
-        <Fragment>       
+        <Fragment>    
+               
+      <h1 className="large text-primary">Projects</h1>
+      <p className="lead">
+        <i className="fab fa-connectdevelop"></i> Check projects list 
+      </p>   
            <table  className="table">
                <thead>
                    <tr>

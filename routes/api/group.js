@@ -13,7 +13,7 @@ const {check, validationResult} = require('express-validator');
 // @access Private
 router.get('/all', auth, async (req, res) => {
     try {
-        const groups = await Group.find().populate('project', ['name']).sort( { creationDate: -1 } );
+        const groups = await Group.find().populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']);
 
         res.json(groups);
     } catch (error) {
@@ -41,7 +41,7 @@ router.get('/alllimit', auth, async (req, res) => {
 router.get('/details/:id', auth, async (req, res) => {
     try {
         console.log(req.params.id)
-        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']);
+        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name']);
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
@@ -176,12 +176,28 @@ router.put('/:id', [
     
 
 
-    if (members) 
-        groupFileds.members = members;
     
-
+    
+        
 
     try {
+        members.forEach(async (element) => {
+            const userFileds = {};
+            userFileds.invitation = {};
+            userFileds.invitation.groupe = req.params.idG;
+            userFileds.invitation.groupeName = group.name;
+            console.log(group)
+
+
+             await User.findOneAndUpdate({
+                _id: element
+            }, {
+                $push: {
+                    invitation: userFileds.invitation
+                }
+            });
+        });
+
         let group = await Group.findOne({_id: req.params.id});
         if (group) {
             group = await Group.findOneAndUpdate({

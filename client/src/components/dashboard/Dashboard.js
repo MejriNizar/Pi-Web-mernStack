@@ -29,9 +29,12 @@ const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profi
             <DashboardActions></DashboardActions>
             <Experience experience={profile.experience} />
             <Education education={profile.education} />
+            {/* {user.invitation !== null ? (<Invitations invitation={user.invitation} /> ):(<h4>No Invitation found</h4>)} */}
+            {/* {user.group.request !== null ? (<Request group={user.group} request={user.group.request} />  ):(<h4>No Request found</h4>)} */}
+
             {/* <Invitations invitation={user.invitation} />  */}
              {/* <Request group={user.group} request={user.group.request} />  */}
-            <Invitations invitation={user.invitation} /> 
+            {/* <Invitations invitation={user.invitation} />  */}
            
             <div className="my-2">
                 <button onClick={()=> deleteAccount()} className="btn btn-danger"> <i className="fas fa-user-minus"></i> Delete my account</button>
