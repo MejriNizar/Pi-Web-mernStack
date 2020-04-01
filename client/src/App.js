@@ -24,7 +24,7 @@ import Allevents from './components/event/Allevents';
 import Addevent from './components/event/Addevent';
 
 import Profiles from './components/Profiles/Profiles'
-import Profile from './components/Profiles/Profile'
+import Profile from './components/Profiles/profiles/Profile'
 
 
 import Addproject from './components/project/Addproject';
