@@ -7,7 +7,7 @@ import Spinner from '../layout/spinner';
 import Moment from 'react-moment';
 
 
-const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects,loading}}) => {
+const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects,loading},auth:{user}}) => {
         
     useEffect(()=>{
         getallprojectslimit();
@@ -23,15 +23,19 @@ const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects
         <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
         
     </td>
-    <td>
-    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
-    </td>
-    <td>
-    <Link to={`/project-edit/${p._id}`} ><i className="fas fa-edit"></i> </Link>
-    </td>
-    <td>
+    
+    {p.projectOwner === user._id ?(<td>
+       
+    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>&nbsp;&nbsp;
+    
+    <Link to={`/project-edit/${p._id}`} ><i className="fas fa-edit"></i> </Link>&nbsp;&nbsp;&nbsp;
+   
             <Link onClick={e=>deleteproject(p._id)}  ><i className='fas fa-trash'></i></Link>
-    </td>
+    </td>):( <td>
+    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
+  
+    </td>)}
+    
         </tr >
     ))
      
@@ -62,6 +66,8 @@ Projects.propTypes = {
     deleteproject: PropTypes.func.isRequired
     };
 const mapStateToProps = state => ({
+    auth: state.auth,
+
     projects: state.projects
 });
 export default connect(mapStateToProps,{getallprojectslimit,deleteproject})(Projects);

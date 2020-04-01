@@ -14,8 +14,6 @@ const DashboardAction = ({auth:{user}}) => {
           ><i className="fas fa-graduation-cap text-primary"></i> Add Education</Link>
           <Link to="/all-group" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> List Groups</Link>
-          <Link to="/add-group" className="btn btn-light"
-          ><i className="fas fa-graduation-cap text-primary"></i> Add Group</Link>
           <Link to="/all-project" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> List Projects</Link></Fragment>):( <Fragment>  <Link to="/all-events" className="btn btn-light"
           ><i className="fa fa-th-list text-primary"></i> List events</Link>

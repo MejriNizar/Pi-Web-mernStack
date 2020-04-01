@@ -35,7 +35,7 @@ const Editgroup = ({editGroup, history ,getgroup,group: {group,loading},match,lo
     return (
         <Fragment>
              <h1 className="large text-primary">
-       EDIT A PROJECT
+       EDIT A GROUP
       </h1>
       
       <small>* = required field</small>

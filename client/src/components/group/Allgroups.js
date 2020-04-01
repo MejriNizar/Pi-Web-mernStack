@@ -1,4 +1,4 @@
-import React, {useEffect,  Fragment} from 'react'
+import React, {useEffect,  Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallgroups,deletegroup,sendRequest } from '../../actions/group';
@@ -36,8 +36,8 @@ const Allgroup = ({history,deletegroup,sendRequest,getallgroups,groups:{groups,l
                <td>{d.logo}</td>
                <td>{d.slogan}</td>
                <td>{d.project.name}</td>  
-               { d.groupOwner === user._id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>
-              <Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link>
+               { d.groupOwner === user._id   ? (<td> <Link to={`/group-details/${d._id}`} ><i className="fas fa-eye"></i> </Link>&nbsp;&nbsp;
+              <Link onClick={e=>deletegroup(d._id)}  ><i className='fas fa-trash'></i></Link>&nbsp;&nbsp;&nbsp;
               <Link to={`/group-edit/${d._id}`} ><i className="fas fa-edit"></i> </Link></td>): 
               
               (<td><Link onClick={e=>sendRequest(d._id)} ><i className='fas fa-user'></i>Send Request</Link></td>)}
