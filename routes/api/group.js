@@ -5,7 +5,30 @@ const Group = require('../../model/Group');
 const Project = require('../../model/Project');
 const User = require('../../model/User');
 const Affectation = require('../../model/Affectation');
-
+const multer = require('multer');
+const MIME_TYPE_MAP = {
+    "image/png": "png",
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg"
+  };
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      const isValid = MIME_TYPE_MAP[file.mimetype];
+      let error = new Error("Invalid mime type");
+      if (isValid) {
+        error = null;
+      }
+      cb(error, "../images");
+    },
+    filename: (req, file, cb) => {
+      const name = file.originalname
+        .toLowerCase()
+        .split(" ")
+        .join("-");
+      const ext = MIME_TYPE_MAP[file.mimetype];
+      cb(null, name + "-" + Date.now() + "." + ext);
+    }
+  });
 const {check, validationResult} = require('express-validator');
 
 // @route  GET api/group/all
@@ -55,7 +78,7 @@ router.get('/details/:id', auth, async (req, res) => {
 // @route  POST api/group
 // @desc  create  a group
 // @access Private
-router.post('/:id', [
+router.post('/:id', multer({ storage: storage }).single("image"), [
     auth,
     [
         check('name', 'name is required').not().isEmpty(),
@@ -68,19 +91,21 @@ router.post('/:id', [
 
     ]
 ], async (req, res) => {
+    const url = req.protocol + "://" + req.get("host");
     const errors = validationResult(req);
     if (! errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
     const {
         name,
-        logo,
+        
         slogan,
         members
         
 
 
     } = req.body;
+    const logo= url + "/images/" + req.file.filename;
     const groupFileds = {};
     groupFileds.groupOwner = req.user.id;
     groupFileds.members =req.user.id;
@@ -146,7 +171,7 @@ router.post('/:id', [
 // @route  PUT api/group
 // @desc   update a group
 // @access Private
-router.put('/:id', [
+router.put('/:id', multer({ storage: storage }).single("image"), [
     auth,
     [
         check('name', 'name is required').not().isEmpty(),
@@ -154,11 +179,13 @@ router.put('/:id', [
         check('slogan', 'slogan is required').not().isEmpty()
     ]
 ], async (req, res) => {
+    const url = req.protocol + "://" + req.get("host");
     const errors = validationResult(req);
     if (! errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const {name, logo, slogan, members} = req.body;
+    const {name, slogan, members} = req.body;
+    const logo=url + "/images/" + req.file.filename;
     const groupFileds = {};
     // projectFileds.projectOwner= req.user.id;
     if (name) 

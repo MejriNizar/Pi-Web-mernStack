@@ -2,8 +2,10 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
+import { ImagePicker } from 'react-file-picker'
 
 import '../../assets/css/syncfusions.css';
+import { passportJwtSecret } from 'jwks-rsa'
 
 
 
@@ -56,13 +58,17 @@ const Addgroup = ({
                         required/>
                 </div>
                 <div className="form-group">
-                    <input type="text" placeholder="* logo" name="logo"
-                        value={logo}
-                        onChange={
-                            e => onChange(e)
-                        }
-                        required/>
+                          <ImagePicker
+    extensions={['jpg', 'jpeg', 'png']}
+    dims={{minWidth: 100, maxWidth: 500, minHeight: 100, maxHeight: 500}}
+    name="logo"
+    value={logo}
+    onChange={
+        e => onChange(e)
+    }
+    required></ImagePicker>
                 </div>
+
                 <div className="form-group">
                     <input type="text" placeholder="* slogan" name="slogan"
                         value={slogan}
@@ -82,7 +88,7 @@ const Addgroup = ({
 } 
 Addgroup.propTypes = {
     addGroup: PropTypes.func.isRequired,
-    project: PropTypes.func.isRequired
+    project: passportJwtSecret
 }
 const mapStateToProps = state => ({
     project: state.project
