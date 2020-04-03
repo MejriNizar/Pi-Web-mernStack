@@ -65,18 +65,22 @@ export const getgroup = id => async dispatch =>{
     }
 }
 
-export const addGroup = (FormData,history,edit= false,id) => async dispatch => {
+export const addGroup = (FormData,history,edit= false,id,logo) => async dispatch => {
     try {
         const config = {
             headers:{
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data',
+                
             }
         }
+        
+        console.log(FormData)
         const res = await axios.post(`/api/group/${id}`,FormData,config);
         dispatch({
           type: GET_PROJECT_DETAILS,
           payload: res.data
       });
+      
       dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
    if(!edit) {
        if(res.data.settings.requiredSkills){history.push(`/add-members/${res.data.group}/${res.data.settings.numberOfStudents}/${res.data.settings.requiredSkills}`);}
