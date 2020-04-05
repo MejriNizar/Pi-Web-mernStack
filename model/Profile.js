@@ -124,6 +124,9 @@ const ProfileSchema = mongoose.Schema({
     date:{
         type:Date,
         default: Date.now
+    },
+    CV: {
+        type:String
     }
 });
 module.exports = Profile = mongoose.model('profile',ProfileSchema);
