@@ -2,11 +2,13 @@ const express = require('express');
 const connectDB = require('./config/db');
 
  const app = express();
+ const fileUpload=require('express-fileupload')
+ app.use(fileUpload());
 // connect db
 connectDB();
 //init middelware
 app.use(express.json({extended: false}));
-
+app.use('/routes/api/images',express.static('images'));
 // define routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));

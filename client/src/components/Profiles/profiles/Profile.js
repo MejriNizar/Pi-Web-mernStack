@@ -8,6 +8,7 @@ import ProfileTop from './ProfileTop.js'
 import ProfileAbout from './ProfileAbout'
 import ProfileExp from './ProfileExp'
 import ProfileEdu from './ProfileEdu'
+import ProfileCV from './ProfileCV'
 const Profile = ({getProfileById,auth,profile:{profile,loading},match}) => {
     
     useEffect(()=> {
@@ -17,11 +18,11 @@ getProfileById(match.params.id)
         <Fragment>
             {profile === null || loading ? <Spinner></Spinner> : <Fragment>
 
- <div class="profile-grid my-1">
+ <div className="profile-grid my-1">
                <ProfileTop profile={profile} />
                <ProfileAbout profile={profile} />
 
-               <div class="profile-exp bg-white p-2">
+               <div className="profile-exp bg-white p-2">
                    <h2 className="text-primary"> Experiences</h2>
                    {profile.experience.length > 0 ? (
                        <Fragment>
@@ -31,7 +32,7 @@ getProfileById(match.params.id)
                        </Fragment>
                    ) : (<h4> No EXperience Found</h4>)}
                </div>
-               <div class="profile-edu bg-white p-2">
+               <div className="profile-edu bg-white p-2">
                    <h2 className="text-primary"> Education</h2>
                    {profile.education.length > 0 ? (
                        <Fragment>
@@ -40,6 +41,12 @@ getProfileById(match.params.id)
                            ))}
                        </Fragment>
                    ) : (<h4> No Education Found</h4>)}
+               </div>
+               <div>
+               <h2 className="text-primary"> CV</h2>
+               {profile.CV ===  null ? (<h4> No CV Found</h4>) : (<Fragment> 
+                   <ProfileCV profile={profile}></ProfileCV>
+               </Fragment>)}
                </div>
            </div>
                 <Link to='/profiles' className='btn btn-light'> back to profiles</Link>

@@ -6,6 +6,9 @@ const Project = require('../../model/Project');
 const User = require('../../model/User');
 const Affectation = require('../../model/Affectation');
 const multer = require('multer');
+const fileUpload=require('express-fileupload')
+
+
 const MIME_TYPE_MAP = {
     "image/png": "png",
     "image/jpeg": "jpg",
@@ -18,7 +21,7 @@ const MIME_TYPE_MAP = {
       if (isValid) {
         error = null;
       }
-      cb(error, "../images");
+      cb(error, "./images/");
     },
     filename: (req, file, cb) => {
       const name = file.originalname
@@ -29,8 +32,19 @@ const MIME_TYPE_MAP = {
       cb(null, name + "-" + Date.now() + "." + ext);
     }
   });
+  const upload = multer({storage: storage})
 const {check, validationResult} = require('express-validator');
-
+router.post('/upload',upload.single('image'),async (req,res,next) =>{
+try {
+    console.log(req.file)
+    const obj={ name: req.body.name,image:req.file.path}
+    
+    res.json(obj)
+} catch (error) {
+    console.error(error.message);
+        res.status(500).send('server error');
+}
+})
 // @route  GET api/group/all
 // @desc  get all groups
 // @access Private
@@ -78,7 +92,7 @@ router.get('/details/:id', auth, async (req, res) => {
 // @route  POST api/group
 // @desc  create  a group
 // @access Private
-router.post('/:id', multer({ storage: storage }).single("image"), [
+router.post('/:id', [
     auth,
     [
         check('name', 'name is required').not().isEmpty(),
@@ -86,34 +100,48 @@ router.post('/:id', multer({ storage: storage }).single("image"), [
         check('name', 'enter a name with 6 or greater').isLength(
             {min: 6}
         ),
-        check('logo', 'logo is required').not().isEmpty(),
+        
         check('slogan', 'slogan is required').not().isEmpty(),
 
     ]
 ], async (req, res) => {
+  
+console.log(req.files)
     const url = req.protocol + "://" + req.get("host");
     const errors = validationResult(req);
     if (! errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
+    
     const {
         name,
-        
         slogan,
-        members
-        
-
+        members,
 
     } = req.body;
-    const logo= url + "/images/" + req.file.filename;
     const groupFileds = {};
+    const file = req.files.file;
+    if(req.files){
+       
+        file.mv(`${__dirname}../../../client/public/images/${file.name}`,err =>{
+            if(err) {
+                console.error(err);
+                return res.status(500).send(err)
+            }
+        
+         
+        })
+    }
+ 
+    
+    
     groupFileds.groupOwner = req.user.id;
     groupFileds.members =req.user.id;
     
     if (name) 
         groupFileds.name = name;
     
-
+        const logo='/images/'+file.name;
 
     if (logo) 
         groupFileds.logo = logo;
