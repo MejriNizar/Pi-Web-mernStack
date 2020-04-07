@@ -447,7 +447,7 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
-module.exports = router;
+
 
 // @route  PUT api/group/accpterReq/:id
 // @desc  request  to group
@@ -503,6 +503,68 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
             return res.json(group);
 
         }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+
+
+
+// @route  POST api/group/voteReq/:id
+// @desc  submit a vote
+// @access Private
+router.post('/voteReq/:id',auth,async(req,res)=>{
+    try {
+
+        
+       const user=await User.findOne({_id:req.user.id})
+      await Group.findOne({_id: req.params.id}).then(group => {
+        const newVote = {
+          object:req.body.object,
+          user:req.user.id,
+          userName:user.name
+        };
+        group.Vote_Request.unshift(newVote);
+  
+        group.save().then(group => res.json(group));
+      });
+      
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  POST api/group/vote/:idG/:idr
+// @desc  vote
+// @access Private
+router.post('/vote/:idG/:idr',auth,async(req,res)=>{
+    try {
+
+        let response=0;
+if(req.body.response==='yes'){
+    response=1
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.resultat" : 1 } }
+ )}
+if(req.body.response==='no'){
+    response=-1
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.resultat" : -1 } }
+ )}
+      await User.findOne({_id:req.user.id}).then(user => {
+          
+                const newVote = {
+                    vote_request:req.params.idr,
+                    response:response
+                  };
+                  user.votes.unshift(newVote);
+          user.save().then(user => res.json(user))
+      })
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
