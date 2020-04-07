@@ -8,6 +8,7 @@ import GroupRequest from './GroupRequest';
 import GroupMember from './GroupMember';
 import GroupAbout from './GroupAbout';
 import { Link } from 'react-router-dom';
+import VotingRequest from './VotingRequest';
 
 
 const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) => {
@@ -18,11 +19,11 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
     return (<Fragment>
     {group === null || loading ? <Spinner></Spinner> : <Fragment>
 
-<div class="profile-grid my-1">
+<div className="profile-grid my-1">
        <GroupTop group={group} />
        <GroupAbout group={group} />
 
-       <div class="profile-exp bg-white p-2">
+       <div className="profile-exp bg-white p-2">
            <h2 className="text-primary"> Requests</h2>
            {group.request.length > 0 ? (
                <Fragment>
@@ -32,7 +33,7 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
                </Fragment>
            ) : (<h4> No Request Found</h4>)}
        </div>
-       <div class="profile-edu bg-white p-2">
+       <div className="profile-edu bg-white p-2">
            <h2 className="text-primary"> Members</h2>
            {group.members.length > 0 ? (
                <Fragment>
@@ -41,6 +42,16 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
                    ))}
                </Fragment>
            ) : (<h4> No Member Found</h4>)}
+       </div>
+       <div className="profile-vote bg-white p-2">
+                  <h2 className="text-primary"> Voting Requests</h2>
+           {group.Vote_Request.length > 0 ? (
+               <Fragment>
+                   {group.Vote_Request.map(req =>(
+                    <VotingRequest key={req._id} request={req} groupId={group._id}/>
+                   ))}
+               </Fragment>
+           ) : (<h4> No Voting Request Found</h4>)}
        </div>
    </div>
         <Link to='/all-group' className='btn btn-light'> back to groups</Link>

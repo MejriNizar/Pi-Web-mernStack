@@ -15,14 +15,16 @@ const DashboardAction = ({auth:{user:{role}}}) => {
           <Link to="/all-group" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> List Groups</Link>
           <Link to="/all-project" className="btn btn-light"
-          ><i className="fas fa-graduation-cap text-primary"></i> List Projects</Link></Fragment>):( <Fragment>  <Link to="/all-events" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> List Projects</Link>
+            <Link to="/upload" className="btn btn-light"
+          ><i className="fas fa-graduation-cap text-primary"></i> Upload CV</Link>
+          </Fragment>):( <Fragment>  <Link to="/all-events" className="btn btn-light"
           ><i className="fa fa-th-list text-primary"></i> List events</Link>
           <Link to="/add-event" className="btn btn-light"
           ><i className="fa fa-plus-square text-primary"></i> add event</Link>
               <Link to="/add-project" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Add Project</Link>
-           <Link to="/upload" className="btn btn-light"
-          ><i className="fas fa-graduation-cap text-primary"></i> Upload file</Link></Fragment>) }
+         </Fragment>) }
       </div>
     )
 }

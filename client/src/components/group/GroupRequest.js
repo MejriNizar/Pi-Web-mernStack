@@ -14,7 +14,7 @@ const GroupRequest= ({AcceptRequest,DelteRequest,request:{
         <p>
         <strong>Name:</strong> {userName}
         </p>
-        <button onClick={()=>AcceptRequest(groupId,_id)} className='btn btn-danger'> Accept </button>
+        <button onClick={()=>AcceptRequest(groupId,_id)} className='btn btn-success'> Accept </button>
     
     
     
