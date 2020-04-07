@@ -12,7 +12,7 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
     const {votedescription} = formData;
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
 
-        <div className="profile-vote bg-light p-2">
+        return (<div className="profile-vote bg-light p-2">
         <form className="form" onSubmit={e => {
           e.preventDefault();
           SendVoteRequest(groupId,formData);
@@ -33,7 +33,7 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
         
    
         </div>
-    
+    )
 
     }
     VoteRequest.propTypes = {

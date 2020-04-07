@@ -338,6 +338,11 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
   }
   export const SendVoteRequest=(idG,FormData)=>async dispatch =>  {
     try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
        const data ={etat:true}
        
         const res = await axios.post(`/api/group/voteReq/${idG}`,FormData,config);
