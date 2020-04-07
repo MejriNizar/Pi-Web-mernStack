@@ -305,13 +305,39 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
     }
 }
 
-export const SendVoteRequest=(idG,FormData)=>async dispatch =>  {
+  export const submitVote = (value,idG,idR) => async dispatch => {
     try {
+        const data ={response:value}
+
+
         const config = {
             headers:{
                 'Content-Type': 'application/json'
             }
         }
+        const res = await axios.post(`/api/group/vote/${idG}/${idR}`,data,config);
+        dispatch({
+          type: GET_GROUP,
+          payload: res.data
+      });
+      dispatch(setAlert('Vote send'));
+  
+        
+    } catch (error) {
+      const errors = error.response.data.errors;
+      if(errors) {
+          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
+      }
+      dispatch({
+          type: GROUP_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+  
+  
+  }
+  export const SendVoteRequest=(idG,FormData)=>async dispatch =>  {
+    try {
        const data ={etat:true}
        
         const res = await axios.post(`/api/group/voteReq/${idG}`,FormData,config);
