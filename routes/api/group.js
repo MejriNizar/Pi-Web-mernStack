@@ -570,5 +570,4 @@ if(req.body.response==='no'){
         res.status(500).send('server error');
     }
 });
-/**/
 module.exports = router;
