@@ -51,6 +51,17 @@ const UserSchema = new mongoose.Schema({
                 type:String,
                 unique:true
             }
+        }],
+        votes:[{
+            vote_request:{
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'Vote_request',
+
+            },
+            response:{
+                type:Number,
+                default:0
+            }
         }]
 });
 module.exports =  User = mongoose.model('user', UserSchema);

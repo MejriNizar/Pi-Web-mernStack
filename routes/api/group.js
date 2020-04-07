@@ -447,7 +447,7 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
-module.exports = router;
+
 
 // @route  PUT api/group/accpterReq/:id
 // @desc  request  to group
@@ -508,4 +508,43 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
+
+
+
+// @route  POST api/group/voteReq/:id
+// @desc  request  to group
+// @access Private
+router.post('/voteReq/:id',auth,async(req,res)=>{
+    try {
+
+        
+       const user=await User.findOne({_id:req.user.id})
+      await Group.findOne({_id: req.params.id}).then(group => {
+        const newVote = {
+          object:req.body.object,
+          user:req.user.id,
+          userName:user.name
+        };
+        group.Vote_Request.unshift(newVote);
+  
+        group.save().then(group => res.json(group));
+      });
+      
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+})
+
+/*if(group.project.settings.votingSystem==='Veto right'){
+
+}
+if(group.project.settings.votingSystem==='2/3 Unanimite'){
+    
+}if(group.project.settings.votingSystem==='Absolute Majority'){
+    
+}if(group.project.settings.votingSystem==='Dictatorship'){
+    
+}*/
 module.exports = router;

@@ -46,7 +46,26 @@ const GroupSchema = mongoose.Schema({
                 type:String,
                 unique:true
             }
-        }]
+        }],
+        Vote_Request: [
+            {
+                resultat: {
+                    type: Number,
+                   
+                },
+                user:{
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref:'user',
+                   
+                },
+                object:{
+                    type:String,
+                   required:true
+                },userName:{
+                    type:String,
+                    unique:true
+                }
+            }]
     
     
     
