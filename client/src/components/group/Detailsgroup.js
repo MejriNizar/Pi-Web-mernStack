@@ -8,6 +8,7 @@ import GroupRequest from './GroupRequest';
 import GroupMember from './GroupMember';
 import GroupAbout from './GroupAbout';
 import { Link } from 'react-router-dom';
+import VoteRequest from './VoteRequest';
 
 
 const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) => {
@@ -42,6 +43,7 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
                </Fragment>
            ) : (<h4> No Member Found</h4>)}
        </div>
+       <VoteRequest groupId={group._id} />
    </div>
         <Link to='/all-group' className='btn btn-light'> back to groups</Link>
    {auth.isAuthenticated && auth.loading === false && auth.user._id === group.groupOwner && (<Fragment><Link to={`/group-edit/${group._id}`} className='btn btn-light'>Edit group</Link>
