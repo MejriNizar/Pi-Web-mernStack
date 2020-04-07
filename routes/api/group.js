@@ -512,7 +512,7 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
 
 
 // @route  POST api/group/voteReq/:id
-// @desc  request  to group
+// @desc  submit a vote
 // @access Private
 router.post('/voteReq/:id',auth,async(req,res)=>{
     try {
@@ -535,16 +535,40 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
         console.error(error.message);
         res.status(500).send('server error');
     }
-})
+});
+// @route  POST api/group/vote/:idG/:idr
+// @desc  vote
+// @access Private
+router.post('/vote/:idG/:idr',auth,async(req,res)=>{
+    try {
 
-/*if(group.project.settings.votingSystem==='Veto right'){
+        let response=0;
+if(req.body.response==='yes'){
+    response=1
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.resultat" : 1 } }
+ )}
+if(req.body.response==='no'){
+    response=-1
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.resultat" : -1 } }
+ )}
+      await User.findOne({_id:req.user.id}).then(user => {
+          
+                const newVote = {
+                    vote_request:req.params.idr,
+                    response:response
+                  };
+                  user.votes.unshift(newVote);
+          user.save().then(user => res.json(user))
+      })
 
-}
-if(group.project.settings.votingSystem==='2/3 Unanimite'){
-    
-}if(group.project.settings.votingSystem==='Absolute Majority'){
-    
-}if(group.project.settings.votingSystem==='Dictatorship'){
-    
-}*/
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+/**/
 module.exports = router;

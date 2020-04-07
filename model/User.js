@@ -56,6 +56,7 @@ const UserSchema = new mongoose.Schema({
             vote_request:{
                 type:mongoose.Schema.Types.ObjectId,
                 ref:'Vote_request',
+                unique:true
 
             },
             response:{
