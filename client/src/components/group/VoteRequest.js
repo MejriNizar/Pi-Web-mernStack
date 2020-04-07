@@ -6,10 +6,10 @@ import {SendVoteRequest} from '../../actions/group'
 
 const VoteRequest= ({SendVoteRequest,groupId}) =>{
     const [formData, setFormData] = useState({
-        votedescription:'',
+        object:'',
      
     });
-    const {votedescription} = formData;
+    const {object} = formData;
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
 
         return (<div className="profile-vote bg-light p-2">
@@ -20,10 +20,10 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
         
         <strong></strong>
         <textarea
-            name="votedescription"
+            name="object"
             cols="100"
             rows="4"
-            placeholder="suggest a vote ..." value={votedescription} onChange={e => onChange(e)} 
+            placeholder="suggest a vote ..." value={object} onChange={e => onChange(e)} 
           ></textarea>
         
         
@@ -35,10 +35,10 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
         </div>
     )
 
-    }
+}
     VoteRequest.propTypes = {
         SendVoteRequest: PropTypes.func.isRequired,
-        groupId: PropTypes.string.isRequired
+        groupId: PropTypes.object.isRequired,
 }
 
 export default connect(null,{SendVoteRequest})((VoteRequest))
