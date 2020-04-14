@@ -11,11 +11,11 @@ import event from './event';
 import events from './event';
 import users from './auth';
 import students from './auth';
-import student from './auth'
-
+import student from './auth';
+import progress from './group';
 
 export default combineReducers({
-    alert,auth,profile,projects,docs,project,groups,group,event,events,users,students,student
+    alert,auth,profile,projects,docs,project,groups,group,event,events,users,students,student,progress
 
 
 

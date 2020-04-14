@@ -3,7 +3,7 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS,GET_PROJECT_DETAILS
+    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS,GET_PROJECT_DETAILS,GET_VOTE_PROG
 } from './types'
 
 export const getallgroups = () => async dispatch =>{
@@ -53,6 +53,28 @@ export const getgroup = id => async dispatch =>{
         console.log("response data",res.data)
         dispatch({
             type: GET_GROUP_DETAILS,
+            payload: res.data
+        });
+        
+    } catch (error) {
+        console.log("err response",error)
+        dispatch({
+            type: GROUP_ERROR,
+            payload: {msg:error.response.statusText, status: error.response.status }
+        });
+    }
+}
+
+export const getvoteprog = (id,idVR) => async dispatch =>{
+    try {
+        console.log(id)
+        const res = await axios.get(`/api/group/voteProg/${id}/${idVR}`);
+        console.log(id)
+        console.log("response object",res)
+        console.log("response data",res.data)
+        console.log("nbno",res.data.nbno)
+        dispatch({
+            type: GET_VOTE_PROG,
             payload: res.data
         });
         

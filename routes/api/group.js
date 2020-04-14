@@ -542,7 +542,16 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
 // @access Private
 router.post('/vote/:idG/:idr',auth,async(req,res)=>{
     try {
-
+        const user = await User.findOne({_id:req.user.id});
+        user.votes.forEach(element => {
+            console.log(element.vote_request)
+            console.log(req.params.idr)
+            if(element.vote_request == req.params.idr)
+            {
+                res.status(500).send('already voted');
+            }
+            
+        });
         let response=0;
 if(req.body.response==='yes'){
     response=1
@@ -566,6 +575,54 @@ if(req.body.response==='no'){
           user.save().then(user => res.json(user))
       })
 
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  GET api/group/voteProg
+// @desc  get  group by id
+// @access Private
+router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
+    try {
+        console.log(req.params.id)
+        let nbyes=0;
+        let nbno=0;
+        const group = await Group.findOne({_id: req.params.id});
+        group.members.forEach(async (element) => {
+            console.log(element)
+            const user= await User.findOne({_id : element });
+            console.log(user)
+            user.votes.forEach(elementt => {
+                if(elementt.vote_request == req.params.idVR)
+                {
+                    if(elementt.response == 1)
+                    {
+                        nbyes++;
+
+                    }
+                    else{
+                        nbno++;
+
+                    }
+                    
+
+                }
+
+            });
+            return res.status(200).json({nbyes: nbyes, nbno: nbno});
+
+
+            // nbyes= nbyes + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : 1});
+            // nbno= nbno + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : -1});
+        }
+        
+        );
+
+
+        if (! group) {
+            return res.status(400).json({msg: 'There is no group'});
+        }
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

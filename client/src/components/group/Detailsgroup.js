@@ -1,7 +1,7 @@
 import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getgroup,deletegroup } from '../../actions/group';
+import { getgroup,deletegroup,getvoteprog } from '../../actions/group';
 import Spinner from '../layout/spinner';
 import GroupTop from './GroupTop';
 import GroupRequest from './GroupRequest';
@@ -69,11 +69,12 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
 Detailsgroup.propTypes = {
     getgroup: PropTypes.func.isRequired,
     deletegroup: PropTypes.func.isRequired,
-    auth:PropTypes.object.isRequired
+    auth:PropTypes.object.isRequired,
+   
 
     };
 const mapStateToProps = state => ({
     group: state.group,
-    auth : state.auth
+    auth : state.auth,
 });
 export default connect(mapStateToProps,{getgroup,deletegroup})(Detailsgroup);
