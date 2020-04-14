@@ -49,8 +49,11 @@ const GroupSchema = mongoose.Schema({
         }],
         Vote_Request: [
             {
+                title:{
+                    type: String
+                },
                 resultat: {
-                    type: Number,
+                    type: Number
                    
                 },
                 user:{

@@ -521,6 +521,7 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
        const user=await User.findOne({_id:req.user.id})
       await Group.findOne({_id: req.params.id}).then(group => {
         const newVote = {
+            title:req.body.title,
           object:req.body.object,
           user:req.user.id,
           userName:user.name
