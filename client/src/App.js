@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
+import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import NavbarComp from './components/layout/Navbar';
 import LandingPageHeader from './components/layout/Landing';
@@ -7,6 +8,8 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
 import Alert from './components/layout/Alert';
+import PropTypes from 'prop-types'
+
 // redux
 import {Provider} from 'react-redux';
 import store from './store';
@@ -14,6 +17,11 @@ import store from './store';
 import {loadUser} from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
+import '../src/assets/css/paper-dashboard.css'
+import '../src/assets/css/paper-dashboard.css.map'
+import '../src/assets/css/paper-dashboard.min.css'
+
+import DashboardAD from './AdminDashBoard/views/Dashboard';
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
 import EditProfile from './components/profile-form/EditProfile';
@@ -26,7 +34,7 @@ import Addevent from './components/event/Addevent';
 import Profiles from './components/Profiles/Profiles'
 import Profile from './components/Profiles/profiles/Profile'
 
-
+import AdminDashb from './AdminDashBoard/layouts/Admin'
 import Addproject from './components/project/Addproject';
 import ProjectDetails from './components/project/ProjectDetails';
 import EventDetails from './components/event/EventDetails';
@@ -45,7 +53,9 @@ const App=()=> {
     useEffect(()=> {
        store.dispatch(loadUser());
     },[]);
-    return (
+
+ return (
+      
     <Provider store={store}>
     <Router>
 <Fragment>
@@ -59,6 +69,8 @@ const App=()=> {
     <Route exact path="/verify" component={VerifyAccount}/>
     <Route exact path="/profiles" component={Profiles}/>
     <Route exact path="/profile/:id" component={Profile}/>
+    <Route exact path="/admin/dashboard" component={DashboardAD}/>
+
 
 
     <Route exact path="/create-profile" component={createProfile}/>
@@ -66,6 +78,7 @@ const App=()=> {
     <PrivateRoute exact path="/add-experience" component={AddExpe}/>
     <PrivateRoute exact path="/add-education" component={AddEdu}/>
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+    <PrivateRoute exact path="/admin" component={AdminDashb}/>
     <PrivateRoute exact path="/all-project" component={Allproject}/>
     <PrivateRoute exact path="/all-events" component={Allevents}/>
     <PrivateRoute exact path="/add-event" component={Addevent}/>
@@ -88,6 +101,7 @@ const App=()=> {
 </Fragment>
 </Router>
 </Provider>
-)};
+)}
+   ;
 
 export default App;
