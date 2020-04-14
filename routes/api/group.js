@@ -523,6 +523,7 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
         const newVote = {
             title:req.body.title,
           object:req.body.object,
+          votingSystem:req.body.votingSystem,
           user:req.user.id,
           userName:user.name
         };
