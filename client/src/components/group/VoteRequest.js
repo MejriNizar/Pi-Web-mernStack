@@ -6,10 +6,11 @@ import {SendVoteRequest} from '../../actions/group'
 
 const VoteRequest= ({SendVoteRequest,groupId}) =>{
     const [formData, setFormData] = useState({
+        title:'',
         object:'',
      
     });
-    const {object} = formData;
+    const {title,object} = formData;
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
 
         return (<div className="profile-vote bg-light p-2">
@@ -19,6 +20,14 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
       }}>
         
         <strong></strong>
+        <div className="form-group">
+                    <input type="text" placeholder="* Title" name="title"
+                        value={title}
+                        onChange={
+                            e => onChange(e)
+                        }
+                        required/>
+                </div>
         <textarea
             name="object"
             cols="100"

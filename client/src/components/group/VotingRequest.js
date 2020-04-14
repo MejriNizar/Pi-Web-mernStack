@@ -5,10 +5,11 @@ import {submitVote} from '../../actions/group'
 import { RadioButtonComponent } from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
 
-const VotingRequest= ({submitVote,request:{
+const VotingRequest= ({auth,submitVote,request:{
     _id,
     userName,
-    object
+    object,
+    title
    
 },groupId}) => {
     const onChange = e => { 
@@ -20,6 +21,9 @@ const VotingRequest= ({submitVote,request:{
   
         <p>
         <strong>User Name:</strong> {userName}
+        </p>
+        <p>
+        <strong>Title:</strong> {title}
         </p>
         <p>
         <strong>Object:</strong> {object}
@@ -45,7 +49,9 @@ const VotingRequest= ({submitVote,request:{
     VotingRequest.propTypes = {
         request: PropTypes.array.isRequired,
         submitVote: PropTypes.func.isRequired,
-        groupId: PropTypes.string.isRequired
+        groupId: PropTypes.string.isRequired,
+        auth:PropTypes.object.isRequired
+
 
 }
 export default connect(null,{submitVote})(VotingRequest)
