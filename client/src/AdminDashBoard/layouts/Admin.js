@@ -77,9 +77,9 @@ class AdminDashb extends React.Component {
           activeColor={this.state.activeColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
-          <DemoNavbar {...this.props} />
-          <Projects/>
-          <Userslist/>
+        
+          
+         
           <Switch>
             {routes.map((prop, key) => {
               return (

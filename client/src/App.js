@@ -46,7 +46,10 @@ import Addgroup from './components/group/Addgroup';
 import AffectProject from './components/group/AffectProject';
 import Addmembers from './components/group/Addmembers';
 import FileUpload from './components/dashboard/FileUpload';
+import UserPage from './AdminDashBoard/views/User'
+import Userslist from './AdminDashBoard/components/Users/Userslist'
 import User from './user'
+import Projects from './AdminDashBoard/components/Projects/Projects';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -67,6 +70,13 @@ const App=()=> {
 <Switch>
 
   <PrivateRoute exact path="/admin" component={AdminDashb} />
+  <PrivateRoute exact path="/admin/user-page" component={UserPage} />
+  <PrivateRoute exact path="/admin/userList" component={Userslist} />   
+  <PrivateRoute exact path="/admin/projects" component={Projects} />   
+
+
+
+
 
 </Switch>
  </section>

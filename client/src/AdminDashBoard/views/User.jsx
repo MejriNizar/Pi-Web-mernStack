@@ -32,12 +32,29 @@ import {
   Row,
   Col
 } from "reactstrap";
-
+import routes from "../routes.js";
+import Sidebar from "../components/Sidebar/Sidebar.jsx";
 class User extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundColor: "black",
+      activeColor: "info"
+    };
+    this.mainPanel = React.createRef();
+  }
   render() {
     return (
       <>
+      
         <div className="content">
+        <Sidebar
+          {...this.props}
+          routes={routes}
+          bgColor={this.state.backgroundColor}
+          activeColor={this.state.activeColor}
+        />
+           <div className="main-panel" ref={this.mainPanel}>
           <Row>
             <Col md="4">
               <Card className="card-user">
@@ -295,7 +312,7 @@ class User extends React.Component {
               </Card>
             </Col>
           </Row>
-        </div>
+        </div></div>
       </>
     );
   }
