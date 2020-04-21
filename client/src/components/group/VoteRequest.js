@@ -10,10 +10,10 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
     const [formData, setFormData] = useState({
         title:'',
         object:'',
-        
+        dueDate:''
      
     });
-    const {title,object,votingSystem} = formData;
+    const {title,object,votingSystem,dueDate} = formData;
     const votetype = ['Free','Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
     const onChangeVote = e => setFormData({
@@ -42,6 +42,15 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
             rows="4"
             placeholder="suggest a vote ..." value={object} onChange={e => onChange(e)} 
           ></textarea>
+          <div className="form-group">
+                    <h4>* Due Date</h4>
+                    <input type="date" name="dueDate"
+                        value={dueDate}
+                        onChange={
+                            e => onChange(e)
+                        }
+                        required/>
+                </div>
         <div className="form-group">
                         <DropDownListComponent id="dlelement"
                             dataSource={votetype}

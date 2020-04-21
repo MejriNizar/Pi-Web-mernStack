@@ -60,7 +60,11 @@ const GroupSchema = mongoose.Schema({
                 title:{
                     type: String
                 },
-                resultat: {
+                yes: {
+                    type: Number
+                   
+                },
+                no: {
                     type: Number
                    
                 },
@@ -75,6 +79,10 @@ const GroupSchema = mongoose.Schema({
                 },userName:{
                     type:String,
                     unique:true
+                },
+                dueDate:{
+                    type: Date
+                    
                 }
             }]
     

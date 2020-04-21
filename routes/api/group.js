@@ -371,7 +371,7 @@ router.put('/request/:id', auth, async (req, res) => {
         const groupFileds = {};
         groupFileds.request = {};
         groupFileds.request.user = req.user.id;
-        groupFileds.request.userName = user.name;
+        groupFileds.request.userName = req.user.name;
             const group = await Group.findOneAndUpdate({
                 _id: req.params.id
             }, {
@@ -526,7 +526,8 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
           object:req.body.object,
           votingSystem:req.body.votingSystem,
           user:req.user.id,
-          userName:user.name
+          userName:user.name,
+          dueDate: req.body.dueDate
         };
         group.Vote_Request.unshift(newVote);
   
@@ -587,44 +588,26 @@ if(req.body.response==='no'){
 // @access Private
 router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
     try {
-        console.log(req.params.id)
         let nbyes=0;
         let nbno=0;
-        const group = await Group.findOne({_id: req.params.id});
-        group.members.forEach(async (element) => {
-            console.log(element)
-            const user= await User.findOne({_id : element });
-            console.log(user)
-            user.votes.forEach(elementt => {
-                if(elementt.vote_request == req.params.idVR)
-                {
-                    if(elementt.response == 1)
-                    {
-                        nbyes++;
-
-                    }
-                    else{
-                        nbno++;
-
-                    }
-                    
-
-                }
-
-            });
-            return res.status(200).json({nbyes: nbyes, nbno: nbno});
-
-
-            // nbyes= nbyes + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : 1});
-            // nbno= nbno + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : -1});
-        }
-        
-        );
-
-
+        const group = await Group.findOne({"_id": req.params.id , "Vote_Request._id": req.params.idVR});
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
+        
+        
+
+
+                
+            
+           
+        
+        
+      
+        return res.status(200).json({nbyes: nbyes, nbno: nbno});
+
+        
+
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

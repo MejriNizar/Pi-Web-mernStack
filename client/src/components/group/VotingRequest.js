@@ -1,7 +1,7 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import {submitVote,getvoteprog} from '../../actions/group'
+import {submitVote} from '../../actions/group'
 import { RadioButtonComponent } from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
 import {ProgressBarComponent} from '@syncfusion/ej2-react-progressbar';
@@ -13,12 +13,28 @@ const VotingRequest= ({auth,submitVote,request:{
     object,
     title
    
-},groupId,getvoteprog,progress:{progress,loading}}) => {
+},groupId,loading}) => {
 
-    useEffect(()=>{
-        getvoteprog(groupId,_id);
-        
-    }, [loading]);
+    const [displayYes, setDisplayYes] = useState();
+    const [displayNo, setDisplayNo] = useState();
+    const [displayAll, setDisplayAll] = useState(false);
+
+    useEffect(() => {
+        auth.user.votes.map(v=> {
+            if (v.vote_request === _id) {
+                if(v.response === 1)
+                {setDisplayYes(true);
+                setDisplayAll(false);
+                }
+                else if(v.response === -1){setDisplayNo(true);
+                    setDisplayAll(false);
+                }
+                
+            }
+            else {setDisplayAll(true);}
+        } )
+    }, [loading])
+    
     const onChange = e => { 
         console.log(e);   
             submitVote(e,groupId,_id);
@@ -35,47 +51,29 @@ const VotingRequest= ({auth,submitVote,request:{
         <p>
         <strong>Object:</strong> {object}
         </p>
-        {progress && <Fragment><ProgressBarComponent id={_id}
-                        type='Linear'
-                        showProgressValue={true}
-                        labelStyle={{color: '#FFFFFF'}}
-                        trackThickness={24}
-                        progressThickness={24}
-                        minimum={0}
-                        maximum={5}
-                        value={progress.nbyes}
-                        textRender={(args) => {
-                        args.text = 'YES';
-                          }}
-                        animation={{
-                            enable: true,
-                            duration: 2000,
-                            delay: 0,
-                        }}>
-    </ProgressBarComponent><br></br>
-    <ProgressBarComponent id={title}
-                        type='Linear'
-                        showProgressValue={true}
-                        labelStyle={{color: '#FFFFFF'}}
-                        trackThickness={24}
-                        progressThickness={24}
-                        minimum={0}
-                        maximum={5}
-                        value={progress.nbno}
-                        textRender={(args) => {
-                        args.text = 'NO';
-                          }}
-                        animation={{
-                            enable: true,
-                            duration: 2000,
-                            delay: 0,
-                        }}>
-    </ProgressBarComponent></Fragment>}
+        
+            <VoteProgress groupId={groupId} _id={_id} />
         
     
         
           {auth.user.votes && <Fragment> 
-                {auth.user.votes.map(v=> v.vote_request === _id) ? (                   
+                {displayYes && <div>
+                        <RadioButtonComponent label="Yes" name={_id}  value="yes" change={e => onChange(e.value)} checked={true} /> &nbsp;&nbsp;&nbsp;
+                         <RadioButtonComponent label="No" name={_id}  value="no" change={e => onChange(e.value)}/>
+                         <p>----------------------------------------</p>
+                          </div> }
+                {displayNo && <div>
+                    <RadioButtonComponent label="Yes" name={_id}  value="yes" change={ e => onChange(e.value)} />&nbsp;&nbsp;&nbsp;
+                    <RadioButtonComponent label="No" name={_id}  value="no" change={ e => onChange(e.value) } checked={true}/>
+                    <p>----------------------------------------</p>
+                    </div>
+                    }
+                {displayAll && <div>
+                    <RadioButtonComponent label="Yes" name={_id}  value="yes" change={ e => onChange(e.value) }/>&nbsp;&nbsp;&nbsp;
+                    <RadioButtonComponent label="No" name={_id}  value="no" change={ e => onChange(e.value)}/>
+                    <p>----------------------------------------</p>
+                    </div>}  
+                {/* {auth.user.votes.map(v=> v.vote_request === _id) ? (                   
                     <div>
                         {auth.user.votes.map(r=> r.response === 1) ? (
                             <div>
@@ -96,7 +94,7 @@ const VotingRequest= ({auth,submitVote,request:{
                     <RadioButtonComponent label="No" name={_id}  value="no" change={ e => onChange(e.value)}/>
                     <p>----------------------------------------</p>
                     </div>
-                 )}
+                 )} */}
 
 
             </Fragment>}
@@ -112,14 +110,12 @@ const VotingRequest= ({auth,submitVote,request:{
         submitVote: PropTypes.func.isRequired,
         groupId: PropTypes.string.isRequired,
         auth:PropTypes.object.isRequired,
-        getvoteprog: PropTypes.func.isRequired,
 
 
 }
 const mapStateToProps = state => ({
-    auth: state.auth,
-    progress: state.progress
+    auth: state.auth
 
 });
-export default connect(mapStateToProps,{submitVote,getvoteprog})(VotingRequest)
+export default connect(mapStateToProps,{submitVote})(VotingRequest)
 
