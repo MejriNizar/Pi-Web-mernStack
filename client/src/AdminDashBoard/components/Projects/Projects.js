@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import {getallprojects} from '../../../actions/project'
 import {connect} from 'react-redux'
 import Moment from 'react-moment';
+import routes from "../../routes";
+import Sidebar from "../Sidebar/Sidebar";
+
 import {
     Card,
     CardHeader,
@@ -12,11 +15,16 @@ import {
     Row,
     Col
   } from "reactstrap";
-const Projects = ({getallprojects,projects: {projects,loading}}) => {
+const Projects = (props) => {
+    const state = {
+        backgroundColor: "black",
+        activeColor: "info"
+    }
+    const mainPanel = React.createRef();
     useEffect(()=>{
-        getallprojects();
-    }, [getallprojects]);
-    const projectss=projects.map(p => (
+        props.getallprojects();
+    }, [props.getallprojects]);
+    const projectss=props.projects.projects.map(p => (
         <tr key={p._id}>
             <td>{p.name}</td>
     <td className='hide-sm'>{p.description.substring(0, 30)}</td>
@@ -30,6 +38,13 @@ const Projects = ({getallprojects,projects: {projects,loading}}) => {
     ))
     return (
         <div className="content">
+      <Sidebar
+        {...props}
+        routes={routes}
+        bgColor={state.backgroundColor}
+        activeColor={state.activeColor}
+      />
+         <div className="main-panel" ref={mainPanel}>
         <Row>
           <Col md="12">
           <Card className="card-plain">
@@ -56,7 +71,7 @@ const Projects = ({getallprojects,projects: {projects,loading}}) => {
               </Card>
               </Col>
         </Row>
-        </div>
+        </div></div>
     )
 }
 

@@ -560,13 +560,13 @@ if(req.body.response==='yes'){
     response=1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : 1 } }
+    { $inc: { "Vote_Request.$.yes" : 1 } }
  )}
 if(req.body.response==='no'){
     response=-1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : -1 } }
+    { $inc: { "Vote_Request.$.no" : 1 } }
  )}
       await User.findOne({_id:req.user.id}).then(user => {
           
