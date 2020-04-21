@@ -35,22 +35,22 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-diamond",
+    path: "/userList",
+    name: "Users",
+    icon: "nc-icon nc-single-02",
     component: Icons,
     layout: "/admin"
   },
   {
-    path: "/maps",
-    name: "Maps",
+    path: "/projects",
+    name: "Projects",
     icon: "nc-icon nc-pin-3",
     component: Maps,
     layout: "/admin"
   },
   {
-    path: "/notifications",
-    name: "Notifications",
+    path: "/groups",
+    name: "Groups",
     icon: "nc-icon nc-bell-55",
     component: Notifications,
     layout: "/admin"

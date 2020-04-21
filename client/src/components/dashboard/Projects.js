@@ -12,7 +12,7 @@ const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects
     useEffect(()=>{
         getallprojectslimit();
         
-    }, [loading]);
+    }, [getallprojectslimit]);
 
     const projectss=projects.map(p => (
         <tr key={p._id}>

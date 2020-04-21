@@ -69,16 +69,11 @@ const User=()=> {
     <Route exact path="/verify" component={VerifyAccount}/>
     <Route exact path="/profiles" component={Profiles}/>
     <Route exact path="/profile/:id" component={Profile}/>
-    
-
-
-
     <Route exact path="/create-profile" component={createProfile}/>
     <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
     <PrivateRoute exact path="/add-experience" component={AddExpe}/>
     <PrivateRoute exact path="/add-education" component={AddEdu}/>
     <PrivateRoute exact path="/dashboard" component={Dashboard}/>
-  
     <PrivateRoute exact path="/all-project" component={Allproject}/>
     <PrivateRoute exact path="/all-events" component={Allevents}/>
     <PrivateRoute exact path="/add-event" component={Addevent}/>
