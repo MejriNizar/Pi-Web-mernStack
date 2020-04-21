@@ -595,18 +595,18 @@ router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
             return res.status(400).json({msg: 'There is no group'});
         }
         
-        
-
-
-                
+        group.Vote_Request.forEach(element => {
+            if(element._id == req.params.idVR)
+            {
+              nbyes= element.yes;
+              nbno= element.no;
+              console.log(nbyes)
+              console.log(nbno)
+              return  res.status(200).json({nbyes: nbyes, nbno: nbno});
+            }
             
-           
-        
-        
-      
-        return res.status(200).json({nbyes: nbyes, nbno: nbno});
-
-        
+            
+        });
 
     } catch (error) {
         console.error(error.message);

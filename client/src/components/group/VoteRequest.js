@@ -14,7 +14,7 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
      
     });
     const {title,object,votingSystem,dueDate} = formData;
-    const votetype = ['Free','Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
+    const votetype = ['Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
     const onChangeVote = e => setFormData({
         ...formData,

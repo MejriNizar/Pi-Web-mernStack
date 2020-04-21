@@ -7,14 +7,11 @@ import {connect} from 'react-redux'
 import { ProgressBarComponent } from '@syncfusion/ej2-react-progressbar';
 import {getvoteprog} from '../../actions/group'
 
-const VoteProgress= ({auth,_id,groupId,getvoteprog,progress:{progress,loading}}) => {
+const VoteProgress= ({auth,request:{yes,no,_id}}) => {
     
-    useEffect(()=>{
-        getvoteprog(groupId,_id);
-        
-    }, [loading]);
+    
  return (<div>
- {progress && <Fragment>
+ { <Fragment>
 
     <ProgressBarComponent id={_id}
                         type='Linear'
@@ -24,7 +21,7 @@ const VoteProgress= ({auth,_id,groupId,getvoteprog,progress:{progress,loading}})
                         progressThickness={24}
                         minimum={0}
                         maximum={5}
-                        value={progress.nbyes}
+                        value={yes}
                         textRender={(args) => {
                         args.text = 'YES';
                           }}
@@ -42,7 +39,7 @@ const VoteProgress= ({auth,_id,groupId,getvoteprog,progress:{progress,loading}})
                         progressThickness={24}
                         minimum={0}
                         maximum={5}
-                        value={progress.nbno}
+                        value={no}
                         textRender={(args) => {
                         args.text = 'NO';
                           }}
@@ -58,23 +55,15 @@ const VoteProgress= ({auth,_id,groupId,getvoteprog,progress:{progress,loading}})
         </div>) 
     
 }
-
-      
-
-
-VoteProgress.propTypes = {
-       
-        auth:PropTypes.object.isRequired,
-        _id:PropTypes.string.isRequired,
-        groupId: PropTypes.string.isRequired,
-        getvoteprog: PropTypes.func.isRequired,
+VoteProgress.propTypes = {     
+        
+        request: PropTypes.object.isRequired
 
 
 }
 const mapStateToProps = state => ({
     auth: state.auth,
-    progress: state.progress
 
 }); 
-export default connect(mapStateToProps,{getvoteprog})(VoteProgress)
+export default connect(mapStateToProps,{})(VoteProgress)
 
