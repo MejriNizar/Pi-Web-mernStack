@@ -28,6 +28,7 @@ import FixedPlugin from '../components/FixedPlugin/FixedPlugin.jsx';
 
 import routes from "../routes.js";
 import Dashboard from "../views/Dashboard.jsx";
+import Projects from '../components/Projects/Projects'
 
 var ps;
 
@@ -75,7 +76,7 @@ class AdminDashb extends React.Component {
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
-          <Dashboard/>
+          <Projects/>
           <Switch>
             {routes.map((prop, key) => {
               return (
