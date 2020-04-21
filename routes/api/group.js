@@ -161,6 +161,7 @@ console.log(req.files)
     groupFileds.project = req.params.id;
     
     groupFileds.creationDate = Date.now();
+    groupFileds.activated = false;
 
 
     try {
@@ -624,6 +625,32 @@ router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  PUT api/group/validate/id
+// @desc  validate a project
+// @access Private
+router.put('/validate/:id', auth,async(req , res) => {
+    try {
+        const {etat} = req.body;
+        
+        const group = await Group.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            $set: {
+                activated: etat
+            }
+        });
+        if(!group)
+        {
+            return res.status(400).json({msg:'There is no group'});
+        }
+
+        return res.json(group);
+    
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

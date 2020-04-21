@@ -24,7 +24,7 @@ const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth
       </p>
       <div className="profiles">
       {groups.length > 0 ? (
-        groups.map(group => (    
+        groups.map(group =>  (    
  <div className="profile bg-light">
           <img
             className="round-img"
