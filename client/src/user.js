@@ -46,11 +46,10 @@ import Addgroup from './components/group/Addgroup';
 import AffectProject from './components/group/AffectProject';
 import Addmembers from './components/group/Addmembers';
 import FileUpload from './components/dashboard/FileUpload';
-import User from './user'
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
-const App=()=> {
+const User=()=> {
     useEffect(()=> {
        store.dispatch(loadUser());
     },[]);
@@ -60,13 +59,42 @@ const App=()=> {
     <Provider store={store}>
     <Router>
 <Fragment>
-
- <Route exact path="/" component={User}/>
+ <NavbarComp />
+ <Route exact path="/" component={LandingPageHeader}/>
  <section className="container">
      <Alert />
 <Switch>
+    <Route exact path="/register" component={Register}/>
+    <Route exact path="/login" component={Login}/>
+    <Route exact path="/verify" component={VerifyAccount}/>
+    <Route exact path="/profiles" component={Profiles}/>
+    <Route exact path="/profile/:id" component={Profile}/>
+    
 
-  <PrivateRoute exact path="/admin" component={AdminDashb} />
+
+
+    <Route exact path="/create-profile" component={createProfile}/>
+    <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+    <PrivateRoute exact path="/add-experience" component={AddExpe}/>
+    <PrivateRoute exact path="/add-education" component={AddEdu}/>
+    <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+  
+    <PrivateRoute exact path="/all-project" component={Allproject}/>
+    <PrivateRoute exact path="/all-events" component={Allevents}/>
+    <PrivateRoute exact path="/add-event" component={Addevent}/>
+    <PrivateRoute exact path="/event-details/:id" component={EventDetails}/>
+    <PrivateRoute exact path="/add-project" component={Addproject}/>
+    <PrivateRoute exact path="/project-details/:id" component={ProjectDetails}/>
+    <PrivateRoute exact path="/project-edit/:id" component={EditProject}/>
+    <PrivateRoute exact path="/all-group" component={Allgroups}/>
+    <PrivateRoute exact path="/add-group/:id" component={Addgroup}/>
+    <PrivateRoute exact path="/group-details/:id" component={Detailsgroup}/>
+    <PrivateRoute exact path="/group-edit/:id" component={Editgroup}/>
+    <PrivateRoute exact path="/affect-project/:id" component={AffectProject}/>
+    <PrivateRoute exact path="/add-members/:id/:nbS/:Skills" component={Addmembers}/>
+    <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
+    <PrivateRoute exact path="/upload" component={FileUpload}/>
+
 
 </Switch>
  </section>
@@ -76,4 +104,4 @@ const App=()=> {
 )}
    ;
 
-export default App;
+export default User;

@@ -27,6 +27,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import FixedPlugin from '../components/FixedPlugin/FixedPlugin.jsx';
 
 import routes from "../routes.js";
+import Dashboard from "../views/Dashboard.jsx";
 
 var ps;
 
@@ -74,6 +75,7 @@ class AdminDashb extends React.Component {
         />
         <div className="main-panel" ref={this.mainPanel}>
           <DemoNavbar {...this.props} />
+          <Dashboard/>
           <Switch>
             {routes.map((prop, key) => {
               return (
