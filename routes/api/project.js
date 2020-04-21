@@ -124,6 +124,14 @@ router.post('/',[auth,[
     if (typeof requiredSkills !== 'undefined') {
         projectFileds.settings.requiredSkills = requiredSkills.split(',');
     }
+    if(req.user.role === 'admin')
+    {
+        projectFileds.activated = true;
+    }
+    else
+    {
+        projectFileds.activated = false;
+    }
      
      
 try {
@@ -238,6 +246,33 @@ router.delete('/:id', auth,async(req , res) => {
     const projects = await Project.find();
     
     res.json(projects);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+
+// @route  PUT api/project/validate/id
+// @desc  validate a project
+// @access Private
+router.put('/validate/:id', auth,async(req , res) => {
+    try {
+        const {etat} = req.body;
+        
+        const project = await Project.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            $set: {
+                activated: etat
+            }
+        });
+        if(!project)
+        {
+            return res.status(400).json({msg:'There is no project'});
+        }
+
+        return res.json(project);
+    
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

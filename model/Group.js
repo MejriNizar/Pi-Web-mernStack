@@ -31,6 +31,10 @@ const GroupSchema = mongoose.Schema({
     creationDate: {
         type: Date
     },
+    activated:{
+        type: Boolean,
+        default: false,
+    },
     request: [
         {
             etat: {

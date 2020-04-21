@@ -383,5 +383,29 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
     }
 }
 
+export const ValidateGroup=(id,value)=>async dispatch =>  {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+       const data ={etat:value}
+       
+        const res = await axios.put(`/api/group/validate/${id}`,data,config);
+        console.log('group valide');
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+    } catch (error) {
+
+         dispatch({
+          type: GROUP_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+
 
 
