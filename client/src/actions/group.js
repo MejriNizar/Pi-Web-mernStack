@@ -75,7 +75,7 @@ export const getvoteprog = (id,idVR) => async dispatch =>{
         console.log("nbno",res.data.nbno)
         dispatch({
             type: GET_VOTE_PROG,
-            payload: res.data
+            payload: res.data 
         });
         
     } catch (error) {
