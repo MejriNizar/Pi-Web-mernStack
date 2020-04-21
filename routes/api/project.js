@@ -271,7 +271,7 @@ router.put('/validate/:id', auth,async(req , res) => {
             return res.status(400).json({msg:'There is no project'});
         }
 
-        return res.json(project);
+        return res.json(Project.find());
     
     } catch (error) {
         console.error(error.message);

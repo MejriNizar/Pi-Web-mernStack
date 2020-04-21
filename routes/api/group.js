@@ -50,7 +50,7 @@ try {
 // @access Private
 router.get('/all', auth, async (req, res) => {
     try {
-        const groups = await Group.find().populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']);
+        const groups = await Group.find().populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']).populate('groupOwner',['name']);
 
         res.json(groups);
     } catch (error) {
@@ -632,7 +632,7 @@ router.put('/validate/:id', auth,async(req , res) => {
             return res.status(400).json({msg:'There is no group'});
         }
 
-        return res.json(group);
+        return res.json(Group.find());
     
     } catch (error) {
         console.error(error.message);
