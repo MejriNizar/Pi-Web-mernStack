@@ -28,9 +28,13 @@ const Groups = (props) => {
 
 
  
-    const groupss=props.groups.groups.map(p => (
+    const groupss=props.group.groups.map(p => (
         <tr key={p._id}>
-            <td>{p.logo}</td>
+            <td><img
+            className="round-img"
+            src={p.logo} 
+            alt=""
+          /></td>
             <td>{p.name}</td>
     <td className='hide-sm'>{p.slogan.substring(0, 30)}</td>
     <td>{p.groupOwner.name}</td>
@@ -94,6 +98,6 @@ Groups.propTypes = {
 }
 const mapStateToProps = state => ({
     auth: state.auth,
-    groups: state.groups
+    group: state.group
 });
 export default connect(mapStateToProps,{getallgroups,ValidateGroup})(Groups)
