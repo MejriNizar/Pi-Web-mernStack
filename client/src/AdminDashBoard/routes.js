@@ -26,6 +26,7 @@ import UserPage from "./views/User.jsx";
 import UpgradeToPro from "./views/Upgrade.jsx";
 import userList from '../AdminDashBoard/components/Users/Userslist'
 import Projects from "./components/Projects/Projects.js";
+import Groups from "../components/dashboard/Groups.js";
 
 
 var routes = [
@@ -51,10 +52,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/groups",
+    path: "/Groups",
     name: "Groups",
     icon: "nc-icon nc-bell-55",
-    component: Notifications,
+    component: Groups,
     layout: "/admin"
   },
   {

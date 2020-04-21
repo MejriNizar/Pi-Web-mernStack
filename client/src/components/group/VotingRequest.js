@@ -12,49 +12,64 @@ const VotingRequest= ({auth,submitVote,request,groupId,loading}) => {
 
     const [displayYes, setDisplayYes] = useState();
     const [displayNo, setDisplayNo] = useState();
-    const [displayAll, setDisplayAll] = useState(false);
+    const [displayAll, setDisplayAll] = useState();
+    const [disabled, setdisabled] = useState();
 
     useEffect(() => {
         auth.user.votes.map(v=> {
-            if (v.vote_request === request._id) {
+            if(v.vote_request !== request._id){
+                setDisplayAll(true);
+            }else 
+            if  (v.response === 1) {
                 setDisplayAll(false);
-                if(v.response === 1)
-                {setDisplayYes(true);
-                setDisplayAll(false);
-                }
-                else if(v.response === -1){setDisplayNo(true);
+                setDisplayYes(true);
+                setdisabled(true);
+            }
+                else if (v.response === -1){
+                    setDisplayNo(true);
                     setDisplayAll(false);
+                    setdisabled(true);
                 }
                 
-            }
-            else {setDisplayAll(true);}
-        } )
+                
+            } 
+            
+        )
         const today = new Date(Date.now());        
         const d1=new Date(request.dueDate);
         const d2=new Date(today);
-        const time_diff = d1.getTime() - d2.getTime();
-        const diffDays = time_diff / (1000 * 3600 * 24);
+        const time_diff = d1 - d2;
+        const diffDays = Math.round(time_diff / (1000 * 3600 * 24));
         console.log(d1)
         console.log(d2)
-        console.log(diffDays)
-        if(diffDays < 2){
+        console.log(diffDays )
+        const dateDay= diffDays + 1;
+        if(dateDay < 2){
             document.getElementById(request._id).getElementsByTagName("P")[0].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[1].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[2].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[3].style.color = "red";
+            document.getElementById(request._id).getElementsByTagName("P")[4].style.color = "red";
+            document.getElementById(request._id).getElementsByTagName("P")[4].innerText = "you still have " + dateDay +" day(s) to vote ."
         }
         else{
             document.getElementById(request._id).getElementsByTagName("P")[0].style.color = "green";
             document.getElementById(request._id).getElementsByTagName("P")[1].style.color = "green";
             document.getElementById(request._id).getElementsByTagName("P")[2].style.color = "green";
             document.getElementById(request._id).getElementsByTagName("P")[3].style.color = "green";
+            
            
+        }
+        if(dateDay === 0)
+        {
+            setdisabled(true);
         }
     }, [loading])
     
     const onChange = e => { 
         console.log(e);   
             submitVote(e,groupId,request._id);
+            setdisabled(true);
     }
     
  return (<div id={request._id}>
@@ -79,14 +94,20 @@ const VotingRequest= ({auth,submitVote,request,groupId,loading}) => {
         
           {auth.user.votes && <Fragment> 
                 {displayYes && <div>
-                        <RadioButtonComponent label="Yes" name={request._id}  value="yes" change={e => onChange(e.value)} checked={true} /> &nbsp;&nbsp;&nbsp;
-                         <RadioButtonComponent label="No" name={request._id}  value="no" change={e => onChange(e.value)}/>
-                         <p>----------------------------------------</p>
+                        <RadioButtonComponent label="Yes" name={request._id}  value="yes" change={e => onChange(e.value)} checked={true} disabled={disabled}/> &nbsp;&nbsp;&nbsp;
+                         <RadioButtonComponent label="No" name={request._id}  value="no" change={e => onChange(e.value)} disabled={disabled}/>
+                         <p>----------------------------------------------------------------</p>
                           </div> }
-                {displayNo && <div>
-                    <RadioButtonComponent label="Yes" name={request._id}  value="yes" change={ e => onChange(e.value)} />&nbsp;&nbsp;&nbsp;
-                    <RadioButtonComponent label="No" name={request._id}  value="no" change={ e => onChange(e.value) } checked={true}/>
-                    <p>----------------------------------------</p>
+                  {displayNo && <div>
+                    <RadioButtonComponent label="Yes" name={request._id}  value="yes" change={ e => onChange(e.value)} disabled={disabled}/>&nbsp;&nbsp;&nbsp;
+                    <RadioButtonComponent label="No" name={request._id}  value="no" change={ e => onChange(e.value) } checked={true} disabled={disabled}/>
+                    <p>----------------------------------------------------------------</p>
+                    </div>
+                    }
+                    {displayAll && <div>
+                    <RadioButtonComponent label="Yes" name={request._id}  value="yes" change={ e => onChange(e.value)} disabled={disabled}/>&nbsp;&nbsp;&nbsp;
+                    <RadioButtonComponent label="No" name={request._id}  value="no" change={ e => onChange(e.value) }  disabled={disabled}/>
+                    <p>----------------------------------------------------------------</p>
                     </div>
                     }
                 
