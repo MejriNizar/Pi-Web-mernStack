@@ -48,9 +48,9 @@ const Userslist = (props) => {
            <Col md="12">
               <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Userslist</CardTitle>
+                  <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
-                    Here is a subtitle for this table
+                    list of all users
                   </p>
                 </CardHeader>
                 <CardBody>
@@ -62,11 +62,7 @@ const Userslist = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>{userss}</td>
-                        
-                      </tr>
-                      
+                        {userss}
                     </tbody>
                   </Table>
                 </CardBody>

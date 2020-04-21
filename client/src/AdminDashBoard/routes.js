@@ -52,7 +52,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/groups",
+    path: "/Groups",
     name: "Groups",
     icon: "nc-icon nc-bell-55",
     component: Groups,
