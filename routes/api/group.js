@@ -559,13 +559,13 @@ if(req.body.response==='yes'){
     response=1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : 1 } }
+    { $inc: { "Vote_Request.$.yes" : 1 } }
  )}
 if(req.body.response==='no'){
     response=-1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : -1 } }
+    { $inc: { "Vote_Request.$.no" : 1 } }
  )}
       await User.findOne({_id:req.user.id}).then(user => {
           
@@ -593,9 +593,10 @@ router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
         const group = await Group.findOne({_id: req.params.id});
         group.members.forEach(async (element) => {
             console.log(element)
+           
             const user= await User.findOne({_id : element });
             console.log(user)
-            user.votes.forEach(elementt => {
+            user.votes.forEach((elementt,nbyes,nbno) => {
                 if(elementt.vote_request == req.params.idVR)
                 {
                     if(elementt.response == 1)

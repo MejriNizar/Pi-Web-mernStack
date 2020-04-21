@@ -60,7 +60,11 @@ const GroupSchema = mongoose.Schema({
                 title:{
                     type: String
                 },
-                resultat: {
+                yes: {
+                    type: Number
+                   
+                },
+                no: {
                     type: Number
                    
                 },
