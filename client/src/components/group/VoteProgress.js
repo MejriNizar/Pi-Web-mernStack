@@ -1,26 +1,24 @@
 import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import Moment from 'react-moment'
-import {submitVote} from '../../actions/group'
-import { RadioButtonComponent } from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
-import { ProgressBarComponent } from '@syncfusion/ej2-react-progressbar';
-import {getvoteprog} from '../../actions/group'
-
-const VoteProgress= ({auth,request:{yes,no,_id}}) => {
+import ProgressBar from 'react-bootstrap/ProgressBar';
+const VoteProgress= ({auth,request:{yes,no,_id},project}) => {
     
     
  return (<div>
  { <Fragment>
 
-    <ProgressBarComponent id={_id}
+
+    <div>YES : <ProgressBar now={yes} label={`${yes}`}  min={0} max={project}  /><br></br></div>
+
+    <div>NO : <ProgressBar now={no} label={`${no}`}  min={0} max={project}  /></div>
+ {/* <ProgressBarComponent id={_id}
                         type='Linear'
                         showProgressValue={true}
                         labelStyle={{color: '#FFFFFF'}}
-                        trackThickness={24}
-                        progressThickness={24}
+                        
                         minimum={0}
-                        maximum={5}
+                        maximum={project}
                         value={yes}
                         textRender={(args) => {
                         args.text = 'YES';
@@ -31,14 +29,13 @@ const VoteProgress= ({auth,request:{yes,no,_id}}) => {
                             delay: 0,
                         }}>
     </ProgressBarComponent><br></br>
-    <ProgressBarComponent id={_id+"ne"}
+   <ProgressBarComponent id={_id+"ne"}
                         type='Linear'
                         showProgressValue={true}
                         labelStyle={{color: '#FFFFFF'}}
-                        trackThickness={24}
-                        progressThickness={24}
+                        
                         minimum={0}
-                        maximum={5}
+                        maximum={project}
                         value={no}
                         textRender={(args) => {
                         args.text = 'NO';
@@ -48,7 +45,7 @@ const VoteProgress= ({auth,request:{yes,no,_id}}) => {
                             duration: 2000,
                             delay: 0,
                         }}>
-    </ProgressBarComponent>
+    </ProgressBarComponent> */}
 
  </Fragment>}
  
@@ -57,7 +54,9 @@ const VoteProgress= ({auth,request:{yes,no,_id}}) => {
 }
 VoteProgress.propTypes = {     
         
-        request: PropTypes.object.isRequired
+        request: PropTypes.object.isRequired,
+        project: PropTypes.number.isRequired
+
 
 
 }

@@ -83,6 +83,9 @@ const GroupSchema = mongoose.Schema({
                 dueDate:{
                     type: Date
                     
+                },
+                nbVote:{
+                    type: Number
                 }
             }]
     
