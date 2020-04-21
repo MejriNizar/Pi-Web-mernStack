@@ -31,6 +31,10 @@ const GroupSchema = mongoose.Schema({
     creationDate: {
         type: Date
     },
+    activated:{
+        type: Boolean,
+        default: false,
+    },
     request: [
         {
             etat: {
@@ -56,7 +60,11 @@ const GroupSchema = mongoose.Schema({
                 title:{
                     type: String
                 },
-                resultat: {
+                yes: {
+                    type: Number
+                   
+                },
+                no: {
                     type: Number
                    
                 },
@@ -71,6 +79,10 @@ const GroupSchema = mongoose.Schema({
                 },userName:{
                     type:String,
                     unique:true
+                },
+                dueDate:{
+                    type: Date
+                    
                 }
             }]
     

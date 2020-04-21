@@ -28,6 +28,7 @@ import FixedPlugin from '../components/FixedPlugin/FixedPlugin.jsx';
 
 import routes from "../routes.js";
 import Dashboard from "../views/Dashboard.jsx";
+import Projects from '../components/Projects/Projects'
 
 import Userslist from '../components/Users/Userslist.js';
 
@@ -76,8 +77,9 @@ class AdminDashb extends React.Component {
           activeColor={this.state.activeColor}
         />
         <div className="main-panel" ref={this.mainPanel}>
-          <DemoNavbar {...this.props} />
-          <Userslist/>
+        
+          
+         
           <Switch>
             {routes.map((prop, key) => {
               return (

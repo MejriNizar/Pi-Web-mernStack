@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Spinner from '../../../components/layout/spinner'
 import {loadUsers} from '../../../actions/auth';
+import routes from "../../routes";
+import Sidebar from "../Sidebar/Sidebar";
+
 import {
     Card,
     CardHeader,
@@ -13,26 +16,41 @@ import {
     Col
   } from "reactstrap";
 
-const Userslist = ({loadUsers,users:{users,loading}}) => {
+const Userslist = (props) => {
+
     useEffect(()=>{
-        loadUsers();
-    },[loadUsers])
-    
-    const userss=users.map(p => (
+        props.loadUsers();
+    },[props.loadUsers])
+  
+      const state = {
+        backgroundColor: "black",
+        activeColor: "info"
+    }
+    const mainPanel = React.createRef();
+    const userss=props.users.users.map(p => (
         <tr key={p._id}>
             <td>{p.name}</td>
             <td>{p.email}</td>
             </tr>
             ))
-    return <Fragment>
-        {loading ? <Spinner /> : <Fragment> 
+    return (
+      <div className="content">
+      <Sidebar
+        {...props}
+        routes={routes}
+        bgColor={state.backgroundColor}
+        activeColor={state.activeColor}
+      />
+         <div className="main-panel" ref={mainPanel}>
+    <Fragment>
+        {props. loading ? <Spinner /> : <Fragment> 
            <Row>
            <Col md="12">
               <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Userslist</CardTitle>
+                  <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
-                    Here is a subtitle for this table
+                    list of all users
                   </p>
                 </CardHeader>
                 <CardBody>
@@ -44,11 +62,7 @@ const Userslist = ({loadUsers,users:{users,loading}}) => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>{userss}</td>
-                        
-                      </tr>
-                      
+                        {userss}
                     </tbody>
                   </Table>
                 </CardBody>
@@ -59,6 +73,7 @@ const Userslist = ({loadUsers,users:{users,loading}}) => {
      
             </Fragment>}
     </Fragment>
+    </div></div>)
 }
 
 Userslist.propTypes = {
@@ -68,4 +83,4 @@ Userslist.propTypes = {
 const mapStateToProps = state => ({
     users: state.users
 })
-export default connect(mapStateToProps,loadUsers) (Userslist)
+export default connect(mapStateToProps,{loadUsers}) (Userslist)

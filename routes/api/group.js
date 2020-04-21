@@ -161,6 +161,7 @@ console.log(req.files)
     groupFileds.project = req.params.id;
     
     groupFileds.creationDate = Date.now();
+    groupFileds.activated = false;
 
 
     try {
@@ -370,7 +371,7 @@ router.put('/request/:id', auth, async (req, res) => {
         const groupFileds = {};
         groupFileds.request = {};
         groupFileds.request.user = req.user.id;
-        groupFileds.request.userName = user.name;
+        groupFileds.request.userName = req.user.name;
             const group = await Group.findOneAndUpdate({
                 _id: req.params.id
             }, {
@@ -525,7 +526,8 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
           object:req.body.object,
           votingSystem:req.body.votingSystem,
           user:req.user.id,
-          userName:user.name
+          userName:user.name,
+          dueDate: req.body.dueDate
         };
         group.Vote_Request.unshift(newVote);
   
@@ -558,13 +560,13 @@ if(req.body.response==='yes'){
     response=1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : 1 } }
+    { $inc: { "Vote_Request.$.yes" : 1 } }
  )}
 if(req.body.response==='no'){
     response=-1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.resultat" : -1 } }
+    { $inc: { "Vote_Request.$.no" : 1 } }
  )}
       await User.findOne({_id:req.user.id}).then(user => {
           
@@ -586,44 +588,86 @@ if(req.body.response==='no'){
 // @access Private
 router.get('/voteProg/:id/:idVR', auth, async (req, res) => {
     try {
-        console.log(req.params.id)
         let nbyes=0;
         let nbno=0;
-        const group = await Group.findOne({_id: req.params.id});
-        group.members.forEach(async (element) => {
-            console.log(element)
-            const user= await User.findOne({_id : element });
-            console.log(user)
-            user.votes.forEach(elementt => {
-                if(elementt.vote_request == req.params.idVR)
-                {
-                    if(elementt.response == 1)
-                    {
-                        nbyes++;
-
-                    }
-                    else{
-                        nbno++;
-
-                    }
-                    
-
-                }
-
-            });
-            return res.status(200).json({nbyes: nbyes, nbno: nbno});
-
-
-            // nbyes= nbyes + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : 1});
-            // nbno= nbno + await User.countDocuments({"_id" : element , "votes.$.vote_request" : req.params.idVR, "votes.$.response" : -1});
-        }
-        
-        );
-
-
+        const group = await Group.findOne({"_id": req.params.id , "Vote_Request._id": req.params.idVR});
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
+        
+        group.Vote_Request.forEach(element => {
+            if(element._id == req.params.idVR)
+            {
+              nbyes= element.yes;
+              nbno= element.no;
+              console.log(nbyes)
+              console.log(nbno)
+              return  res.status(200).json({nbyes: nbyes, nbno: nbno});
+            }
+            
+            
+        });
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  PUT api/group/validate/id
+// @desc  validate a project
+// @access Private
+router.put('/validate/:id', auth,async(req , res) => {
+    try {
+        const {etat} = req.body;
+        
+        const group = await Group.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            $set: {
+                activated: etat
+            }
+        });
+        if(!group)
+        {
+            return res.status(400).json({msg:'There is no group'});
+        }
+
+        return res.json(group);
+    
+=======
+
+>>>>>>> 8455ad47826d7da767ad90d0991d4871493510d9
+=======
+
+>>>>>>> 8455ad47826d7da767ad90d0991d4871493510d9
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  PUT api/group/validate/id
+// @desc  validate a project
+// @access Private
+router.put('/validate/:id', auth,async(req , res) => {
+    try {
+        const {etat} = req.body;
+        
+        const group = await Group.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            $set: {
+                activated: etat
+            }
+        });
+        if(!group)
+        {
+            return res.status(400).json({msg:'There is no group'});
+        }
+
+        return res.json(group);
+    
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');

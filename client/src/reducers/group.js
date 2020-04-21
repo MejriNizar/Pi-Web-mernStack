@@ -1,7 +1,7 @@
 import { GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS,GET_VOTE_PROG } from "../actions/types";
 
 const initialState = {
-    progress: null,
+    progress: [],
     group: null,
     groups:[],
     repos:[],

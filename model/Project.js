@@ -35,6 +35,10 @@ const ProjectSchema = mongoose.Schema({
     creationDate: {
         type: Date
     },
+    activated:{
+        type: Boolean,
+        default: false,
+    },
     settings: 
         {
             numberOfStudents: {

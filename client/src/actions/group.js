@@ -75,7 +75,7 @@ export const getvoteprog = (id,idVR) => async dispatch =>{
         console.log("nbno",res.data.nbno)
         dispatch({
             type: GET_VOTE_PROG,
-            payload: res.data
+            payload: res.data 
         });
         
     } catch (error) {
@@ -378,6 +378,30 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
 
          dispatch({
           type: GET_GROUP,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+
+export const ValidateGroup=(id,value)=>async dispatch =>  {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+       const data ={etat:value}
+       
+        const res = await axios.put(`/api/group/validate/${id}`,data,config);
+        console.log('group valide');
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+    } catch (error) {
+
+         dispatch({
+          type: GROUP_ERROR,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }

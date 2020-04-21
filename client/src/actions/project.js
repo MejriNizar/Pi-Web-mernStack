@@ -177,6 +177,30 @@ export const affectproject = (idg,idp) => async dispatch => {
   
   }
 
+  export const ValidateProject=(id,value)=>async dispatch =>  {
+    try {
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+       const data ={etat:value}
+       
+        const res = await axios.put(`/api/project/validate/${id}`,data,config);
+        console.log('project valide');
+        dispatch({
+            type: GET_PROJECT,
+            payload: res.data
+        });
+    } catch (error) {
+
+         dispatch({
+          type: PROJECT_ERROR,
+          payload: {msg:error.response.statusText, status: error.response.status }
+      });
+    }
+}
+
 
 
 
