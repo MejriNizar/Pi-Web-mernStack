@@ -78,7 +78,7 @@ router.get('/alllimit', auth, async (req, res) => {
 router.get('/details/:id', auth, async (req, res) => {
     try {
         console.log(req.params.id)
-        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name']);
+        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']);
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
@@ -520,14 +520,17 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
 
         
        const user=await User.findOne({_id:req.user.id})
-      await Group.findOne({_id: req.params.id}).then(group => {
+      await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).then(group => {
         const newVote = {
             title:req.body.title,
           object:req.body.object,
           votingSystem:req.body.votingSystem,
           user:req.user.id,
           userName:user.name,
-          dueDate: req.body.dueDate
+          dueDate: req.body.dueDate,
+          nbVote:0,
+          yes:0,
+          no:0
         };
         group.Vote_Request.unshift(newVote);
   
@@ -551,7 +554,7 @@ router.post('/vote/:idG/:idr',auth,async(req,res)=>{
             console.log(req.params.idr)
             if(element.vote_request == req.params.idr)
             {
-                res.status(500).send('already voted');
+               return res.status(500).send('already voted');
             }
             
         });
@@ -560,13 +563,13 @@ if(req.body.response==='yes'){
     response=1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.yes" : 1 } }
+    { $inc: { "Vote_Request.$.yes" : 1 , "Vote_Request.$.nbVote" : 1 } }
  )}
 if(req.body.response==='no'){
     response=-1
     await Group.updateOne(
     { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
-    { $inc: { "Vote_Request.$.no" : 1 } }
+    { $inc: { "Vote_Request.$.no" : 1 , "Vote_Request.$.nbVote" : 1 } }
  )}
       await User.findOne({_id:req.user.id}).then(user => {
           
@@ -575,9 +578,9 @@ if(req.body.response==='no'){
                     response:response
                   };
                   user.votes.unshift(newVote);
-          user.save().then(user => res.json(user))
+          user.save();
       })
-
+      return  res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']));
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -641,33 +644,33 @@ router.put('/validate/:id', auth,async(req , res) => {
         res.status(500).send('server error');
     }
 });
-// @route  PUT api/group/validate/id
-// @desc  validate a project
-// @access Private
-router.put('/validate/:id', auth,async(req , res) => {
-    try {
-        const {etat} = req.body;
+// // @route  PUT api/group/validate/id
+// // @desc  validate a project
+// // @access Private
+// router.put('/validate/:id', auth,async(req , res) => {
+//     try {
+//         const {etat} = req.body;
         
 
         
-        group.Vote_Request.forEach(element => {
-            if(element._id == req.params.idVR)
-            {
-              nbyes= element.yes;
-              nbno= element.no;
-              console.log(nbyes)
-              console.log(nbno)
-              return  res.status(200).json({nbyes: nbyes, nbno: nbno});
-            }
+//         group.Vote_Request.forEach(element => {
+//             if(element._id == req.params.idVR)
+//             {
+//               nbyes= element.yes;
+//               nbno= element.no;
+//               console.log(nbyes)
+//               console.log(nbno)
+//               return  res.status(200).json({nbyes: nbyes, nbno: nbno});
+//             }
             
             
-        });
+//         });
 
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('server error');
-    }
-});
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send('server error');
+//     }
+// });
 // @route  PUT api/group/validate/id
 // @desc  validate a project
 // @access Private
@@ -689,9 +692,9 @@ router.put('/validate/:id', auth,async(req , res) => {
         }
 
 
-        return res.json(group);
+        //return res.json(group);
 
-        return res.json(Group.find());
+        return res.json(await Group.find());
 
     
     } catch (error) {

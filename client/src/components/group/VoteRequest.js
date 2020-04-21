@@ -6,7 +6,7 @@ import {SendVoteRequest} from '../../actions/group'
 import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns'
 
 
-const VoteRequest= ({SendVoteRequest,groupId}) =>{
+const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
     const [formData, setFormData] = useState({
         title:'',
         object:'',
@@ -51,14 +51,15 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
                         }
                         required/>
                 </div>
-        <div className="form-group">
+                {project.votingSystem === 'Free' ? (<div className="form-group">
                         <DropDownListComponent id="dlelement"
                             dataSource={votetype}
                             placeholder="Select a voting system"
                             change={
                                 e => onChangeVote(e.value)
                             }/>
-                    </div>
+                    </div>) : (<div> <p>Voting System : &nbsp; {project.votingSystem}</p></div>)}
+        
         
         <input type="submit" className="btn btn-primary my-1" />
         
@@ -72,6 +73,7 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
     VoteRequest.propTypes = {
         SendVoteRequest: PropTypes.func.isRequired,
         groupId: PropTypes.object.isRequired,
+        project: PropTypes.array.isRequired
 }
 
 export default connect(null,{SendVoteRequest})((VoteRequest))

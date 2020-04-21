@@ -339,21 +339,18 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
         }
         const res = await axios.post(`/api/group/vote/${idG}/${idR}`,data,config);
         dispatch({
-          type: GET_GROUP,
+          type: GET_GROUP_DETAILS,
           payload: res.data
       });
       dispatch(setAlert('Vote send'));
   
         
     } catch (error) {
-      const errors = error.response.data.errors;
-      if(errors) {
-          errors.forEach(error => dispatch(setAlert(error.msg,'danger')));
-      }
-      dispatch({
-          type: GROUP_ERROR,
-          payload: {msg:error.response.statusText, status: error.response.status }
-      });
+      
+    //   dispatch({
+    //       type: GROUP_ERROR,
+    //       payload: {msg:error.response.statusText, status: error.response.status }
+    //   });
     }
   
   
@@ -370,7 +367,7 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
         const res = await axios.post(`/api/group/voteReq/${idG}`,FormData,config);
         console.log('req accep');
         dispatch({
-            type: GET_GROUP,
+            type: GET_GROUP_DETAILS,
             payload: res.data
         });
         dispatch(setAlert('Request Accepted', 'success'));

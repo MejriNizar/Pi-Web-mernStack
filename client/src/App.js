@@ -50,6 +50,7 @@ import UserPage from './AdminDashBoard/views/User'
 import Userslist from './AdminDashBoard/components/Users/Userslist'
 import User from './user'
 import Projects from './AdminDashBoard/components/Projects/Projects';
+import Groups from './AdminDashBoard/components/Group/Groups';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -72,7 +73,9 @@ const App=()=> {
   <PrivateRoute exact path="/admin" component={AdminDashb} />
   <PrivateRoute exact path="/admin/user-page" component={UserPage} />
   <PrivateRoute exact path="/admin/userList" component={Userslist} />   
-  <PrivateRoute exact path="/admin/projects" component={Projects} />   
+  <PrivateRoute exact path="/admin/projects" component={Projects} />
+  <PrivateRoute exact path="/admin/groups" component={Groups} />   
+   
 
 
 

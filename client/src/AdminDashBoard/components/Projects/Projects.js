@@ -33,10 +33,10 @@ const Projects = (props) => {
         <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
         
     </td>
-    {p.activated === true ?(<td><SwitchComponent checked={true} change={e => 
+    {p.activated === true ?(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={true}   change={e => 
                             { props.ValidateProject(p._id,e.checked);
                               
-                            }} /></td>):(<td><SwitchComponent checked={false} change={e => 
+                            }} /></td>):(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={false}  change={e => 
                             { props.ValidateProject(p._id,e.checked);
                             }} /></td>)} 
     </tr>
