@@ -33,6 +33,11 @@ export const GET_STUDENTS='GET_STUDENTS';
 export const GET_STUDENT='GET_STUDENT';
 export const GET_PROFILES='GET_PROFILES';
 export const GET_REPOS='GET_REPOS';
+export const GET_POST='GET_POST';
+export const POST_ERROR='POST_ERROR';
+export const GET_POSTS='GET_POSTS';
+
+
 export const GET_VOTE_PROG='GET_VOTE_PROG';
 
 

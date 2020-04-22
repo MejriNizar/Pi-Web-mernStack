@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import {connect} from 'react-redux'
+
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import NavbarComp from './components/layout/Navbar';
 import LandingPageHeader from './components/layout/Landing';
@@ -8,7 +8,7 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
 import Alert from './components/layout/Alert';
-import PropTypes from 'prop-types'
+
 
 // redux
 import {Provider} from 'react-redux';
@@ -21,7 +21,6 @@ import '../src/assets/css/paper-dashboard.css'
 import '../src/assets/css/paper-dashboard.css.map'
 import '../src/assets/css/paper-dashboard.min.css'
 
-import DashboardAD from './AdminDashBoard/views/Dashboard';
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
 import EditProfile from './components/profile-form/EditProfile';
@@ -34,7 +33,6 @@ import Addevent from './components/event/Addevent';
 import Profiles from './components/Profiles/Profiles'
 import Profile from './components/Profiles/profiles/Profile'
 
-import AdminDashb from './AdminDashBoard/layouts/Admin'
 import Addproject from './components/project/Addproject';
 import ProjectDetails from './components/project/ProjectDetails';
 import EventDetails from './components/event/EventDetails';
@@ -46,6 +44,9 @@ import Addgroup from './components/group/Addgroup';
 import AffectProject from './components/group/AffectProject';
 import Addmembers from './components/group/Addmembers';
 import FileUpload from './components/dashboard/FileUpload';
+import Post from './components/group/Post/Post';
+
+
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -89,6 +90,8 @@ const User=()=> {
     <PrivateRoute exact path="/add-members/:id/:nbS/:Skills" component={Addmembers}/>
     <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
     <PrivateRoute exact path="/upload" component={FileUpload}/>
+    <PrivateRoute exact path="/posts" component={Post}/>
+
 
 
 </Switch>

@@ -10,6 +10,7 @@ import GroupAbout from './GroupAbout';
 import { Link } from 'react-router-dom';
 import VotingRequest from './VotingRequest';
 import VoteRequest from './VoteRequest';
+import Post from './Post/Post';
 
 
 const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) => {
@@ -23,7 +24,7 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
 <div className="profile-grid my-1">
        <GroupTop group={group} />
        <GroupAbout group={group} />
-
+       <Post/>
        <div className="profile-exp bg-white p-2">
            <h2 className="text-primary"> Requests</h2>
            {group.request.length > 0 ? (
