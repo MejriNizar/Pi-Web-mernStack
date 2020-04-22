@@ -47,14 +47,14 @@ var routes = [
   {
     path: "/projects",
     name: "Projects",
-    icon: "nc-icon nc-pin-3",
+    icon: "nc-icon nc-bullet-list-67",
     component: Projects,
     layout: "/admin"
   },
   {
     path: "/groups",
     name: "Groups",
-    icon: "nc-icon nc-bell-55",
+    icon: "nc-icon nc-bullet-list-67",
     component: groups,
     layout: "/admin"
   },
@@ -64,28 +64,28 @@ var routes = [
     icon: "nc-icon nc-single-02",
     component: UserPage,
     layout: "/admin"
-  },
-  {
-    path: "/tables",
-    name: "Table List",
-    icon: "nc-icon nc-tile-56",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-caps-small",
-    component: Typography,
-    layout: "/admin"
-  },
-  {
-    pro: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "nc-icon nc-spaceship",
-    component: UpgradeToPro,
-    layout: "/admin"
   }
+  // {
+  //   path: "/tables",
+  //   name: "Table List",
+  //   icon: "nc-icon nc-tile-56",
+  //   component: TableList,
+  //   layout: "/admin"
+  // },
+  // {
+  //   path: "/typography",
+  //   name: "Typography",
+  //   icon: "nc-icon nc-caps-small",
+  //   component: Typography,
+  //   layout: "/admin"
+  // },
+  // {
+  //   pro: true,
+  //   path: "/upgrade",
+  //   name: "Upgrade to PRO",
+  //   icon: "nc-icon nc-spaceship",
+  //   component: UpgradeToPro,
+  //   layout: "/admin"
+  // }
 ];
 export default routes;

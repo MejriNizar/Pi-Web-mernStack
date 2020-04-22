@@ -28,11 +28,15 @@ const Projects = (props) => {
         <tr key={p._id}>
             <td>{p.name}</td>
     <td className='hide-sm'>{p.description.substring(0, 30)}</td>
+    <td>{p.projectOwner.name}</td>
     <td>
         <Moment format='YYYY/MM/DD'>{p.startDate}</Moment> - 
         <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
         
     </td>
+    <td>{p.group.map(g=> <ul>
+      <li>{g.name}</li>
+    </ul>)}</td>
     {p.activated === true ?(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={true}   change={e => 
                             { props.ValidateProject(p._id,e.checked);
                               
@@ -53,6 +57,8 @@ const Projects = (props) => {
         <Row>
           <Col md="12">
           <Card className="card-plain">
+          <br/><br/><br/><br/><br/>
+
                 <CardHeader>
                   <CardTitle tag="h4">Projects</CardTitle>
                   <p className="card-category">
@@ -65,7 +71,9 @@ const Projects = (props) => {
                       <tr>
                       <th>Name</th>
                        <th>Description</th>
+                       <th>Project owner</th>
                        <th>Duration</th>
+                       <th>Groups</th>
                        <th>Action</th>
                       </tr>
                     </thead>

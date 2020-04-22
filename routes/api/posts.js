@@ -109,7 +109,7 @@ router.put('/like/:id',auth,async(req,res)=>{
         }
         post.likes.unshift({user: req.user.id});
         await post.save();
-        res.json(post.likes);
+        res.json(await Post.find());
     } catch (error) {
         console.error(error.message);
         if(error.kind === 'ObjectId') {
@@ -131,7 +131,7 @@ router.put('/unlike/:id',auth,async(req,res)=>{
         const removeindex = post.likes.map(like => like.user.toString()).indexOf(req.user.id);
         post.likes.splice(removeindex,1);
         await post.save();
-        res.json(post.likes);
+        res.json(await Post.find());
     } catch (error) {
         console.error(error.message);
         if(error.kind === 'ObjectId') {

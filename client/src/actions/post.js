@@ -35,8 +35,8 @@ export const addLike = postid => async dispatch=>{
     try {
         const res = await axios.put(`/api/posts/like/${postid}`);
         dispatch({
-            type:UPDATE_LIKES,
-            payload: {postid, likes:res.data}
+            type:GET_POSTS,
+            payload: res.data
         });
     } catch (error) {
         dispatch({
@@ -50,8 +50,8 @@ export const removeLike = postid => async dispatch=>{
     try {
         const res = await axios.put(`/api/posts/unlike/${postid}`);
         dispatch({
-            type:UPDATE_LIKES,
-            payload: {postid, likes:res.data}
+            type:GET_POSTS,
+            payload: res.data
         });
     } catch (error) {
         dispatch({

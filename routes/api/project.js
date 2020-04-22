@@ -11,7 +11,7 @@ const Validator = require('validator');
 // @access Private
 router.get('/all',async(req , res) => {
     try {
-        const projects = await Project.find().sort( { creationDate: -1 } );
+        const projects = await Project.find().populate('documentation', ['label']).populate('projectOwner', ['name']).populate('group', ['name']).sort( { creationDate: -1 } );
     
     res.json(projects);
     } catch (error) {
@@ -25,7 +25,7 @@ router.get('/all',async(req , res) => {
 // @access Private
 router.get('/alllimit',async(req , res) => {
     try {
-        const projects = await Project.find().sort( { creationDate: -1 } ).limit(4);
+        const projects = await Project.find().populate('documentation', ['label']).populate('projectOwner', ['name']).populate('group', ['name']).sort( { creationDate: -1 } ).limit(4);
     
     res.json(projects);
     } catch (error) {

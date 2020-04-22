@@ -30,8 +30,14 @@ const Userslist = (props) => {
     const mainPanel = React.createRef();
     const userss=props.users.users.map(p => (
         <tr key={p._id}>
+            <td><img
+                className="avatar border-gray"
+                src={p.avatar}
+                alt=""
+              /></td>
             <td>{p.name}</td>
             <td>{p.email}</td>
+            <td>{p.role}</td>
             <td> <Link to={`/profile/${p._id}`}><i className="fas fa-eye"></i> </Link></td>
             </tr>
             ))
@@ -49,6 +55,8 @@ const Userslist = (props) => {
            <Row>
            <Col md="12">
               <Card className="card-plain">
+              <br/><br/><br/><br/><br/>
+
                 <CardHeader>
                   <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
@@ -59,8 +67,10 @@ const Userslist = (props) => {
                   <Table responsive>
                     <thead className="text-primary">
                       <tr>
+                        <th>Avatar</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>profile</th>
                       </tr>
                     </thead>
