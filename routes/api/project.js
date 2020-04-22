@@ -270,7 +270,7 @@ router.put('/validate/:id', auth,async(req , res) => {
         {
             return res.status(400).json({msg:'There is no project'});
         }
-        const projectss= await Project.find();
+        const projectss= await Project.find().populate('documentation', ['label']).populate('projectOwner', ['name']).populate('group', ['name']).sort( { creationDate: -1 } );
         return res.json(projectss);
     
     } catch (error) {
