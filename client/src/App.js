@@ -30,7 +30,7 @@ import AddEdu from './components/profile-form/AddEdu';
 import Allproject from './components/project/Allproject';
 import Allevents from './components/event/Allevents';
 import Addevent from './components/event/Addevent';
-
+import PostDetails from './components/group/Post/PostDetails'
 import Profiles from './components/Profiles/Profiles'
 import Profile from './components/Profiles/profiles/Profile'
 
@@ -75,9 +75,7 @@ const App=()=> {
   <PrivateRoute exact path="/admin/userList" component={Userslist} />   
   <PrivateRoute exact path="/admin/projects" component={Projects} />
   <PrivateRoute exact path="/admin/groups" component={Groups} />   
-   
-
-
+  <PrivateRoute exact path="/post/:id" component={PostDetails} />   
 
 
 
