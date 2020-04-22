@@ -5,6 +5,7 @@ import Spinner from '../../../components/layout/spinner'
 import {loadUsers} from '../../../actions/auth';
 import routes from "../../routes";
 import Sidebar from "../Sidebar/Sidebar";
+import {Link} from 'react-router-dom'
 
 import {
     Card,
@@ -31,6 +32,7 @@ const Userslist = (props) => {
         <tr key={p._id}>
             <td>{p.name}</td>
             <td>{p.email}</td>
+            <td> <Link to={`/profile/${p._id}`}><i className="fas fa-eye"></i> </Link></td>
             </tr>
             ))
     return (
@@ -48,9 +50,9 @@ const Userslist = (props) => {
            <Col md="12">
               <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Userslist</CardTitle>
+                  <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
-                    Here is a subtitle for this table
+                    list of all users
                   </p>
                 </CardHeader>
                 <CardBody>
@@ -59,14 +61,11 @@ const Userslist = (props) => {
                       <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>profile</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>{userss}</td>
-                        
-                      </tr>
-                      
+                        {userss}
                     </tbody>
                   </Table>
                 </CardBody>
@@ -83,8 +82,10 @@ const Userslist = (props) => {
 Userslist.propTypes = {
     loadUsers: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    
 }
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.users,
+    
 })
 export default connect(mapStateToProps,{loadUsers}) (Userslist)

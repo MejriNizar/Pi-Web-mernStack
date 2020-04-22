@@ -6,15 +6,15 @@ import {SendVoteRequest} from '../../actions/group'
 import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns'
 
 
-const VoteRequest= ({SendVoteRequest,groupId}) =>{
+const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
     const [formData, setFormData] = useState({
         title:'',
         object:'',
-        
+        dueDate:''
      
     });
-    const {title,object,votingSystem} = formData;
-    const votetype = ['Free','Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
+    const {title,object,votingSystem,dueDate} = formData;
+    const votetype = ['Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
     const onChangeVote = e => setFormData({
         ...formData,
@@ -42,14 +42,24 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
             rows="4"
             placeholder="suggest a vote ..." value={object} onChange={e => onChange(e)} 
           ></textarea>
-        <div className="form-group">
+          <div className="form-group">
+                    <h4>* Due Date</h4>
+                    <input type="date" name="dueDate"
+                        value={dueDate}
+                        onChange={
+                            e => onChange(e)
+                        }
+                        required/>
+                </div>
+                {project.votingSystem === 'Free' ? (<div className="form-group">
                         <DropDownListComponent id="dlelement"
                             dataSource={votetype}
                             placeholder="Select a voting system"
                             change={
                                 e => onChangeVote(e.value)
                             }/>
-                    </div>
+                    </div>) : (<div> <p>Voting System : &nbsp; {project.votingSystem}</p></div>)}
+        
         
         <input type="submit" className="btn btn-primary my-1" />
         
@@ -63,6 +73,7 @@ const VoteRequest= ({SendVoteRequest,groupId}) =>{
     VoteRequest.propTypes = {
         SendVoteRequest: PropTypes.func.isRequired,
         groupId: PropTypes.object.isRequired,
+        project: PropTypes.array.isRequired
 }
 
 export default connect(null,{SendVoteRequest})((VoteRequest))

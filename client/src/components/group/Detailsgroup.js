@@ -50,12 +50,12 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
            {group.Vote_Request.length > 0 ? (
                <Fragment>
                    {group.Vote_Request.map(req =>(
-                    <VotingRequest key={req._id} request={req} groupId={group._id}/>
+                    <VotingRequest key={req._id} request={req} groupId={group._id} project={group.project.settings}/>
                    ))}
                </Fragment>
            ) : (<h4> No Voting Request Found</h4>)}
        </div>
-       <VoteRequest groupId={group._id} />
+       <VoteRequest groupId={group._id} project={group.project.settings}/>
    </div>
         <Link to='/all-group' className='btn btn-light'> back to groups</Link>
    {auth.isAuthenticated && auth.loading === false && auth.user._id === group.groupOwner && (<Fragment><Link to={`/group-edit/${group._id}`} className='btn btn-light'>Edit group</Link>

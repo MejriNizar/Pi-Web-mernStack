@@ -79,6 +79,13 @@ const GroupSchema = mongoose.Schema({
                 },userName:{
                     type:String,
                     unique:true
+                },
+                dueDate:{
+                    type: Date
+                    
+                },
+                nbVote:{
+                    type: Number
                 }
             }]
     

@@ -34,8 +34,8 @@ const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth
           <div>
             <h2>{group.name}</h2>
             <p className="my-1">{group.slogan && <span> {group.slogan}</span>}</p>
-            {auth.isAuthenticated && auth.loading === false &&  group.members.map((member,index)=>auth.user._id === member._id ?(<Link to={`/group-details/${group._id}`} className="btn btn-primary">View Details</Link>)
-            :(<Link onClick={e=>sendRequest(group._id)} ><i className='fas fa-user'></i>Send Request</Link>))} 
+            {auth.isAuthenticated && auth.loading === false &&  group.members.map((member,index)=>auth.user._id === member._id) ?(<Link to={`/group-details/${group._id}`} className="btn btn-primary">View Details</Link>)
+            :(<Link onClick={e=>sendRequest(group._id)} ><i className='fas fa-user'></i>Send Request</Link>)} 
             
           </div>
 

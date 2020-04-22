@@ -1,10 +1,12 @@
 import React ,{useEffect}from 'react'
 import PropTypes from 'prop-types'
-import {getallprojects,ValidateProject} from '../../../actions/project'
+import {getallgroups,ValidateGroup} from '../../../actions/group'
 import {connect} from 'react-redux'
 import Moment from 'react-moment';
 import routes from "../../routes";
 import Sidebar from "../Sidebar/Sidebar";
+import { SwitchComponent } from '@syncfusion/ej2-react-buttons'
+
 import {
     Card,
     CardHeader,
@@ -14,31 +16,37 @@ import {
     Row,
     Col
   } from "reactstrap";
-import { SwitchComponent } from '@syncfusion/ej2-react-buttons';
-const Projects = (props) => {
+const Groups = (props) => {
     const state = {
         backgroundColor: "black",
         activeColor: "info"
     }
     const mainPanel = React.createRef();
     useEffect(()=>{
-        props.getallprojects();
-    }, [props.getallprojects]);
-    const projectss=props.projects.projects.map(p => (
+        props.getallgroups();
+    }, [props.getallgroups]);
+
+
+ 
+    const groupss=props.group.groups.map(p => (
         <tr key={p._id}>
+            <td><img
+            className="round-img"
+            src={p.logo} 
+            alt=""
+          /></td>
             <td>{p.name}</td>
-    <td className='hide-sm'>{p.description.substring(0, 30)}</td>
-    <td>
-        <Moment format='YYYY/MM/DD'>{p.startDate}</Moment> - 
-        <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
-        
-    </td>
-    {p.activated === true ?(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={true}   change={e => 
-                            { props.ValidateProject(p._id,e.checked);
+    <td className='hide-sm'>{p.slogan.substring(0, 30)}</td>
+    <td>{p.groupOwner.name}</td>
+    <td>{p.project.name}</td>
+    <td><Moment format='YYYY/MM/DD'>{p.creationDate}</Moment> </td> 
+    {p.activated === true ?(<td><SwitchComponent checked={true} change={e => 
+                            { props.ValidateGroup(p._id,e.checked);
                               
-                            }} /></td>):(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={false}  change={e => 
-                            { props.ValidateProject(p._id,e.checked);
+                            }} /></td>):(<td><SwitchComponent checked={false} change={e => 
+                            { props.ValidateGroup(p._id,e.checked);
                             }} /></td>)} 
+    
     </tr>
     ))
     return (
@@ -54,23 +62,26 @@ const Projects = (props) => {
           <Col md="12">
           <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Projects</CardTitle>
+                  <CardTitle tag="h4">Groups</CardTitle>
                   <p className="card-category">
-                    List Projects
+                    List Groups
                   </p>
                 </CardHeader>
                 <CardBody>
                   <Table responsive>
                     <thead className="text-primary">
                       <tr>
-                      <th>Name</th>
-                       <th>Description</th>
-                       <th>Duration</th>
+                      <th>Logo</th>
+                       <th>Name</th>
+                       <th>Slogan</th>
+                       <th>Group owner</th>
+                       <th>Project</th>
+                       <th>Creation Date</th>
                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                     {projectss}
+                     {groupss}
                     </tbody>
                   </Table>
                 </CardBody>
@@ -81,13 +92,12 @@ const Projects = (props) => {
     )
 }
 
-Projects.propTypes = {
-    getallprojects: PropTypes.func.isRequired,
-    ValidateProject: PropTypes.func.isRequired
-
+Groups.propTypes = {
+    getallgroups: PropTypes.func.isRequired,
+    ValidateGroup: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
     auth: state.auth,
-    projects: state.projects
+    group: state.group
 });
-export default connect(mapStateToProps,{getallprojects,ValidateProject})(Projects)
+export default connect(mapStateToProps,{getallgroups,ValidateGroup})(Groups)

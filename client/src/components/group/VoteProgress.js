@@ -1,47 +1,68 @@
-import React from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import Moment from 'react-moment'
-import {submitVote} from '../../actions/group'
-import { RadioButtonComponent } from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
-import { ProgressBarComponent } from '@syncfusion/ej2-react-progressbar';
-
-const VoteProgress= ({auth}) => {
+import ProgressBar from 'react-bootstrap/ProgressBar';
+const VoteProgress= ({auth,request:{yes,no,_id},project}) => {
     
     
  return (<div>
-  <ProgressBarComponent id="linear"
+ { <Fragment>
+
+
+    <div>YES : <ProgressBar now={yes} label={`${yes}`}  min={0} max={project}  /><br></br></div>
+
+    <div>NO : <ProgressBar now={no} label={`${no}`}  min={0} max={project}  /></div>
+ {/* <ProgressBarComponent id={_id}
                         type='Linear'
-                        height='60'
-                        value={40}
+                        showProgressValue={true}
+                        labelStyle={{color: '#FFFFFF'}}
+                        
+                        minimum={0}
+                        maximum={project}
+                        value={yes}
+                        textRender={(args) => {
+                        args.text = 'YES';
+                          }}
                         animation={{
                             enable: true,
                             duration: 2000,
                             delay: 0,
                         }}>
     </ProgressBarComponent><br></br>
-    <ProgressBarComponent id="linearr"
+   <ProgressBarComponent id={_id+"ne"}
                         type='Linear'
-                        height='60'
-                        value={40}
+                        showProgressValue={true}
+                        labelStyle={{color: '#FFFFFF'}}
+                        
+                        minimum={0}
+                        maximum={project}
+                        value={no}
+                        textRender={(args) => {
+                        args.text = 'NO';
+                          }}
                         animation={{
                             enable: true,
                             duration: 2000,
                             delay: 0,
                         }}>
-    </ProgressBarComponent>
+    </ProgressBarComponent> */}
+
+ </Fragment>}
+ 
         </div>) 
     
 }
+VoteProgress.propTypes = {     
+        
+        request: PropTypes.object.isRequired,
+        project: PropTypes.number.isRequired
 
-      
-
-
-VoteProgress.propTypes = {
-       
-        auth:PropTypes.object.isRequired
 
 
 }
-export default connect(null,{})(VoteProgress)
+const mapStateToProps = state => ({
+    auth: state.auth,
+
+}); 
+export default connect(mapStateToProps,{})(VoteProgress)
 
