@@ -2,6 +2,7 @@ import React ,{Fragment, useState} from 'react'
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {login} from '../../actions/auth';
+import NavbarComp from '../layout/Navbar';
 
 import PropTypes from 'prop-types';
 export const Login = ({login, isAuthenticated, user}) => {
@@ -21,12 +22,12 @@ export const Login = ({login, isAuthenticated, user}) => {
     if(isAuthenticated && user.role === 'admin' ) {
       return <Redirect to="/admin" />;
     }
-    if(isAuthenticated) {
+    else if(isAuthenticated )
+    {
       return <Redirect to="/dashboard" />;
     }
     return (
         <Fragment>
-          
      <h1 className="large text-primary">Sign in</h1>
      <p className="lead"><i className="fas fa-user"></i> sign into  Account</p>
      <form className="form" onSubmit={e => onSubmit(e)}>

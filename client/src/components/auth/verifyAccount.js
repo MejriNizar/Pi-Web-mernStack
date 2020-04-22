@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import {verifyUser} from '../../actions/auth';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
+import NavbarComp from '../layout/Navbar';
+
 import { DISABELD_ACCOUNT, ENABELD_ACCOUNT } from '../../actions/types';
 export const VerifyAccount = ({verifyUser, isAuthenticated}) => {
     const [formData, setFormData] = useState({
@@ -36,7 +38,7 @@ export const VerifyAccount = ({verifyUser, isAuthenticated}) => {
     }
     return (
         <Fragment>
-          
+          <NavbarComp/>
      <h1 className="large text-primary">Verify</h1>
      <p className="lead"><i className="fas fa-user"></i>   Account</p>
      <form className="form" onSubmit={e => onSubmit(e)}>

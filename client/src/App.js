@@ -48,7 +48,6 @@ import Addmembers from './components/group/Addmembers';
 import FileUpload from './components/dashboard/FileUpload';
 import UserPage from './AdminDashBoard/views/User'
 import Userslist from './AdminDashBoard/components/Users/Userslist'
-import User from './user'
 import Projects from './AdminDashBoard/components/Projects/Projects';
 import Groups from './AdminDashBoard/components/Group/Groups';
 if(localStorage.token) {
@@ -64,23 +63,52 @@ const App=()=> {
     <Provider store={store}>
     <Router>
 <Fragment>
+<NavbarComp />
 
- <Route exact path="/" component={User}/>
- <section className="container">
+<Route exact path="/" component={LandingPageHeader}/>
+ 
      <Alert />
 <Switch>
 
-  <PrivateRoute exact path="/admin" component={AdminDashb} />
-  <PrivateRoute exact path="/admin/user-page" component={UserPage} />
-  <PrivateRoute exact path="/admin/userList" component={Userslist} />   
-  <PrivateRoute exact path="/admin/projects" component={Projects} />
-  <PrivateRoute exact path="/admin/groups" component={Groups} />   
-  <PrivateRoute exact path="/post/:id" component={PostDetails} />   
+      <PrivateRoute exact path="/admin" component={AdminDashb} />
+      <PrivateRoute exact path="/admin/user-page" component={UserPage} />
+      <PrivateRoute exact path="/admin/userList" component={Userslist} />   
+      <PrivateRoute exact path="/admin/projects" component={Projects} />
+      <PrivateRoute exact path="/admin/groups" component={Groups} />  
+      <section className="container">
+      <Route exact path="/register" component={Register}/>
+    <Route exact path="/login" component={Login}/>
+    <Route exact path="/verify" component={VerifyAccount}/>
+    <Route exact path="/profiles" component={Profiles}/>
+    <Route exact path="/profile/:id" component={Profile}/>
+    <Route exact path="/create-profile" component={createProfile}/>
+    <PrivateRoute exact path="/edit-profile" component={EditProfile}/>
+    <PrivateRoute exact path="/add-experience" component={AddExpe}/>
+    <PrivateRoute exact path="/add-education" component={AddEdu}/>
+    <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+    <PrivateRoute exact path="/all-project" component={Allproject}/>
+    <PrivateRoute exact path="/all-events" component={Allevents}/>
+    <PrivateRoute exact path="/add-event" component={Addevent}/>
+    <PrivateRoute exact path="/event-details/:id" component={EventDetails}/>
+    <PrivateRoute exact path="/add-project" component={Addproject}/>
+    <PrivateRoute exact path="/project-details/:id" component={ProjectDetails}/>
+    <PrivateRoute exact path="/project-edit/:id" component={EditProject}/>
+    <PrivateRoute exact path="/all-group" component={Allgroups}/>
+    <PrivateRoute exact path="/add-group/:id" component={Addgroup}/>
+    <PrivateRoute exact path="/group-details/:id" component={Detailsgroup}/>
+    <PrivateRoute exact path="/group-edit/:id" component={Editgroup}/>
+    <PrivateRoute exact path="/affect-project/:id" component={AffectProject}/>
+    <PrivateRoute exact path="/add-members/:id/:nbS/:Skills" component={Addmembers}/>
+    <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
+    <PrivateRoute exact path="/upload" component={FileUpload}/> 
+    </section>
+
+
 
 
 
 </Switch>
- </section>
+ 
 </Fragment>
 </Router>
 </Provider>
