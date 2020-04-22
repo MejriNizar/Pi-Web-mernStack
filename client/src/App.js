@@ -21,7 +21,7 @@ import '../src/assets/css/paper-dashboard.css'
 import '../src/assets/css/paper-dashboard.css.map'
 import '../src/assets/css/paper-dashboard.min.css'
 
-import DashboardAD from './AdminDashBoard/views/Dashboard';
+
 import { VerifyAccount } from './components/auth/verifyAccount';
 import createProfile from './components/profile-form/createProfile';
 import EditProfile from './components/profile-form/EditProfile';
@@ -101,6 +101,7 @@ const App=()=> {
     <PrivateRoute exact path="/add-members/:id/:nbS/:Skills" component={Addmembers}/>
     <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
     <PrivateRoute exact path="/upload" component={FileUpload}/> 
+    <PrivateRoute exact path="/post/:id" component ={PostDetails}></PrivateRoute>
     </section>
 
 
