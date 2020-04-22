@@ -34,6 +34,8 @@ const Groups = (props) => {
             className="round-img"
             src={p.logo} 
             alt=""
+            width="10"
+            height="50"
           /></td>
             <td>{p.name}</td>
     <td className='hide-sm'>{p.slogan.substring(0, 30)}</td>

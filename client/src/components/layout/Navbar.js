@@ -3,7 +3,7 @@ import {Link} from  'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logoutu} from '../../actions/auth';
-export const Navbar = ({logoutu,auth:{isAuthenticated, loading}}) => {
+export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
   
   const authLinks = (
 <ul>
@@ -35,10 +35,11 @@ export const Navbar = ({logoutu,auth:{isAuthenticated, loading}}) => {
 
   );
     return (
+      
         <nav className="navbar bg-dark">
-      <h1>
+      <h2>
         <Link to="/"><i className="fas fa-code"></i>EDUPS</Link>
-      </h1>
+      </h2>
     {!loading && (<Fragment>{isAuthenticated ? authLinks : guestsLinks}</Fragment>)}
     </nav>
     )
