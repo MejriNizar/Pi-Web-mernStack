@@ -79,7 +79,7 @@ const VotingRequest = ({
         }>
 
             <p>
-                <strong>User Name:</strong>
+                <strong><i class="fa fa-user" aria-hidden="true"></i> </strong>
                 {
                 request.userName
             } </p>
@@ -94,7 +94,7 @@ const VotingRequest = ({
                 request.object
             } </p>
             <p>
-                <strong>Due Date:</strong>
+                <strong><i class="fa fa-calendar" aria-hidden="true"></i> </strong>
                 <Moment format='YYYY/MM/DD'>
                     {
                     request.dueDate

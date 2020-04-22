@@ -9,9 +9,9 @@ const VoteProgress= ({auth,request:{yes,no,_id},project}) => {
  { <Fragment>
 
 
-    <div>YES : <ProgressBar now={yes} label={`${yes}`}  min={0} max={project}  /><br></br></div>
+    <div><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> <ProgressBar now={yes} label={`${yes}`}  min={0} max={project}  /><br></br></div>
 
-    <div>NO : <ProgressBar now={no} label={`${no}`}  min={0} max={project}  /></div>
+    <div><i class="fa fa-thumbs-o-down" aria-hidden="true"></i> <ProgressBar now={no} label={`${no}`}  min={0} max={project}  /></div>
  {/* <ProgressBarComponent id={_id}
                         type='Linear'
                         showProgressValue={true}
