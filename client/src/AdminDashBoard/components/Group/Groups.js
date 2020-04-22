@@ -64,7 +64,7 @@ const Groups = (props) => {
           <Col md="12">
           <Card className="card-plain">
                 <CardHeader>
-                  <CardTitle tag="h4">Projects</CardTitle>
+                  <CardTitle tag="h4">Groups</CardTitle>
                   <p className="card-category">
                     List Groups
                   </p>

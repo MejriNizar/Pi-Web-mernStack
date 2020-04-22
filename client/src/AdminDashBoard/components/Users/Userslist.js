@@ -5,6 +5,7 @@ import Spinner from '../../../components/layout/spinner'
 import {loadUsers} from '../../../actions/auth';
 import routes from "../../routes";
 import Sidebar from "../Sidebar/Sidebar";
+import {Link} from 'react-router-dom'
 
 import {
     Card,
@@ -31,6 +32,7 @@ const Userslist = (props) => {
         <tr key={p._id}>
             <td>{p.name}</td>
             <td>{p.email}</td>
+            <td> <Link to={`/profile/${p._id}`}><i className="fas fa-eye"></i> </Link></td>
             </tr>
             ))
     return (
@@ -59,6 +61,7 @@ const Userslist = (props) => {
                       <tr>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>profile</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -79,8 +82,10 @@ const Userslist = (props) => {
 Userslist.propTypes = {
     loadUsers: PropTypes.func.isRequired,
     users: PropTypes.object.isRequired,
+    
 }
 const mapStateToProps = state => ({
-    users: state.users
+    users: state.users,
+    
 })
 export default connect(mapStateToProps,{loadUsers}) (Userslist)
