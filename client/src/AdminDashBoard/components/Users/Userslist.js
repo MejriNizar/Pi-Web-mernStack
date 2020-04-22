@@ -1,4 +1,4 @@
-import React, {Fragment,useEffect}from 'react'
+import React, {Fragment,useEffect,useState}from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Spinner from '../../../components/layout/spinner'
@@ -18,17 +18,23 @@ import {
   } from "reactstrap";
 
 const Userslist = (props) => {
-
     useEffect(()=>{
         props.loadUsers();
     },[props.loadUsers])
   
       const state = {
         backgroundColor: "black",
-        activeColor: "info"
+        activeColor: "info",
+        search:""
+        
     }
+    const [search,setSearch] = useState("");
+    
+    let userss = props.users.users.filter(p => {
+      return p.name.indexOf(state.search) !== -1;
+    });
     const mainPanel = React.createRef();
-    const userss=props.users.users.map(p => (
+     userss=props.users.users.map(p => (
         <tr key={p._id}>
             <td><img
                 className="avatar border-gray"
@@ -60,7 +66,7 @@ const Userslist = (props) => {
                 <CardHeader>
                   <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
-                    list of all users
+                  <i class="fas fa-search"></i> <input  placeholder="search user"  onChange={e =>{setSearch(e.target.value);}}/>
                   </p>
                 </CardHeader>
                 <CardBody>
