@@ -23,7 +23,7 @@ const PostFrom = ({addPost}) => {
             onChange={e => setText(e.target.value)}
             required
           ></textarea>
-          <input type="submit" className="btn btn-dark my-1" value="Submit" />
+          <input type="submit" className="btn btn-primary my-1" value="Submit" />
         </form>
       </div>
     )
