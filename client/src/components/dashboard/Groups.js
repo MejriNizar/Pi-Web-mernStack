@@ -25,7 +25,7 @@ const Groups = ({history,deletegroup,getallgroupslimit,groups:{groups,loading}})
                        <th>logo</th>
                        <th>slogan</th>
                        <th colSpan="2">Project</th>
-                       <th colSpan="3">Actions</th>
+                       <th colSpan="3">State</th>
                        
                    </tr>
                </thead>

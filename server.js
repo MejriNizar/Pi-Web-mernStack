@@ -3,6 +3,8 @@ const connectDB = require('./config/db');
 
  const app = express();
  const fileUpload=require('express-fileupload')
+
+
  app.use(fileUpload());
 // connect db
 connectDB();
@@ -12,7 +14,7 @@ app.use('/routes/api/images',express.static('images'));
 // define routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
-app.use('/api/posts', require('./routes/api/posts'));
+app.use('/api/posts', require('./routes/api/posts')); 
 app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/project', require('./routes/api/project'));
 app.use('/api/group', require('./routes/api/group'));

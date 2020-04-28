@@ -49,7 +49,7 @@ const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects
                        <th>Name</th>
                        <th>Description</th>
                        <th>Duration</th>
-                       <th colSpan="3">Actions</th>
+                       <th colSpan="3">State</th>
                        
                    </tr>
                </thead>

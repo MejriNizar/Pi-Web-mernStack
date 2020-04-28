@@ -6,8 +6,8 @@ const PostFrom = ({addPost}) => {
     const [text,setText] = useState('');
     return (
         <div className="post-form">
-        <div className="bg-primary p">
-          <h3>Say Something...</h3>
+        <div>
+          <h3>Create post</h3>
         </div>
         <form className="form my-1" onSubmit={e=>{
             e.preventDefault();

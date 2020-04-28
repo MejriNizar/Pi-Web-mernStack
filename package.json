@@ -33,7 +33,8 @@
     "randomstring": "^1.1.5",
     "react-dropzone": "^10.2.2",
     "react-polls": "^1.2.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0",

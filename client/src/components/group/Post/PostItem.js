@@ -1,10 +1,14 @@
-import React,{Fragment} from 'react'
+import React,{Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Moment from 'react-moment'
 import {addLike, removeLike,deletePost} from '../../../actions/post'
 import {connect} from 'react-redux'
+import CommentForm from './CommentForm'
+import CommentItem from './CommentItem'
 const PostItem = ({auth,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions}) => {
+  const [dispalayComment, toogledisplayComment] = useState(false);
+
    return(     <div className="post bg-white p-1 my-1">
           <div>
             <Link to={`/profile/${user}`}>
@@ -33,9 +37,9 @@ const PostItem = ({auth,post:{_id,text,name,avatar,user,likes,comments,date},add
             <button onClick={e=>removeLike(_id)} type="button" className="btn btn-light">
               <i className="fas fa-thumbs-down"></i>
             </button>
-            <Link to={`/post/${_id}`} className="btn btn-primary">
+            <button onClick={() => toogledisplayComment(!dispalayComment)} className="btn btn-primary">
               Discussion {comments.length > 0 && (<span className='comment-count'>{comments.length}</span>)}
-            </Link>
+            </button>
             {!auth.loading && user === auth.user._id && (
                  <button  onClick={e => deletePost(_id)}
                  type="button"
@@ -47,7 +51,22 @@ const PostItem = ({auth,post:{_id,text,name,avatar,user,likes,comments,date},add
            
   
                 </Fragment>)}
+                <div>{dispalayComment && <Fragment>
+                      
+                      <div className="comments">
+                          {comments.map(comm => (
+                              <CommentItem key={comm._id} comment={comm} postId={_id}/>
+                          ))}
+                      </div>
+                      <button onClick={() => toogledisplayComment(!dispalayComment)} className='btn'>CLOSE</button>
+                  </Fragment>}
+                  <CommentForm postId={_id}></CommentForm></div>
+                
+
                      </div>
+                     
+                     
+                     
         </div>
    )
 }
