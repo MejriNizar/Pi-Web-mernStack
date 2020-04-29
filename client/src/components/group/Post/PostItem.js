@@ -2,13 +2,21 @@ import React,{Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import Moment from 'react-moment'
-import {addLike, removeLike,deletePost} from '../../../actions/post'
+import {addLike, removeLike,deletePost,addComment} from '../../../actions/post'
 import {connect} from 'react-redux'
 import CommentForm from './CommentForm'
 import CommentItem from './CommentItem'
-const PostItem = ({auth,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions}) => {
+const PostItem = ({auth,addComment,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions}) => {
   const [dispalayComment, toogledisplayComment] = useState(false);
-
+  const [textt,setTextt] = useState('');
+  const onSubmit = e =>{
+    if (e.key === 'Enter'){e.preventDefault();
+          addComment(_id,{textt});
+          setTextt('');
+          toogledisplayComment(true);
+        }
+          
+  }
    return(     <div className="post bg-white p-1 my-1">
           <div>
             <Link to={`/profile/${user}`}>
@@ -52,19 +60,36 @@ const PostItem = ({auth,post:{_id,text,name,avatar,user,likes,comments,date},add
   
                 </Fragment>)}
                 <div>{dispalayComment && <Fragment>
+                  {comments.length > 0 ? (<div className="comments">
                       
-                      <div className="comments">
                           {comments.map(comm => (
                               <CommentItem key={comm._id} comment={comm} postId={_id}/>
                           ))}
+                          <button onClick={() => toogledisplayComment(!dispalayComment)} className='btn'>CLOSE</button>
                       </div>
-                      <button onClick={() => toogledisplayComment(!dispalayComment)} className='btn'>CLOSE</button>
+                      ) :(<h4> No Comments</h4>) }
+                      
                   </Fragment>}
-                  <CommentForm postId={_id}></CommentForm></div>
-                
+                 </div>
+                 <div>
+        
+                  <form className="form my-1">
+                    <textarea
+                      name="text"
+                      cols="30"
+                      rows="2"
+                      placeholder="leave a comment.."
+                      value={textt}
+                      onChange={e => setTextt(e.target.value)}
+                      required
+                      onKeyPress={(e) => onSubmit(e)}
+                    ></textarea>
+                  </form>
+                </div>
+                 {/* <CommentForm postId={_id}></CommentForm> */}
+
 
                      </div>
-                     
                      
                      
         </div>
@@ -79,9 +104,10 @@ auth:PropTypes.object.isRequired,
 addLike:PropTypes.func.isRequired,
 removeLike:PropTypes.func.isRequired,
 deletePost: PropTypes.func.isRequired,
+addComment:PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
     auth:state.auth
 })
 
-export default connect(mapStateToProps,{addLike,removeLike,deletePost})(PostItem)
+export default connect(mapStateToProps,{addLike,removeLike,deletePost,addComment})(PostItem)

@@ -112,7 +112,7 @@ export const addComment = (postid,formdata) => async dispatch=>{
   
          const res=  await axios.post(`/api/posts/comment/${postid}`,formdata,config);
           dispatch({
-              type:ADD_COMMENT,
+              type:GET_POSTS,
               payload: res.data
           });
           dispatch(setAlert('comment Added','success'))
@@ -126,10 +126,10 @@ export const addComment = (postid,formdata) => async dispatch=>{
   }
   export const deleteComment = (postid,commentId) => async dispatch=>{
     try {
-       await axios.delete(`/api/posts/comment/${postid}/${commentId}`);
+        const res=await axios.delete(`/api/posts/comment/${postid}/${commentId}`);
         dispatch({
-            type:REMOVE_COMMENT,
-            payload: commentId
+            type:GET_POSTS,
+            payload: res.data
         });
         dispatch(setAlert('comment Removed','success'))
     } catch (error) {
