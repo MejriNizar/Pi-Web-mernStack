@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const GroupSchema = mongoose.Schema({
     groupOwner:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'user'
+        ref:'user',
+        unique: false
     },
     members:[{
         type: mongoose.Schema.Types.ObjectId,
@@ -96,4 +97,5 @@ const GroupSchema = mongoose.Schema({
     
     
 });
+
 module.exports = Group = mongoose.model('group',GroupSchema);

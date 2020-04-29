@@ -47,7 +47,7 @@ const ProjectDetails = ({match,getproject,project: {project,loading}}) => {
    <div className="profile-edu bg-white p-2">
            <h2 className="text-primary"> Groups</h2>
   <p>
-  <strong></strong>{project.group.map((g) => (g.name))}
+  <strong></strong><ul>{project.group.map(g => <li>{g.name}</li> )}</ul>
   </p>
   </div>
 

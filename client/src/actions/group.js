@@ -87,7 +87,7 @@ export const getvoteprog = (id,idVR) => async dispatch =>{
     }
 }
 
-export const addGroup = (FormData,history,edit= false,id,logo) => async dispatch => {
+export const addGroup = (FormData,history,edit= false,id) => async dispatch => {
     try {
         const config = {
             headers:{

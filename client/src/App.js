@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect } from 'react';
-import {connect} from 'react-redux'
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import NavbarComp from './components/layout/Navbar';
 import LandingPageHeader from './components/layout/Landing';

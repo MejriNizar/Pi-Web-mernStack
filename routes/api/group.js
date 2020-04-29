@@ -179,7 +179,7 @@ router.post('/:id', [
         user = await User.findOneAndUpdate({
             _id: req.user.id
         }, {
-            $set: {group: group._id}
+            $push: {group: group._id}
         }, {new: true});
         const project = await Project.findOneAndUpdate({
             _id: req.params.id

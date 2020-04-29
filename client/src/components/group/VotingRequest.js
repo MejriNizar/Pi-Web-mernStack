@@ -49,24 +49,18 @@ const VotingRequest = ({
         const dateDay = diffDays + 1;
         if(dateDay < 0)
         {
-            document.getElementById(request._id).getElementsByTagName("P")[0].style.color = "red";
-            document.getElementById(request._id).getElementsByTagName("P")[1].style.color = "red";
-            document.getElementById(request._id).getElementsByTagName("P")[2].style.color = "red";
+            
             document.getElementById(request._id).getElementsByTagName("P")[3].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[4].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[4].innerText = " vote deactivated."
         }else
         if (dateDay < 2) {
-            document.getElementById(request._id).getElementsByTagName("P")[0].style.color = "red";
-            document.getElementById(request._id).getElementsByTagName("P")[1].style.color = "red";
-            document.getElementById(request._id).getElementsByTagName("P")[2].style.color = "red";
+            
             document.getElementById(request._id).getElementsByTagName("P")[3].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[4].style.color = "red";
             document.getElementById(request._id).getElementsByTagName("P")[4].innerText = "you still have " + dateDay + " day(s) to vote ."
         } else {
-            document.getElementById(request._id).getElementsByTagName("P")[0].style.color = "green";
-            document.getElementById(request._id).getElementsByTagName("P")[1].style.color = "green";
-            document.getElementById(request._id).getElementsByTagName("P")[2].style.color = "green";
+            
             document.getElementById(request._id).getElementsByTagName("P")[3].style.color = "green";
 
 
