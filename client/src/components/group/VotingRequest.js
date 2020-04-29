@@ -71,7 +71,7 @@ const VotingRequest = ({
 
 
         }
-        if ((dateDay === 0) || (request.nbVote === project.numberOfStudents)) {
+        if ((dateDay <= 0) || (request.nbVote === project.numberOfStudents)) {
             setdisabled(true);
         }
     }, [loading])

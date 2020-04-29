@@ -25,7 +25,7 @@ const Groups = ({history,deletegroup,getallgroupslimit,groups:{groups,loading}})
                        <th>logo</th>
                        <th>slogan</th>
                        <th colSpan="2">Project</th>
-                       <th colSpan="3">State</th>
+                       <th colSpan="3">Actions</th>
                        
                    </tr>
                </thead>
@@ -33,7 +33,11 @@ const Groups = ({history,deletegroup,getallgroupslimit,groups:{groups,loading}})
                { groups.map((d) => 
                (<tr key={d._id}>
                <td>{d.name}</td>
-               <td>{d.logo}</td>
+               <td><img
+            className="avatar border-gray"
+            src={d.logo} 
+            alt=""
+          /></td>
                <td>{d.slogan}</td>
                {d.project != null ?( <td>{d.project.name}</td> ): <td>no project</td> }
                <td><Link to={`/affect-project/${d._id}`}><i className="fas fa-plus"></i> </Link></td>

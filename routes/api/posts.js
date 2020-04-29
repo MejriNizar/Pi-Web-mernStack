@@ -145,7 +145,7 @@ router.put('/unlike/:id',auth,async(req,res)=>{
 // @desc  comment on a post route
 // @access Private
 router.post('/comment/:id',[auth,[
-    check('text','Text is required').not().isEmpty()
+    check('textt','Text is required').not().isEmpty()
 
 ]], async(req , res) =>{
 const errors = validationResult(req);
@@ -157,7 +157,7 @@ try {
     const post = await Post.findById(req.params.id);
 
     const newComment =  {
-    text: req.body.text,
+    text: req.body.textt,
     name: user.name,
     avatar: user.avatar,
     user: req.user.id
@@ -165,7 +165,7 @@ try {
 };
 post.comments.unshift(newComment);
  await post.save();
-res.json(post.comments);
+res.json(await Post.find());
     
 } catch (error) {
     console.error(error.message);
@@ -195,7 +195,7 @@ router.delete('/comment/:id/:comment_id',auth,async(req,res)=> {
         const removeindex = post.comments.map(comment => comment.user.toString()).indexOf(req.user.id);
         post.comments.splice(removeindex,1);
         await post.save();
-        res.json(post.comments);
+        res.json(await Post.find());
         
     } catch (error) {
         console.error(error.message);

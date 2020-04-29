@@ -79,7 +79,7 @@ const Groups = (props) => {
                        <th>Group owner</th>
                        <th>Project</th>
                        <th>Creation Date</th>
-                       <th>Action</th>
+                       <th>State</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -12,15 +12,13 @@ const CommentForm = ({addComment,postId}) => {
     }
     return (
         <div>
-        <div>
-        <i class="fa fa-comment" aria-hidden="true"></i> &nbsp;<h5>leave a comment..</h5>
-        </div>
+        
         <form className="form my-1">
           <textarea
             name="text"
             cols="30"
-            rows="3"
-            placeholder="Create a comment"
+            rows="2"
+            placeholder="leave a comment.."
             value={text}
             onChange={e => setText(e.target.value)}
             required

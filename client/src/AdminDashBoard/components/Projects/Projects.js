@@ -74,7 +74,7 @@ const Projects = (props) => {
                        <th>Project owner</th>
                        <th>Duration</th>
                        <th>Groups</th>
-                       <th>Action</th>
+                       <th>State</th>
                       </tr>
                     </thead>
                     <tbody>
