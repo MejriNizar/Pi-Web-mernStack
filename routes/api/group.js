@@ -96,7 +96,6 @@ router.post('/:id', [
     auth,
     [
         check('name', 'name is required').not().isEmpty(),
-        check('name', 'name is bad').isAlpha(),
         check('name', 'enter a name with 6 or greater').isLength(
             {min: 6}
         ),
@@ -106,7 +105,6 @@ router.post('/:id', [
     ]
 ], async (req, res) => {
   
-console.log(req.files)
     const url = req.protocol + "://" + req.get("host");
     const errors = validationResult(req);
     if (! errors.isEmpty()) {
@@ -190,7 +188,9 @@ console.log(req.files)
                 group: group.id
             }
         }, {new: false});
-        res.json(project)
+       const  returngroup = await Group.findOne({name}).populate('project', ['settings']);
+       console.log(returngroup  )
+       return  res.json(returngroup)
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -310,7 +310,7 @@ router.post('/assign/:idG/:idP', auth, async (req, res) => {
         await Project.updateOne({
             _id: req.params.idP
         }, {
-            $set: {
+            $push: {
                 group: group.id
             }
         }, {new: true});
@@ -320,8 +320,6 @@ router.post('/assign/:idG/:idP', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
-module.exports = router;
-
 // @route  PUT api/group/assign
 // @desc  invit members to group
 // @access Private

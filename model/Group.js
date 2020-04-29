@@ -9,10 +9,13 @@ const GroupSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:'user',
         
+        
     }],
     project:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'project'
+        ref: 'project',
+       
+
     },
     name:{
         type: String,
@@ -44,11 +47,11 @@ const GroupSchema = mongoose.Schema({
             user:{
                 type: mongoose.Schema.Types.ObjectId,
                 ref:'user',
-                unique: true
+                
             },
             userName:{
                 type:String,
-                unique:true
+                
             }
         }],
         Vote_Request: [
@@ -78,7 +81,7 @@ const GroupSchema = mongoose.Schema({
                    required:true
                 },userName:{
                     type:String,
-                    unique:true
+                    
                 },
                 dueDate:{
                     type: Date

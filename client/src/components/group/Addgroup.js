@@ -2,18 +2,20 @@ import React, {Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
-//import { ImagePicker } from 'react-filepicker'
-//react-filepicker
+
 import '../../assets/css/syncfusions.css';
-import { passportJwtSecret } from 'jwks-rsa'
+import { Redirect, Link } from 'react-router-dom';
+import Spinner from '../layout/spinner';
+
 
 
 
 const Addgroup = ({
     addGroup,
     history,
-    project:{project , loading},
-    match
+    project:{project },
+    match,
+    group:{group,loading}
   
 }) => {
    
@@ -55,6 +57,7 @@ const Addgroup = ({
                         form.append('file',file);
 
                         addGroup(form, history,false,match.params.id);
+                     //  return <Redirect to={`/add-members/${project.group[0]}/${project.settings.numberOfStudents}/${project.settings.requiredSkills}`} />
 
                     }
             }>
@@ -92,15 +95,18 @@ const Addgroup = ({
                 
                 <input type="submit" className="btn btn-primary my-1"/>
                 <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
+                <Link className='btn btn-success' to={`/add-members/${group && group}/${group && group.project.settings.numberOfStudents}/${group && group.project.settings.requiredSkills}`} >Add Members</Link>
             </form>
         </Fragment>
     )
 } 
 Addgroup.propTypes = {
     addGroup: PropTypes.func.isRequired,
-    project: passportJwtSecret
+    project: PropTypes.object.isRequired,
+    group: PropTypes.object.isRequired,
 }
 const mapStateToProps = state => ({
-    project: state.project
+    project: state.project,
+    group:state.group
 });
 export default connect(mapStateToProps, {addGroup})(Addgroup)

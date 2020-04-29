@@ -32,10 +32,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    group:{
+    group:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'group'
-    },
+    }],
     invitation: [
         {
             etat: {
@@ -43,8 +43,8 @@ const UserSchema = new mongoose.Schema({
                 default:false
             },
             groupe:{
-                type: mongoose.Schema.Types.ObjectId,
-                ref:'group',
+                type:String,
+               
                 unique: true
             },
             groupeName:{
