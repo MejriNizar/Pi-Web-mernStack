@@ -2,7 +2,6 @@ import React ,{Fragment, useState} from 'react'
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {login} from '../../actions/auth';
-import NavbarComp from '../layout/Navbar';
 
 import PropTypes from 'prop-types';
 export const Login = ({login, isAuthenticated, user}) => {
@@ -18,11 +17,7 @@ export const Login = ({login, isAuthenticated, user}) => {
         e.preventDefault();
         login(email,password);
     };
-    //redirect if logged in
-    if(isAuthenticated && user.role === 'admin' ) {
-      return <Redirect to="/admin" />;
-    }
-    else if(isAuthenticated )
+     if(isAuthenticated )
     {
       return <Redirect to="/dashboard" />;
     }

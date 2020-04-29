@@ -23,15 +23,20 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
         <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
         
     </td>
-    { user._id != p.projectOwner ? ( 
-        <td><Link to={`/add-group/${p._id}`} ><i className="fas fa-plus"></i> ADD GROUP </Link></td>):
+    { user._id !== p.projectOwner ? ( 
+        <td>
+        <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <Link to={`/add-group/${p._id}`} ><i className="fas fa-plus"></i> ADD GROUP </Link>
+    
+        </td>):
       
         <td>
     <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
     
     <Link to={`/project-edit/${p._id}`} ><i className="fas fa-edit"></i> </Link>
     
-            <Link onClick={e=>deleteproject(p._id)}  ><i className='fas fa-trash'></i></Link>
+    <Link onClick={e=>deleteproject(p._id)}  ><i className='fas fa-trash'></i></Link>
     </td>
   
     }
