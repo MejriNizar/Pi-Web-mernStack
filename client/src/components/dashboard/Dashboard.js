@@ -24,7 +24,7 @@ const Dashboard = ({getCurrentProfile, auth:{user,isAuthenticated},deleteAccount
   }
     return(
         <Fragment>
-        {loading && profile === null ? <Spinner /> : <Fragment>
+        {loading && profile === null && user ===null  ? <Spinner /> : <Fragment>
 
         <h1 className = 'large text-primary'>Dashboard</h1>
         <p className="lead">
