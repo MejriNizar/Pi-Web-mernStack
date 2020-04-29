@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 import routes from "../../routes";
 import Sidebar from "../Sidebar/Sidebar";
 import { SwitchComponent } from '@syncfusion/ej2-react-buttons'
-
+import {Link} from 'react-router-dom';
 import {
     Card,
     CardHeader,
@@ -40,6 +40,7 @@ const Groups = (props) => {
     <td>{p.groupOwner.name}</td>
     <td>{p.project.name}</td>
     <td><Moment format='YYYY/MM/DD'>{p.creationDate}</Moment> </td> 
+    <td> <Link to={`/group-details/${p._id}`} ><i className="fas fa-eye"></i> </Link></td>
     {p.activated === true ?(<td><SwitchComponent checked={true} change={e => 
                             { props.ValidateGroup(p._id,e.checked);
                               
@@ -78,8 +79,9 @@ const Groups = (props) => {
                        <th>Slogan</th>
                        <th>Group owner</th>
                        <th>Project</th>
-                       <th>Creation Date</th>
-                       <th>Action</th>
+                       <th>Creation Date</th> 
+                       <th>Details</th>                     
+                       <th>Validate</th>
                       </tr>
                     </thead>
                     <tbody>

@@ -39,7 +39,7 @@ router.get('/alllimit',async(req , res) => {
 // @access Private
 router.get('/details/:id',auth,async(req , res) => {
     try {
-        const project = await Project.findById(req.params.id).populate('documentation', ['label']);
+        const project = await Project.findById(req.params.id).populate('documentation', ['label']).populate('group' , ['name']).populate('projectOwner' , ['name']);
         if(!project)
         {
             return res.status(400).json({msg:'There is no project'});

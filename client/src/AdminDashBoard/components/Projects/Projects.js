@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import Moment from 'react-moment';
 import routes from "../../routes";
 import Sidebar from "../Sidebar/Sidebar";
+import {Link} from 'react-router-dom';
 import {
     Card,
     CardHeader,
@@ -37,6 +38,10 @@ const Projects = (props) => {
     <td>{p.group.map(g=> <ul>
       <li>{g.name}</li>
     </ul>)}</td>
+    <td>
+    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
+  
+    </td>
     {p.activated === true ?(<td><SwitchComponent onLabel="ACTIVATED" offLabel="DEACTIVATED" checked={true}   change={e => 
                             { props.ValidateProject(p._id,e.checked);
                               
@@ -74,7 +79,8 @@ const Projects = (props) => {
                        <th>Project owner</th>
                        <th>Duration</th>
                        <th>Groups</th>
-                       <th>Action</th>
+                       <th>Details</th>
+                       <th>Validate</th>
                       </tr>
                     </thead>
                     <tbody>
