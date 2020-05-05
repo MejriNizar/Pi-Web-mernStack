@@ -50,6 +50,7 @@ import Userslist from './AdminDashBoard/components/Users/Userslist'
 import Projects from './AdminDashBoard/components/Projects/Projects';
 import Groups from './AdminDashBoard/components/Group/Groups';
 import GroupMemb from './components/group/GroupMemb';
+import VoteHistory from './components/group/VoteHistory';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -103,7 +104,7 @@ const App=()=> {
     <PrivateRoute exact path="/upload" component={FileUpload}/> 
     <PrivateRoute exact path="/post/:id" component ={PostDetails}></PrivateRoute>
     <PrivateRoute exact path="/group-mem" component ={GroupMemb}></PrivateRoute>
-
+    <PrivateRoute exact path="/vote-history" component ={VoteHistory}></PrivateRoute>
     </section>
 
 

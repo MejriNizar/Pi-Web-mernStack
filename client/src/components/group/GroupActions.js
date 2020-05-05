@@ -11,7 +11,7 @@ const GroupActions = ({group}) => {
           ><i className="fas fa-user-circle text-primary"></i>Stream </Link>
         <Link to="/add-experience" className="btn btn-light"
           ><i className="fab fa-black-tie text-primary"></i> TeemWork </Link>
-        <Link to="/add-education" className="btn btn-light"
+        <Link to="/vote-history" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Vote History </Link>
         <Link to="/group-mem" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Membres </Link>
