@@ -49,6 +49,7 @@ import UserPage from './AdminDashBoard/views/User'
 import Userslist from './AdminDashBoard/components/Users/Userslist'
 import Projects from './AdminDashBoard/components/Projects/Projects';
 import Groups from './AdminDashBoard/components/Group/Groups';
+import GroupMemb from './components/group/GroupMemb';
 if(localStorage.token) {
     setAuthToken(localStorage.token);
 }
@@ -101,6 +102,8 @@ const App=()=> {
     <PrivateRoute exact path="/add-members/:id/:nbS" component={Addmembers}/>
     <PrivateRoute exact path="/upload" component={FileUpload}/> 
     <PrivateRoute exact path="/post/:id" component ={PostDetails}></PrivateRoute>
+    <PrivateRoute exact path="/group-mem" component ={GroupMemb}></PrivateRoute>
+
     </section>
 
 

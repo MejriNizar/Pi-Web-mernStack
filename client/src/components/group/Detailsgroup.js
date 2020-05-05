@@ -11,40 +11,22 @@ import { Link } from 'react-router-dom';
 import VotingRequest from './VotingRequest';
 import VoteRequest from './VoteRequest';
 import Post from './Post/Post';
+import GroupActions from './GroupActions';
 
 
 const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) => {
     useEffect(()=>{
         getgroup(match.params.id);
         
-    }, [loading]);
+    }, [getgroup]);
     return (<Fragment>
     {group === null || loading ? <Spinner></Spinner> : <Fragment>
-
+        <GroupActions group= {group} />
 <div className="profile-grid my-1">
+   
        <GroupTop group={group} />
        <GroupAbout group={group} />
        <Post/>
-       <div className="profile-exp bg-white p-2">
-           <h2 className="text-primary"> Requests</h2>
-           {group.request.length > 0 ? (
-               <Fragment>
-                   {group.request.map(req =>(
-                       <GroupRequest key={req._id} request={req} groupId={group._id}/>
-                   ))}
-               </Fragment>
-           ) : (<h4> No Request Found</h4>)}
-       </div>
-       <div className="profile-edu bg-white p-2">
-           <h2 className="text-primary"> Members</h2>
-           {group.members.length > 0 ? (
-               <Fragment>
-                   {group.members.map(mem =>(
-                       <GroupMember key={mem._id} member={mem}/>
-                   ))}
-               </Fragment>
-           ) : (<h4> No Member Found</h4>)}
-       </div>
        <div className="profile-vote bg-white p-2">
                   <h2 className="text-primary"> Voting Requests</h2>
            {group.Vote_Request.length > 0 ? (
