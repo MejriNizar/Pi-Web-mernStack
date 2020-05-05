@@ -1,16 +1,18 @@
 import React, {Fragment, useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
-import {submitVote} from '../../actions/group'
-import {RadioButtonComponent} from '@syncfusion/ej2-react-buttons';
+import {submitVote,submitVoteMultipte} from '../../actions/group'
+import {RadioButtonComponent, CheckBoxComponent} from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
 import {ProgressBarComponent} from '@syncfusion/ej2-react-progressbar';
 import VoteProgress from './VoteProgress';
 import {red, green} from '@material-ui/core/colors';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const VotingRequest = ({
     auth,
     submitVote,
+    submitVoteMultipte,
     request,
     groupId,
     loading,
@@ -21,6 +23,11 @@ const VotingRequest = ({
     const [displayNo, setDisplayNo] = useState();
     const [displayAll, setDisplayAll] = useState();
     const [disabled, setdisabled] = useState();
+
+    const [disabledC1, setdisabledC1] = useState();
+    const [disabledC2, setdisabledC2] = useState();
+    const [disabledC3, setdisabledC3] = useState();
+
 
     useEffect(() => {
         auth.user.votes.map(v => {
@@ -35,7 +42,22 @@ const VotingRequest = ({
                 setDisplayAll(false);
                 setdisabled(true);
             }
+            else{
+                v.responseMultiple.map(vm => {
+                    if(vm === 'choice1')
+                    {
+                        setdisabledC1(true);
 
+                    }
+                    else if(vm === 'choice2')
+                    {
+                        setdisabledC2(true);
+                    }
+                    else if(vm === 'choice3'){
+                        setdisabledC3(true);
+                    }
+                })
+            }
 
         })
         const today = new Date(Date.now());
@@ -67,6 +89,10 @@ const VotingRequest = ({
         }
         if ((dateDay <= 0) || (request.nbVote === project.numberOfStudents)) {
             setdisabled(true);
+            setdisabledC1(true);
+            setdisabledC2(true);
+            setdisabledC3(true);
+
         }
     }, [loading])
 
@@ -74,6 +100,22 @@ const VotingRequest = ({
         console.log(e);
         submitVote(e, groupId, request._id);
         setdisabled(true);
+    }
+    const onChangeC1 = e => {
+        console.log(e);
+        if(e === true){submitVoteMultipte('choice1', groupId, request._id);
+        setdisabledC1(true);}
+    }
+    const onChangeC2 = e => {
+        console.log(e);
+        if(e === true){submitVoteMultipte('choice2', groupId, request._id);
+        setdisabledC2(true);}
+    }
+    const onChangeC3 = e => {
+        console.log(e);
+        if(e === true){submitVoteMultipte('choice3', groupId, request._id);
+        setdisabledC3(true);}
+        
     }
 
     return (
@@ -104,8 +146,7 @@ const VotingRequest = ({
                 }</Moment>
                 <p id="nbjour"></p>
             </p>
-
-            <VoteProgress request={request} project={project.numberOfStudents}/> 
+                { request.voteType === 'Simple choice' ? (<Fragment><VoteProgress request={request} project={project.numberOfStudents}/> 
             <p>{
                 request.nbVote
             }
@@ -188,6 +229,35 @@ const VotingRequest = ({
             } 
             </Fragment>
         }
+            </Fragment>):(<Fragment>
+                
+            
+                <ul>
+                <li><CheckBoxComponent label={request &&  request.choice1.label} value={request.choice1.label} change={
+                            e => onChangeC1(e.checked)
+                        }
+                        disabled={disabledC1}
+                        /> <ProgressBar now={request.choice1.result}   min={0} max={project.numberOfStudents}  /></li>
+                <li><CheckBoxComponent label={request.choice2.label} value={request.choice2.label} change={
+                            e => onChangeC2(e.checked)
+                        }
+                        disabled={disabledC2}
+                        /> <ProgressBar now={request.choice2.result}   min={0} max={project.numberOfStudents}  /></li>
+                <li><CheckBoxComponent label={request.choice3.label} value={request.choice3.label} change={
+                            e => onChangeC3(e.checked)
+                        }
+                        disabled={disabledC3}
+                        /> <ProgressBar now={request.choice3.result}   min={0} max={project.numberOfStudents}  /></li>
+
+                </ul>
+                <p>----------------------------------------------------------------</p>
+             
+
+            
+            
+
+            </Fragment>)
+}
             
 
         </div>
@@ -199,9 +269,9 @@ VotingRequest.propTypes = {
     submitVote: PropTypes.func.isRequired,
     groupId: PropTypes.string.isRequired,
     auth: PropTypes.object.isRequired,
-    project: PropTypes.array.isRequired
-
+    project: PropTypes.array.isRequired,
+    submitVoteMultipte: PropTypes.func.isRequired
 
 }
 const mapStateToProps = state => ({auth: state.auth});
-export default connect(mapStateToProps, {submitVote})(VotingRequest)
+export default connect(mapStateToProps, {submitVote,submitVoteMultipte})(VotingRequest)

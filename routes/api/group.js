@@ -59,6 +59,19 @@ router.get('/all', auth, async (req, res) => {
     }
 });
 // @route  GET api/group/all
+// @desc  get all groups
+// @access Private
+router.get('/activatedGroup', auth, async (req, res) => {
+    try {
+        const groups = await Group.find({activated : true}).populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']).populate('groupOwner',['name']);
+
+        res.json(groups);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  GET api/group/all
 // @desc  get all groups limit
 // @access Private
 router.get('/alllimit', auth, async (req, res) => {
@@ -518,17 +531,33 @@ router.post('/voteReq/:id',auth,async(req,res)=>{
 
         
        const user=await User.findOne({_id:req.user.id})
+       const choiceFileds1 = {};
+       const choiceFileds2 = {};
+       const choiceFileds3 = {};
+       choiceFileds1.label = req.body.choice1;
+       choiceFileds1.result = 0;
+       choiceFileds2.label = req.body.choice2;
+       choiceFileds2.result = 0;
+       choiceFileds3.label = req.body.choice3;
+       choiceFileds3.result = 0;
+
       await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).then(group => {
         const newVote = {
             title:req.body.title,
-          object:req.body.object,
-          votingSystem:req.body.votingSystem,
-          user:req.user.id,
-          userName:user.name,
-          dueDate: req.body.dueDate,
-          nbVote:0,
-          yes:0,
-          no:0
+            object:req.body.object,
+            votingSystem:req.body.votingSystem,
+            user:req.user.id,
+            userName:user.name,
+            dueDate: req.body.dueDate,
+            voteType: req.body.voteType,
+            nbVote:0,
+            yes:0,
+            no:0,
+            choice1: choiceFileds1,
+            choice2: choiceFileds2,
+            choice3: choiceFileds3
+
+
         };
         group.Vote_Request.unshift(newVote);
   
@@ -574,6 +603,58 @@ if(req.body.response==='no'){
                 const newVote = {
                     vote_request:req.params.idr,
                     response:response
+                  };
+                  user.votes.unshift(newVote);
+          user.save();
+      })
+      return  res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']));
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+// @route  POST api/group/vote/:idG/:idr
+// @desc  vote
+// @access Private
+router.post('/votemultiple/:idG/:idr',auth,async(req,res)=>{
+    try {
+        const user = await User.findOne({_id:req.user.id});
+        
+        let responseMultiple='';
+if(req.body.response==='choice1'){
+    responseMultiple='choice1'
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.choice1.result" : 1 , "Vote_Request.$.nbVote" : 1 } }
+ )}
+if(req.body.response==='choice2'){
+    responseMultiple='choice2'
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.choice2.result" : 1 , "Vote_Request.$.nbVote" : 1 } }
+ )}
+ if(req.body.response==='choice3'){
+    responseMultiple='choice3'
+    await Group.updateOne(
+    { _id: req.params.idG, "Vote_Request._id":req.params.idr  },
+    { $inc: { "Vote_Request.$.choice3.result" : 1 , "Vote_Request.$.nbVote" : 1 } }
+ )}
+        user.votes.forEach(async element => {
+            console.log(element.vote_request)
+            console.log(req.params.idr)
+            if(element.vote_request == req.params.idr)
+            {
+                await User.updateOne(
+                    { _id: req.user.id, "votes.vote_request":req.params.idr  },
+                    { $push: { "votes.$.responseMultiple" : responseMultiple  } })
+            }
+            
+        });     
+      await User.findOne({_id:req.user.id}).then(user => {
+          
+                const newVote = {
+                    vote_request:req.params.idr,
+                    responseMultiple:responseMultiple
                   };
                   user.votes.unshift(newVote);
           user.save();
@@ -633,8 +714,8 @@ router.put('/validate/:id', auth,async(req , res) => {
         {
             return res.status(400).json({msg:'There is no group'});
         }
-
-        return res.json(group);
+        const groups = await Group.find().populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']).populate('groupOwner',['name']);
+        return res.json(groups);
     
 
     } catch (error) {
@@ -672,32 +753,32 @@ router.put('/validate/:id', auth,async(req , res) => {
 // @route  PUT api/group/validate/id
 // @desc  validate a project
 // @access Private
-router.put('/validate/:id', auth,async(req , res) => {
-    try {
-        const {etat} = req.body;
+// router.put('/validate/:id', auth,async(req , res) => {
+//     try {
+//         const {etat} = req.body;
         
 
-        const group = await Group.findOneAndUpdate({
-            _id: req.params.id
-        }, {
-            $set: {
-                activated: etat
-            }
-        });
-        if(!group)
-        {
-            return res.status(400).json({msg:'There is no group'});
-        }
+//         const group = await Group.findOneAndUpdate({
+//             _id: req.params.id
+//         }, {
+//             $set: {
+//                 activated: etat
+//             }
+//         });
+//         if(!group)
+//         {
+//             return res.status(400).json({msg:'There is no group'});
+//         }
 
 
-        //return res.json(group);
+//         //return res.json(group);
 
-        return res.json(await Group.find());
+//         return res.json(await Group.find());
 
     
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('server error');
-    }
-});
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send('server error');
+//     }
+// });
 module.exports = router;

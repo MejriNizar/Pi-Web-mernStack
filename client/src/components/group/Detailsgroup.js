@@ -26,12 +26,13 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
    
        <GroupTop group={group} />
        <GroupAbout group={group} />
-       <Post/>
+       <Post groupId={group._id}/>
        <div className="profile-vote bg-white p-2">
                   <h2 className="text-primary"> Voting Requests</h2>
            {group.Vote_Request.length > 0 ? (
                <Fragment>
                    {group.Vote_Request.map(req =>(
+                       
                     <VotingRequest key={req._id} request={req} groupId={group._id} project={group.project.settings}/>
                    ))}
                </Fragment>

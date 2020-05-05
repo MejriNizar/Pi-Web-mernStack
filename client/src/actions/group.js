@@ -25,6 +25,25 @@ export const getallgroups = () => async dispatch =>{
     }
 }
 
+export const getactivatedgroup = () => async dispatch =>{
+    try {
+        const res = await axios.get('/api/group/activatedGroup');
+        console.log("response object",res)
+        console.log("response data",res.data)
+        dispatch({
+            type: GET_GROUP,
+            payload: res.data
+        });
+        
+    } catch (error) {
+        console.log("err response",error)
+        dispatch({
+            type: GROUP_ERROR,
+            payload: {msg:error.response.statusText, status: error.response.status }
+        });
+    }
+}
+
 export const getallgroupslimit = () => async dispatch =>{
     try {
         const res = await axios.get('/api/group/alllimit');
@@ -338,6 +357,34 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
             }
         }
         const res = await axios.post(`/api/group/vote/${idG}/${idR}`,data,config);
+        dispatch({
+          type: GET_GROUP_DETAILS,
+          payload: res.data
+      });
+      dispatch(setAlert('Vote send'));
+  
+        
+    } catch (error) {
+      
+    //   dispatch({
+    //       type: GROUP_ERROR,
+    //       payload: {msg:error.response.statusText, status: error.response.status }
+    //   });
+    }
+  
+  
+  }
+  export const submitVoteMultipte = (value,idG,idR) => async dispatch => {
+    try {
+        const data ={response:value}
+
+
+        const config = {
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        }
+        const res = await axios.post(`/api/group/votemultiple/${idG}/${idR}`,data,config);
         dispatch({
           type: GET_GROUP_DETAILS,
           payload: res.data

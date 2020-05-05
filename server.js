@@ -19,6 +19,8 @@ app.use('/api/profile', require('./routes/api/profile'));
 app.use('/api/project', require('./routes/api/project'));
 app.use('/api/group', require('./routes/api/group'));
 app.use('/api/event', require('./routes/api/event'));
+app.use('/api/task', require('./routes/api/tasks'));
+
 
 
 app.use('/api/documentation', require('./routes/api/documentation'));
