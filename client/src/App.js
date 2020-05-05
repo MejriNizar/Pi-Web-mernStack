@@ -8,7 +8,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
 import Alert from './components/layout/Alert';
 import PropTypes from 'prop-types'
-
+import TeamWork from './components/group/TeamWork'
 // redux
 import {Provider} from 'react-redux';
 import store from './store';
@@ -103,6 +103,8 @@ const App=()=> {
     <PrivateRoute exact path="/upload" component={FileUpload}/> 
     <PrivateRoute exact path="/post/:id" component ={PostDetails}></PrivateRoute>
     <PrivateRoute exact path="/group-mem" component ={GroupMemb}></PrivateRoute>
+    <PrivateRoute exact path="/team-work" component ={TeamWork}></PrivateRoute>
+
 
     </section>
 

@@ -9,7 +9,7 @@ const GroupActions = ({group}) => {
 
         <Link to={`/group-details/${group._id}`} className="btn btn-light"
           ><i className="fas fa-user-circle text-primary"></i>Stream </Link>
-        <Link to="/add-experience" className="btn btn-light"
+        <Link to="/team-work" className="btn btn-light"
           ><i className="fab fa-black-tie text-primary"></i> TeemWork </Link>
         <Link to="/add-education" className="btn btn-light"
           ><i className="fas fa-graduation-cap text-primary"></i> Vote History </Link>

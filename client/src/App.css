@@ -181,6 +181,18 @@ img {
   color: #fff;
 }
 
+.bg-dark-group
+ {
+  background: url('./assets/img/bruno-abatti.jpg') no-repeat center center/cover;
+
+  color: #fff;
+}
+.bg-profile
+ {
+  background: url('./assets/img/joshua-stannard.jpg') no-repeat center center/cover;
+
+  color: #fff;
+}
 .btn-danger,
 .bg-danger,
 .badge-danger,

@@ -12,11 +12,12 @@ const GroupMemb = ({getproject,project:{project},group:{group}}) => {
     }, [getproject]);
     return (
      <Fragment>
+         
            <GroupActions group= {group} />
            <h2 className="text-primary"> Project Owner</h2>
            
         <p>
-        <strong>Name:</strong>{project && project.projectOwner.name }
+       <h4> <strong>Name:</strong>{project && project.projectOwner.name } </h4>
         </p>
         <h2 className="text-primary"> Requests</h2>
         {group.request.length > 0 ? (
