@@ -11,7 +11,7 @@ const User = require('../../model/User');
 // @route  POST api/posts
 // @desc  creta a post route
 // @access Private
-router.post('/',[auth,[
+router.post('/:id',[auth,[
     check('text','Text is required').not().isEmpty()
 
 ]], async(req , res) =>{
@@ -25,7 +25,8 @@ const newPost = new Post( {
     text: req.body.text,
     name: user.name,
     avatar: user.avatar,
-    user: req.user.id
+    user: req.user.id,
+    group: req.params.id
 
 });
 const post = await newPost.save();
@@ -41,9 +42,9 @@ res.json(post);
 // @route  GET api/posts
 // @desc  get all posts
 // @access Private
-router.get('/',auth,async(req,res)=> {
+router.get('/:id',auth,async(req,res)=> {
 try {
-    const posts = await Post.find().sort({date: -1});
+    const posts = await Post.find({group : req.params.id}).sort({date: -1});
     res.json(posts);
     
 } catch (error) {

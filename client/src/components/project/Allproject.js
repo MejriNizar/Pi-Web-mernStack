@@ -1,18 +1,18 @@
 import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getallprojects , deleteproject } from '../../actions/project';
+import { getactivatedprojects , deleteproject } from '../../actions/project';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 import Moment from 'react-moment';
 
 
-const Allproject = ({history,deleteproject,getallprojects,projects: {projects,loading},auth:{user}}) => {
+const Allproject = ({history,deleteproject,getactivatedprojects,projects: {projects,loading},auth:{user}}) => {
         
     useEffect(()=>{
-        getallprojects();
+        getactivatedprojects();
         
-    }, [getallprojects]);
+    }, [loading]);
 
     const projectss=projects.map(p => (
         <tr key={p._id}>
@@ -72,11 +72,11 @@ const Allproject = ({history,deleteproject,getallprojects,projects: {projects,lo
 };
 
 Allproject.propTypes = {
-    getallprojects: PropTypes.func.isRequired,
+    getactivatedprojects: PropTypes.func.isRequired,
     deleteproject: PropTypes.func.isRequired
     };
 const mapStateToProps = state => ({
     auth: state.auth,
     projects: state.projects
 });
-export default connect(mapStateToProps,{getallprojects,deleteproject})(withRouter(Allproject));
+export default connect(mapStateToProps,{getactivatedprojects,deleteproject})(withRouter(Allproject));

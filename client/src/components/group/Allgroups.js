@@ -1,16 +1,30 @@
 import React, {useEffect,  Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getallgroups,sendRequest } from '../../actions/group';
+import { getactivatedgroup,sendRequest } from '../../actions/group';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
+import GroupItem from './GroupItem';
 
 
-const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth}) => {
-        
+const Allgroup = ({history,sendRequest,getactivatedgroup,groups:{groups,loading},auth}) => {
+  const [dispalay, toggle] = useState(false);
+  const [dispalay1, toggle1] = useState(false);
+
     useEffect(()=>{
-        getallgroups();
-        
+      getactivatedgroup();
+        console.log(groups.map(group => group.members))
+        groups.map(group => 
+          {group.members.map(member => {
+            if(member._id === auth.user._id)
+            {
+              toggle(true)
+            }
+            else
+            {
+              toggle1(true)
+            }
+          })})
     }, [loading]);
 
    
@@ -25,26 +39,7 @@ const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth
       <div className="profiles">
       {groups.length > 0 ? (
         groups.map(group =>  (    
- <div className="profile bg-light">
-          <img
-            className="round-img"
-            src={group.logo} 
-            alt=""
-          />
-          <div>
-            <h2>{group.name}</h2>
-            <p className="my-1">{group.slogan && <span> {group.slogan}</span>}</p>
-            {auth.isAuthenticated && auth.loading === false &&  group.members.map((member,index)=>auth.user._id === member._id) ?(<Link to={`/group-details/${group._id}`} className="btn btn-primary">View Details</Link>)
-            :(<Link onClick={e=>sendRequest(group._id)} ><i className='fas fa-user'></i>Send Request</Link>)} 
-            
-          </div>
-
-          <ul>
-           {group.members.map((member,index)=>(<li key={index} className="text-primary">
-               <Link to={`/profile/${member._id}`}><i className="fas fa-user"></i>{member.name}</Link>
-           </li>))}
-          </ul>
-        </div> 
+       <GroupItem key={group._id} group={group}/>
     
 ))
 ) : <h4> No Groups found ..</h4>}
@@ -60,7 +55,7 @@ const Allgroup = ({history,sendRequest,getallgroups,groups:{groups,loading},auth
 
 
 Allgroup.propTypes = {
-    getallgroups: PropTypes.func.isRequired,
+    getactivatedgroup: PropTypes.func.isRequired,
     sendRequest: PropTypes.func.isRequired,
     groups: PropTypes.func.isRequired,
     auth : PropTypes.object.isRequired
@@ -69,4 +64,4 @@ const mapStateToProps = state => ({
     auth: state.auth,
     groups: state.groups
 });
-export default connect(mapStateToProps,{getallgroups,sendRequest})(withRouter(Allgroup));
+export default connect(mapStateToProps,{getactivatedgroup,sendRequest})(withRouter(Allgroup));

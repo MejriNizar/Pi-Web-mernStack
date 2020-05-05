@@ -6,9 +6,9 @@ import {getPosts} from '../../../actions/post'
 import PostItem from './PostItem'
 import PostFrom from './PostFrom'
 
-const Post = ({getPosts,post:{posts,loading}}) => {
+const Post = ({getPosts,post:{posts,loading},groupId}) => {
     useEffect(()=>{
-        getPosts();
+        getPosts(groupId);
 
     },[getPosts])
     return (
@@ -17,8 +17,9 @@ const Post = ({getPosts,post:{posts,loading}}) => {
             <p className="lead">
                 <i className="fas fa-user"></i> Welcome
             </p>
-           <PostFrom/>
-            <div className="posts">
+           <PostFrom groupId={groupId}/>
+           {posts.length > 0 ? (
+               <div className="posts">
                 {
                     posts.map(post=>(
                         <PostItem key={post._id} post={post} />
@@ -26,6 +27,8 @@ const Post = ({getPosts,post:{posts,loading}}) => {
                 }
 
             </div>
+           ) : (<h4> No Post Found</h4>)}
+            
        
         </Fragment>)
     )
@@ -34,6 +37,8 @@ const Post = ({getPosts,post:{posts,loading}}) => {
 Post.propTypes = {
 getPosts:PropTypes.func.isRequired,
 post:PropTypes.object.isRequired,
+groupId: PropTypes.string.isRequired
+
 }
 
 const mapStateToProps= state=> ({

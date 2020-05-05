@@ -62,7 +62,10 @@ const UserSchema = new mongoose.Schema({
             response:{
                 type:Number,
                 default:0
-            }
+            },
+            responseMultiple:[{
+                type:String,
+            }]
         }]
 });
 module.exports =  User = mongoose.model('user', UserSchema);

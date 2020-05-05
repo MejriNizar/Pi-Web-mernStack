@@ -2,7 +2,7 @@ import React , {useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addPost} from '../../../actions/post'
-const PostFrom = ({addPost}) => {
+const PostFrom = ({addPost,groupId}) => {
     const [text,setText] = useState('');
     return (
         <div className="post-form">
@@ -11,7 +11,7 @@ const PostFrom = ({addPost}) => {
         </div>
         <form className="form my-1" onSubmit={e=>{
             e.preventDefault();
-            addPost({text});
+            addPost({text},groupId);
             setText('');
         }}>
           <textarea
@@ -31,6 +31,8 @@ const PostFrom = ({addPost}) => {
 
 PostFrom.propTypes = {
 addPost:PropTypes.func.isRequired,
+groupId: PropTypes.string.isRequired
+
 
 }
 
