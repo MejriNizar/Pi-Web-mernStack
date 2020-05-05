@@ -90,6 +90,33 @@ const GroupSchema = mongoose.Schema({
                 },
                 nbVote:{
                     type: Number
+                },
+                voteType:{
+                    type: String
+                },
+                choice1:{
+                    label:{
+                        type: String
+                    },
+                    result:{
+                        type: Number
+                    }
+                },
+                choice2:{
+                    label:{
+                        type: String
+                    },
+                    result:{
+                        type: Number
+                    }
+                },
+                choice3:{
+                    label:{
+                        type: String
+                    },
+                    result:{
+                        type: Number
+                    }
                 }
             }]
     

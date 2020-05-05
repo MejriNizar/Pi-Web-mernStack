@@ -21,6 +21,20 @@ router.get('/all',async(req , res) => {
 });
 
 // @route  GET api/project/all
+// @desc  get all projects
+// @access Private
+router.get('/activatedProject',async(req , res) => {
+    try {
+        const projects = await Project.find({activated : true}).populate('documentation', ['label']).populate('projectOwner', ['name']).populate('group', ['name']).sort( { creationDate: -1 } );
+    
+    res.json(projects);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+});
+
+// @route  GET api/project/all
 // @desc  get all projectslimit
 // @access Private
 router.get('/alllimit',async(req , res) => {

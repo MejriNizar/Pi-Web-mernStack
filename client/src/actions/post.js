@@ -2,9 +2,9 @@ import axios from 'axios'
 import {setAlert} from './alert'
 import {GET_POSTS,POST_ERROR, UPDATE_LIKES, DELETE_POST, ADD_POST, GET_POST, ADD_COMMENT, REMOVE_COMMENT} from './types'
 
-export const getPosts = ()=> async dispatch=>{
+export const getPosts = id => async dispatch=>{
     try {
-        const res = await axios.get('/api/posts');
+        const res = await axios.get(`/api/posts/${id}`);
         dispatch({
             type:GET_POSTS,
             payload: res.data
@@ -78,7 +78,7 @@ export const deletePost = postid => async dispatch=>{
     
 }
 
-export const addPost = formdata => async dispatch=>{
+export const addPost = (formdata,id) => async dispatch=>{
   const  config={
       headers:{
           'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ export const addPost = formdata => async dispatch=>{
   }
     try {
 
-       const res=  await axios.post('/api/posts',formdata,config);
+       const res=  await axios.post(`/api/posts/${id}`,formdata,config);
         dispatch({
             type:ADD_POST,
             payload: res.data
