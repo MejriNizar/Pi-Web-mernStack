@@ -25,16 +25,24 @@ const Userslist = (props) => {
       const state = {
         backgroundColor: "black",
         activeColor: "info",
-        search:""
+        filter:""
         
     }
-    const [search,setSearch] = useState("");
+    const handleChange = event => {
+      this.setState({ filter: event.target.value });
+    };
     
-    let userss = props.users.users.filter(p => {
-      return p.name.indexOf(state.search) !== -1;
+    const { filter, users } = this.state;
+    const lowercasedFilter = filter.toLowerCase();
+    const filteredData = users.filter(p => {
+      return Object.keys(p).some(key =>
+        p[key].toLowerCase().includes(lowercasedFilter)
+      );
     });
+
+  
     const mainPanel = React.createRef();
-     userss=props.users.users.map(p => (
+    filteredData.map(p => (
         <tr key={p._id}>
             <td><img
                 className="avatar border-gray"
@@ -66,7 +74,7 @@ const Userslist = (props) => {
                 <CardHeader>
                   <CardTitle tag="h4">Users</CardTitle>
                   <p className="card-category">
-                  <i class="fas fa-search"></i> <input  placeholder="search user"  onChange={e =>{setSearch(e.target.value);}}/>
+                  <i class="fas fa-search"></i> <input value={filter} placeholder="search user"  onChange={handleChange}/>
                   </p>
                 </CardHeader>
                 <CardBody>
@@ -81,7 +89,7 @@ const Userslist = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                        {userss}
+                        {filteredData}
                     </tbody>
                   </Table>
                 </CardBody>

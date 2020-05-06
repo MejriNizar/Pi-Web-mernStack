@@ -91,7 +91,7 @@ router.get('/alllimit', auth, async (req, res) => {
 router.get('/details/:id', auth, async (req, res) => {
     try {
         console.log(req.params.id)
-        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']);
+        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']).populate('Vote_Request',['title','object','dueDate']);
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }

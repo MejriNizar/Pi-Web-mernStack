@@ -14,9 +14,10 @@ import students from './auth';
 import student from './auth';
 import progress from './group';
 import post from './post'
+import task from './task'
 
 export default combineReducers({
-    post,alert,auth,profile,projects,docs,project,groups,group,event,events,users,students,student,progress
+    post,alert,auth,profile,projects,docs,project,groups,group,event,events,users,students,student,progress,task
 
 
 

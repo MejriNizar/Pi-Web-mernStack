@@ -231,7 +231,7 @@ const VotingRequest = ({
                 
             
                 <ul>
-                <li><CheckBoxComponent label={request.choice1.label} value={request.choice1.label} change={
+                <li><CheckBoxComponent label={request &&  request.choice1.label} value={request.choice1.label} change={
                             e => onChangeC1(e.checked)
                         }
                         disabled={disabledC1}
