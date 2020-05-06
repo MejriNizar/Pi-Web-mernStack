@@ -4,9 +4,7 @@ import Moment from 'react-moment'
 import {submitVote,submitVoteMultipte} from '../../actions/group'
 import {RadioButtonComponent, CheckBoxComponent} from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
-import {ProgressBarComponent} from '@syncfusion/ej2-react-progressbar';
 import VoteProgress from './VoteProgress';
-import {red, green} from '@material-ui/core/colors';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
 const VotingRequest = ({

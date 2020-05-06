@@ -1,10 +1,8 @@
-import React, {Fragment, useState} from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
-import { withRouter, Link} from 'react-router-dom'
 import {SendVoteRequest} from '../../actions/group'
 import {DropDownListComponent} from '@syncfusion/ej2-react-dropdowns'
-import { ChipListComponent, ChipDirective, ChipsDirective } from '@syncfusion/ej2-react-buttons';
 
 
 const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
@@ -21,36 +19,11 @@ const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
     const {title,object,votingSystem,dueDate,voteType,choice1,choice2,choice3} = formData;
     const votetype = ['Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const votetype1 = ['Multiple choice', 'Simple choice'];
-    const [choiceSug,setText] = useState('');
-    const [choiceSug1,setText1] = useState('');
-    const [choiceSug2,setText2] = useState('');
-
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
-    
     const onChangeVote = e => setFormData({
         ...formData,
         votingSystem: e
-    });
-    const onChangeChoice = e => {
-        console.log(choiceSug)
-        console.log(choiceSug1)
-        console.log(choiceSug2)
-
-            setFormData({
-                ...formData,
-                choice1: choiceSug
-                })
-            setFormData({
-                    ...formData,
-                    choice2: choiceSug1
-                    })
-            setFormData({
-                        ...formData,
-                        choice3: choiceSug2
-                        })
-        
-        ;}
-        
+    });   
     const onChangeType = e => {
         setFormData({
         ...formData,
@@ -61,7 +34,6 @@ const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
         setMultiple(true);
     }
 };
-
         return (<div className="profile-vote bg-light p-2">
         <form className="form" onSubmit={e => {
           e.preventDefault();
@@ -127,7 +99,6 @@ const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
                                         onChange={e => onChange(e)}           
                                         
                                         />
-                            <Link onClick={e=>onChangeChoice(e)}  className='btn btn-light'>Add</Link>      
                           
                                    
                                    

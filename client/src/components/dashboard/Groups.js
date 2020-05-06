@@ -1,12 +1,12 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallgroupslimit,deletegroup } from '../../actions/group';
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 
 
-const Groups = ({history,deletegroup,getallgroupslimit,groups:{groups,loading}}) => {
+const Groups = ({getallgroupslimit,groups:{groups,loading}}) => {
         
     useEffect(()=>{
         getallgroupslimit();

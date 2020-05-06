@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom'
 import Moment from 'react-moment'
 import {addLike, removeLike,deletePost,addComment} from '../../../actions/post'
 import {connect} from 'react-redux'
-import CommentForm from './CommentForm'
 import CommentItem from './CommentItem'
 const PostItem = ({auth,addComment,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions}) => {
   const [dispalayComment, toogledisplayComment] = useState(false);

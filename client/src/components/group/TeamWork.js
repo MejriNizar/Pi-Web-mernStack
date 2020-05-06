@@ -23,7 +23,7 @@ const TeamWork = ({group:{group,loading},addTask}) => {
               },
           {
             id: 'lane1',
-            title: 'Planned Tasks',
+            title: 'Planned Tasks', 
             label: '2/2',
             cards: [
               {id: 'Card1', title: 'Write Blog', description: 'Can AI make memes', label: '30 mins'},

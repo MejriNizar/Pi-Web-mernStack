@@ -3,7 +3,6 @@
 import {connect} from 'react-redux';
 import {setAlert} from '../../actions/alert';
 import {register} from '../../actions/auth';
-import VerifyAccount from './verifyAccount';
 import PropTypes from 'prop-types';
 
  export const Register = ({setAlert, register,isAuthenticated }) => {

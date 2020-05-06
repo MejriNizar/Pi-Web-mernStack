@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect } from 'react-redux'
 import {editGroup,getgroup} from '../../actions/group'
 import {loadUsers} from '../../actions/auth'
-import { MultiSelectComponent,CheckBoxSelection,Inject,MultiSelect } from '@syncfusion/ej2-react-dropdowns';
+import { MultiSelectComponent,CheckBoxSelection,Inject } from '@syncfusion/ej2-react-dropdowns';
 import  '../../assets/css/syncfusions.css';
 
 const Editgroup = ({editGroup, history ,getgroup,group: {group,loading},match,loadUsers,users:{users}}) => {
@@ -27,7 +27,7 @@ const Editgroup = ({editGroup, history ,getgroup,group: {group,loading},match,lo
    const fields = {
     text: 'name', value: '_id'
   }
-   const {name, logo, slogan,members} = formData;
+   const {name, logo, slogan} = formData;
 
    const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});
    const onChangeMembers=e=>setFormData({...formData, members: e});

@@ -3,7 +3,7 @@ import {setAlert} from './alert'
 
 
 import {
-    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, PROFILE_ERROR, GET_USERS,GET_PROJECT_DETAILS,GET_VOTE_PROG
+    GET_GROUP,GROUP_ERROR,DELETE_GROUP,GET_GROUP_DETAILS, USER_LOADED, GET_USERS,GET_VOTE_PROG
 } from './types'
 
 export const getallgroups = () => async dispatch =>{
