@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { getgroup,deletegroup,getvoteprog } from '../../actions/group';
 import Spinner from '../layout/spinner';
 import GroupActions from './GroupActions'
-import VotingRequest from './VotingRequest';
+import VotingHistory from './VotingHistory';
 
 
 
@@ -25,7 +25,9 @@ return(
            {group.Vote_Request.length > 0 ? (
                <Fragment>
                    {group.Vote_Request.map(req =>(
-                    <VotingRequest key={req._id} request={req} groupId={group._id} project={group.project.settings}/>
+                      <div className="profile-vote bg-white p-2">
+                    <VotingHistory key={req._id} request={req} groupId={group._id} project={group.project.settings}/>
+                    </div>
                    ))}
                </Fragment>
            ) : (<h4> No Voting Request Found</h4>)}
