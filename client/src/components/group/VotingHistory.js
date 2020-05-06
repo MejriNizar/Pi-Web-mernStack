@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import {ProgressBarComponent} from '@syncfusion/ej2-react-progressbar';
 import VoteProgress from './VoteProgress';
 import {red, green} from '@material-ui/core/colors';
+import {Accordion,Card,Button} from 'react-bootstrap'
 
 const VotingHistory = ({
     auth,
@@ -66,10 +67,18 @@ const VotingHistory = ({
     }
 
     return (
+     
         <div id={
             request._id
         }>
-            <p>
+            
+
+            
+                <Accordion defaultActiveKey="0">
+           <Card>
+             <Card.Header>
+               <Accordion.Toggle as={Button} variant="link" eventKey="0">
+               <p>
                 <strong><i class="fa fa-calendar" aria-hidden="true"></i> </strong>
                 <Moment format='YYYY/MM/DD'>
                     {
@@ -77,8 +86,10 @@ const VotingHistory = ({
                 }</Moment>
                 <p id="nbjour"></p>
             </p>
-
-            <p>
+               </Accordion.Toggle>
+             </Card.Header>
+             <Accordion.Collapse eventKey="0">
+               <Card.Body><p>
                 <strong><i class="fa fa-user" aria-hidden="true"></i> </strong>
                 {
                 request.userName
@@ -100,10 +111,15 @@ const VotingHistory = ({
                 request.nbVote
             }
                 &nbsp; vote(s)</p>
-            
+</Card.Body>
+             </Accordion.Collapse>
+           </Card>
+           </Accordion>
 
+               
         </div>
-    )
+        
+    );
 
 } 
 VotingHistory.propTypes = {

@@ -9,6 +9,7 @@ import VotingHistory from './VotingHistory';
 
 
 
+
 const VoteHistory = ({match,getgroup,auth,group: {group,loading},deletegroup}) => {
     useEffect(()=>{
         getgroup(match.params.id);
@@ -31,6 +32,8 @@ return(
                    ))}
                </Fragment>
            ) : (<h4> No Voting Request Found</h4>)}
+
+            
        </div>
        </Fragment>
 )
