@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const TaskSchema = mongoose.Schema({
     project:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'project',
-       
-
+        ref: 'project',       
     },
     group:{
         type: mongoose.Schema.Types.ObjectId,
@@ -13,12 +11,17 @@ const TaskSchema = mongoose.Schema({
     },
     name:{
         type:String,
-        required:true
 
     },
     etat:{
         type:String,
         default:"open"
+    },
+    description:{
+        type:String,
+    },
+    delai:{
+        type:Number
     }
 
 });

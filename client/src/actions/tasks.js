@@ -24,3 +24,20 @@ export const addTask = (idg,idp,formdata) => async dispatch=>{
       }
       
   }
+  export const GetTasks = (idg) => async dispatch=>{
+    
+      try {
+  
+         const res=  await axios.get(`/api/task/${idg}`);
+          dispatch({
+              type:GET_TASKS,
+              payload: res.data
+          });
+      } catch (error) {
+          dispatch({
+              type: TASK_ERROR,
+              payload: {msg:error.response.statusText, status: error.response.status }
+          });
+      }
+      
+  }

@@ -9,12 +9,18 @@ const {check,validationResult} = require('express-validator');
 // @desc  add new TAsk
 // @access Private
 router.post('/:idg/:idp', async (req,res)=>{
-    const errors = validationResult(req);
-if(!errors.isEmpty()) {
-    return res.status(400).json({errors: errors.array()});
-}
+//     const errors = validationResult(req);
+// if(!errors.isEmpty()) {
+//     return res.status(400).json({errors: errors.array()});
+// }
 try {
-    const {name}=req.body
+    console.log(req.body.name)
+    const {
+        name,
+        description,
+        delai
+    }= req.body;
+
     const task = await Task.findOne({name})
     if(task){
         return res.status(400).json({
@@ -27,19 +33,22 @@ try {
     }
     const newTask= new Task();
     newTask.name=name;
+    newTask.description=description;
+    newTask.delai = delai;
     newTask.group=req.params.idg
     newTask.project=req.params.idp
-    newTask.save();
-    res.json(newTask);
+    await newTask.save();
+    const tasks = await Task.find({group:req.params.idg})
+    return res.json(tasks);
 } catch (error) {
     console.error(error.message);
     res.status(500).send('server error');
 }
 
 });
-router.get('/all',async (req,res)=>{
+router.get('/:id',async (req,res)=>{
     try {
-        const tasks= await Task.find();
+        const tasks= await Task.find({group:req.params.id})
         return res.json(tasks)
     } catch (error) {
         console.error(error.message);
