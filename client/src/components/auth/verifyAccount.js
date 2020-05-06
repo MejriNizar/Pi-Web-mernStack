@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 import Axios from 'axios';
 import NavbarComp from '../layout/Navbar';
 
-import { DISABELD_ACCOUNT, ENABELD_ACCOUNT } from '../../actions/types';
-export const VerifyAccount = ({verifyUser, isAuthenticated}) => {
+export const VerifyAccount = ({isAuthenticated}) => {
     const [formData, setFormData] = useState({
         secretToken: ''
     });

@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Moment from 'react-moment'
 import {AcceptRequest,DelteRequest} from '../../actions/group'
 import {connect} from 'react-redux'
 

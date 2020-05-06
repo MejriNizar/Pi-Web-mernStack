@@ -7,18 +7,15 @@ import { Link, Redirect } from 'react-router-dom';
 import DashboardActions from './DashboardAction'
 import Experience from './Experience'
 import Education from './Education'
-import Invitations from './Invitations'
 import Projects from './Projects'
 import Groups from './Groups'
-import Request from './Request'
-import NavbarComp from '../layout/Navbar';
 
 
-const Dashboard = ({getCurrentProfile, auth:{user,isAuthenticated},deleteAccount, profile:{profile, loading}}) => {
+const Dashboard = ({getCurrentProfile, auth:{user},deleteAccount, profile:{profile, loading}}) => {
     
    useEffect(()=>{
        getCurrentProfile();
-   }, [getCurrentProfile]);
+   }, [loading]);
    if(user.role === 'admin' ) {
     return <Redirect to="/admin" />;
   }

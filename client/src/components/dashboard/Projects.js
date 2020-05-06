@@ -2,12 +2,12 @@ import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getallprojectslimit , deleteproject } from '../../actions/project';
-import {Link, withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 import Moment from 'react-moment';
 
 
-const Projects = ({history,deleteproject,getallprojectslimit,projects: {projects,loading},auth:{user}}) => {
+const Projects = ({deleteproject,getallprojectslimit,projects: {projects,loading},auth:{user}}) => {
         
     useEffect(()=>{
         getallprojectslimit();

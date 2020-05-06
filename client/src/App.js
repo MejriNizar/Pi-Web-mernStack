@@ -7,7 +7,6 @@ import Login from './components/auth/Login';
 import Dashboard from './components/dashboard/Dashboard';
 import PrivateRoute from './components/Routing/privateRoute';
 import Alert from './components/layout/Alert';
-import PropTypes from 'prop-types'
 import TeamWork from './components/group/TeamWork'
 // redux
 import {Provider} from 'react-redux';

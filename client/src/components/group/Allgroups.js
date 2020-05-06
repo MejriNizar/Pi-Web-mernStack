@@ -2,12 +2,12 @@ import React, {useEffect,  Fragment, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getactivatedgroup,sendRequest } from '../../actions/group';
-import {Link, withRouter} from 'react-router-dom'
+import { withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 import GroupItem from './GroupItem';
 
 
-const Allgroup = ({history,sendRequest,getactivatedgroup,groups:{groups,loading},auth}) => {
+const Allgroup = ({getactivatedgroup,groups:{groups,loading},auth}) => {
   const [dispalay, toggle] = useState(false);
   const [dispalay1, toggle1] = useState(false);
 

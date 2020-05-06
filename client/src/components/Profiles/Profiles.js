@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import Spinner from '../layout/spinner'
 import {getallprofiles} from '../../actions/profile'
 import ProfileItem from './ProfileItem'
-import NavbarComp from '../layout/Navbar';
 
 const Profiles = ({getallprofiles,profile:{profiles,loading}}) => {
     useEffect(()=>{

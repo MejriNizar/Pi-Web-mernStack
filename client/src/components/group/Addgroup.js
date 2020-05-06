@@ -4,8 +4,7 @@ import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
 
 import '../../assets/css/syncfusions.css';
-import { Redirect, Link } from 'react-router-dom';
-import Spinner from '../layout/spinner';
+import { Link } from 'react-router-dom';
 
 
 

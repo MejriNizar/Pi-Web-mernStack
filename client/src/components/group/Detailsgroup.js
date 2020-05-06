@@ -1,11 +1,9 @@
 import React, {useEffect,  Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
-import { getgroup,deletegroup,getvoteprog } from '../../actions/group';
+import { getgroup,deletegroup } from '../../actions/group';
 import Spinner from '../layout/spinner';
 import GroupTop from './GroupTop';
-import GroupRequest from './GroupRequest';
-import GroupMember from './GroupMember';
 import GroupAbout from './GroupAbout';
 import { Link } from 'react-router-dom';
 import VotingRequest from './VotingRequest';
