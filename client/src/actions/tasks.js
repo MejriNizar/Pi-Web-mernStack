@@ -55,7 +55,23 @@ export const addTask = (idg,idp,formdata) => async dispatch=>{
               type:GET_TASKS,
               payload: res.data
           });
-          dispatch(setAlert('task Added','success'))
+      } catch (error) {
+          dispatch({
+              type: TASK_ERROR,
+              payload: {msg:error.response.statusText, status: error.response.status }
+          });
+      }
+      
+  }
+  export const deleteTask = (id,idG) => async dispatch=>{
+    
+      try {
+
+         const res=  await axios.delete(`/api/task/${id}/${idG}`);
+          dispatch({
+              type:GET_TASKS,
+              payload: res.data
+          });
       } catch (error) {
           dispatch({
               type: TASK_ERROR,

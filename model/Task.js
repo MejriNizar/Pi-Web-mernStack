@@ -21,7 +21,7 @@ const TaskSchema = mongoose.Schema({
         type:String,
     },
     delai:{
-        type:Number
+        type:String
     }
 
 });

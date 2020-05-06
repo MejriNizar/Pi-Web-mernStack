@@ -18,7 +18,8 @@ try {
     const {
         name,
         description,
-        delai
+        delai,
+        etat
     }= req.body;
 
     const task = await Task.findOne({name})
@@ -35,6 +36,7 @@ try {
     newTask.name=name;
     newTask.description=description;
     newTask.delai = delai;
+    if(etat) newTask.etat = etat;
     newTask.group=req.params.idg
     newTask.project=req.params.idp
     await newTask.save();
@@ -70,6 +72,27 @@ router.put('/:id/:idg',async (req,res)=>{
         }
         const {etat}=req.body
      const taskupdated =   await Task.findOneAndUpdate({'_id': req.params.id},{$set:{'etat':etat}});
+     const tasks = await Task.find({group:req.params.idg})
+    return res.json(tasks);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+})
+router.delete('/:id/:idg',async (req,res)=>{
+    try {
+
+        const task = await Task.findById({'_id':req.params.id});
+        if(!task){
+            return res.status(400).json({
+                errors: [
+                    {
+                        msg: 'Task not existant'
+                    }
+                ]
+            });
+        }
+     await Task.remove(task);
      const tasks = await Task.find({group:req.params.idg})
     return res.json(tasks);
     } catch (error) {
