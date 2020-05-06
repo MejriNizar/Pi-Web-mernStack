@@ -41,3 +41,26 @@ export const addTask = (idg,idp,formdata) => async dispatch=>{
       }
       
   }
+  export const EditEtat = (idc,idg,etat) => async dispatch=>{
+    const  config={
+        headers:{
+            'Content-Type': 'application/json'
+        }
+    }
+      try {
+        const data ={etat:etat}
+
+         const res=  await axios.put(`/api/task/${idc}/${idg}`,data,config);
+          dispatch({
+              type:GET_TASKS,
+              payload: res.data
+          });
+          dispatch(setAlert('task Added','success'))
+      } catch (error) {
+          dispatch({
+              type: TASK_ERROR,
+              payload: {msg:error.response.statusText, status: error.response.status }
+          });
+      }
+      
+  }

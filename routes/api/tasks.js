@@ -55,7 +55,7 @@ router.get('/:id',async (req,res)=>{
         res.status(500).send('server error');
     }
 });
-router.put('/:id',async (req,res)=>{
+router.put('/:id/:idg',async (req,res)=>{
     try {
 
         const task = await Task.findById({'_id':req.params.id});
@@ -70,11 +70,13 @@ router.put('/:id',async (req,res)=>{
         }
         const {etat}=req.body
      const taskupdated =   await Task.findOneAndUpdate({'_id': req.params.id},{$set:{'etat':etat}});
-return res.json(taskupdated)
+     const tasks = await Task.find({group:req.params.idg})
+    return res.json(tasks);
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
     }
 })
+
 
 module.exports = router;

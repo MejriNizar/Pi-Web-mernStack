@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import Board,{onDataChange} from 'react-trello'
-import {addTask,GetTasks} from '../../actions/tasks'
+import {addTask,GetTasks,EditEtat} from '../../actions/tasks'
 import { connect } from 'react-redux'
 import { useState } from 'react'
-const TeamWork = ({group:{group,loading},addTask,GetTasks,tasks:{tasks}}) => {
+import GroupActions from './GroupActions'
+const TeamWork = ({group:{group,loading},addTask,EditEtat,GetTasks,tasks:{tasks}}) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -71,15 +72,54 @@ const total = cardsOpen.length+cardCompleted.length+cardsPlanned.length;
           },
         ]
       }
+      const handleDragStart = (cardId, laneId) => {
+        console.log('drag started')
+        console.log(`cardId: ${cardId}`)
+        console.log(`laneId: ${laneId}`)
+      }
+
+      const handleDragEnd = (cardId, sourceLaneId, targetLaneId, position, card) => {
+        console.log('drag ended')
+        console.log(`cardId: ${cardId}`)
+        console.log(`sourceLaneId: ${sourceLaneId}`)
+        console.log(`targetLaneId: ${targetLaneId}`)
+        console.log(`newPosition: ${position}`)
+        console.log(`cardDetails:`)
+        console.log(card)
+        if(targetLaneId === 'lane0')
+        {
+          EditEtat(cardId,group._id,"open")
+        }
+        else if(targetLaneId === 'lane1')
+        {
+          EditEtat(cardId,group._id,"planned")
+        }
+        else
+        {
+          EditEtat(cardId,group._id,"completed")
+        }
+      }
+
+      const handleLaneDragStart = laneId => {
+        console.log(`lane drag started for ${laneId}`)
+      }
+
+      const handleLaneDragEnd = (removedIndex, addedIndex, {id}) => {
+        console.log(`lane drag ended from position ${removedIndex} for laneId=${id}`)
+        console.log(`New lane position: ${addedIndex}`)
+      }
       
     return (
-        <div className="bg-dark">
-            <form onSubmit={e=> {
+      <Fragment>
+      <GroupActions group= {group} />
+        <div className="profile-vote bg-light p-2">
+            <form className="form" onSubmit={e=> {
              e.preventDefault();
                 addTask(group._id,group.project._id,formData)}} >
             <h4>Add new Task</h4>
             <div class="form-group">
-<input type="text" placeholder="Title" value={name} name="name" onChange={
+            
+<input type="text" placeholder="* Title" value={name} name="name" onChange={
             e => onChange(e)
   }
   required></input>
@@ -89,7 +129,7 @@ const total = cardsOpen.length+cardCompleted.length+cardsPlanned.length;
             name="text"
             cols="30"
             rows="2"
-            placeholder="Description..."
+            placeholder="* Description..."
             value={description}
             name="description"
             onChange={e => onChange(e)}
@@ -97,6 +137,7 @@ const total = cardsOpen.length+cardCompleted.length+cardsPlanned.length;
           ></textarea>
             </div>
             <div class="form-group">
+            <h4>* Period</h4>
                 <input type="number" placeholder="Delai" name="delai" value={delai} onChange={
             e => onChange(e)
   }
@@ -106,22 +147,30 @@ const total = cardsOpen.length+cardCompleted.length+cardsPlanned.length;
   
                     
 
-            <button type="submit" className="btn-round btn-icon" color="primary">Add</button>
+            <input type="submit" className="btn btn-primary my-1" />
             </form>
             
-            <Board data={data} />
+            <Board data={data} 
+          handleDragStart={handleDragStart}
+          handleDragEnd={handleDragEnd}
+          handleLaneDragStart={handleLaneDragStart}
+          handleLaneDragEnd={handleLaneDragEnd}
+
+            />
         </div>
+        </Fragment>
     )
 }
 
 TeamWork.propTypes = {
     addTask:PropTypes.func.isRequired,
     group:PropTypes.object.isRequired,
-    GetTasks: PropTypes.func.isRequired
+    GetTasks: PropTypes.func.isRequired,
+    EditEtat: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
     group: state.group,
     tasks: state.tasks
 
 });
-export default connect(mapStateToProps,{addTask,GetTasks})(TeamWork)
+export default connect(mapStateToProps,{addTask,GetTasks,EditEtat})(TeamWork)
