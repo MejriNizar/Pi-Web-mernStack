@@ -39,21 +39,21 @@ const total = cardsOpen.length+cardCompleted.length+cardsPlanned.length;
         lanes: [
             {
                 id: 'lane0',
-                title: 'Open tasks',
+                title: 'To Do',
                 label: cardsOpen.length +"/"+ total,
                 cards: cardsOpen
               
               },
           {
             id: 'lane1',
-            title: 'Planned Tasks', 
+            title: 'Doing', 
             label: cardsPlanned.length+"/"+ total,
             cards: cardsPlanned
             
           },
           {
             id: 'lane2',
-            title: 'Completed',
+            title: 'Done',
             label: cardCompleted.length+"/"+ total,
             cards: cardCompleted
           },
