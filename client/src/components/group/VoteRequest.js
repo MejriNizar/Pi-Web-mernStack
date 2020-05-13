@@ -16,7 +16,7 @@ const VoteRequest= ({SendVoteRequest,groupId,project}) =>{
      
     });
     const [displayMultiple, setMultiple] = useState(false);
-    const {title,object,votingSystem,dueDate,voteType,choice1,choice2,choice3} = formData;
+    const {title,object,dueDate,choice1,choice2,choice3} = formData;
     const votetype = ['Dictatorship', 'Absolute Majority', '2/3 Unanimite', 'Veto right'];
     const votetype1 = ['Multiple choice', 'Simple choice'];
     const onChange=e=>setFormData({...formData, [e.target.name]: e.target.value});

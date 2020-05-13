@@ -24,7 +24,7 @@ const Groups = (props) => {
     const mainPanel = React.createRef();
     useEffect(()=>{
         props.getallgroups();
-    }, [props.getallgroups]);
+    }, [props]);
 
 
  

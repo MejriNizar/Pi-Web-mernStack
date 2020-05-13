@@ -1,4 +1,4 @@
-import React, {Fragment,useEffect,useState}from 'react'
+import React, {Fragment,useEffect}from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Spinner from '../../../components/layout/spinner'
@@ -20,7 +20,7 @@ import {
 const Userslist = (props) => {
     useEffect(()=>{
         props.loadUsers();
-    },[props.loadUsers])
+    },[props])
   
       const state = {
         backgroundColor: "black",
@@ -32,17 +32,13 @@ const Userslist = (props) => {
       this.setState({ filter: event.target.value });
     };
     
-    const { filter, users } = this.state;
-    const lowercasedFilter = filter.toLowerCase();
-    const filteredData = users.filter(p => {
-      return Object.keys(p).some(key =>
-        p[key].toLowerCase().includes(lowercasedFilter)
-      );
-    });
+    const { filter} = state;
+   
+   
 
   
     const mainPanel = React.createRef();
-    filteredData.map(p => (
+    const userss = props.users.users.map(p => (
         <tr key={p._id}>
             <td><img
                 className="avatar border-gray"
@@ -89,7 +85,7 @@ const Userslist = (props) => {
                       </tr>
                     </thead>
                     <tbody>
-                        {filteredData}
+                        {userss}
                     </tbody>
                   </Table>
                 </CardBody>

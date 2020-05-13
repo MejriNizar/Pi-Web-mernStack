@@ -16,7 +16,7 @@ const Editgroup = ({editGroup, history ,getgroup,group: {group,loading},match,lo
             slogan: loading || !group.slogan? '': group.slogan,
             members: loading || !group.members? '': group.members
         });
-    }, [loading]);
+    }, [getgroup,match.params.id,group.name,group.logo,group.slogan,group.members,loading ,loadUsers]);
    const [formData, setFormData] = useState({
        name:'',
        logo:'',

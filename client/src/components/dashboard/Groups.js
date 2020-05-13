@@ -11,7 +11,7 @@ const Groups = ({getallgroupslimit,groups:{groups,loading}}) => {
     useEffect(()=>{
         getallgroupslimit();
         
-    }, [loading]);
+    }, [getallgroupslimit]);
 
    
      

@@ -10,7 +10,7 @@ const Post = ({getPosts,post:{posts,loading},groupId}) => {
     useEffect(()=>{
         getPosts(groupId);
 
-    },[getPosts])
+    },[getPosts,groupId])
     return (
         loading ? <Spinner /> :(<Fragment>
             <h1 className="large text-primary">Group Posts</h1>

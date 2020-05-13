@@ -9,7 +9,7 @@ export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
   const authLinks = (
     <Fragment>
     <Sidebar/>
-    <nav className="navbar bg-dark">
+    <nav className="navbar bg-nav">
     
      <h2>
         <Link to="/"></Link>
@@ -33,7 +33,7 @@ export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
 </Fragment>
   );
   const guestsLinks = (
-    <nav className="navbar bg-dark">
+    <nav className="navbar bg-nav">
     <h2>
     <Link to="/"><i className="fas fa-code"></i>EDUPS</Link>
   </h2>

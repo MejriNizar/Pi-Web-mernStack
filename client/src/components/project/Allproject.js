@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { getactivatedprojects , deleteproject } from '../../actions/project';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
-import Moment from 'react-moment';
+
 import { Col, Row } from 'react-bootstrap';
 
 
@@ -13,7 +13,7 @@ const Allproject = ({history,deleteproject,getactivatedprojects,projects: {proje
     useEffect(()=>{
         getactivatedprojects();
         
-    }, [loading]);
+    }, [getactivatedprojects]);
 
     
      

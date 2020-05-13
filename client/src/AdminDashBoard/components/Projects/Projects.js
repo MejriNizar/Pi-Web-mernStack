@@ -24,7 +24,7 @@ const Projects = (props) => {
     const mainPanel = React.createRef();
     useEffect(()=>{
         props.getallprojects();
-    }, [props.getallprojects]);
+    },[props]);
     const projectss=props.projects.projects.map(p => (
         <tr key={p._id}>
             <td>{p.name}</td>

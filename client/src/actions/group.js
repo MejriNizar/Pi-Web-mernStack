@@ -409,7 +409,7 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
                 'Content-Type': 'application/json'
             }
         }
-       const data ={etat:true}
+       
        
         const res = await axios.post(`/api/group/voteReq/${idG}`,FormData,config);
         console.log('req accep');

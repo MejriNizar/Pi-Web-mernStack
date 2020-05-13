@@ -1,4 +1,4 @@
-import React, {useState,useEffect, Table, Fragment} from 'react'
+import React, {useEffect, Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import { getproject } from '../../actions/project';
@@ -10,7 +10,7 @@ const ProjectDetails = ({match,getproject,project: {project,loading}}) => {
     useEffect(()=>{
         getproject(match.params.id);
         
-    }, [loading]);
+    }, [ getproject,match.params.id]);
     return loading || project === null ?<Spinner /> : (
         <Fragment>  
 
@@ -18,7 +18,7 @@ const ProjectDetails = ({match,getproject,project: {project,loading}}) => {
 
 
 <div className="profile-grid my-1">
-    <div className="profile-top bg-primary p-2">
+    <div className="profile-top bg-dark-group">
          
           <h1 className="large">{project.name}</h1>
           <h3 >Duration</h3>

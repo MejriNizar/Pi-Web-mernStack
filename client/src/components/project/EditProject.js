@@ -15,7 +15,7 @@ const EditProject = ({editProject, history, getalldocs ,getproject,docs: {docs,l
             startDate: loading || !project.startDate? '': project.startDate,
             endDate: loading || !project.endDate? '': project.endDate,           
         });
-    }, [loading]);
+    }, [getalldocs,getproject,match.params.id,project.name,project.description,project.startDate,project.endDate,loading]);
    const [formData, setFormData] = useState({
        name:'',
        description:'',

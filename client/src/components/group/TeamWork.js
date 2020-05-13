@@ -1,9 +1,9 @@
 import React, { useEffect, Fragment } from 'react'
 import PropTypes from 'prop-types'
-import Board,{onDataChange} from 'react-trello'
+import Board from 'react-trello'
 import {addTask,GetTasks,EditEtat,deleteTask} from '../../actions/tasks'
 import { connect } from 'react-redux'
-import { useState } from 'react'
+
 import GroupActions from './GroupActions'
 const TeamWork = ({group:{group,loading},addTask,EditEtat,GetTasks,deleteTask,tasks:{tasks}}) => {
  
@@ -11,7 +11,7 @@ const TeamWork = ({group:{group,loading},addTask,EditEtat,GetTasks,deleteTask,ta
   useEffect(()=>{
     GetTasks(group._id);
      
-  }, [loading]);
+  }, [GetTasks,group._id]);
  
 const cardsOpen =[];
 const cardsPlanned=[];

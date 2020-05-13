@@ -9,7 +9,7 @@ const EventDetails = ({match,getevent,event: {event,loading}}) => {
     useEffect(()=>{
         getevent(match.params.id);
         
-    }, [getevent]);
+    }, [getevent,match.params.id]);
     return loading || event === null ?<Spinner /> : (
         <Fragment>       
               {event.title}<br></br>

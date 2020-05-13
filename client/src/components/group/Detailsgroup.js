@@ -16,7 +16,7 @@ const Detailsgroup = ({match,getgroup,auth,group: {group,loading},deletegroup}) 
     useEffect(()=>{
         getgroup(match.params.id);
         
-    }, [getgroup]);
+    }, [getgroup,match.params.id]);
     return (<Fragment>
     {group === null || loading ? <Spinner></Spinner> : <Fragment>
         <GroupActions group= {group} />

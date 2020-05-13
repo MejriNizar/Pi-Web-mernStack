@@ -11,7 +11,7 @@ const PostDetails = ({getPost,post:{post,loading},match}) => {
   useEffect(() => {
        
       getPost(match.params.id)
-  }, [getPost])
+  }, [getPost,match.params.id])
   
     return loading || post ===null ? <Spinner /> : <Fragment>
         <PostItem post={post} showActions={false}/>

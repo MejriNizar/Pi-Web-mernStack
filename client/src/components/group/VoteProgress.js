@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProgressBar from 'react-bootstrap/ProgressBar';

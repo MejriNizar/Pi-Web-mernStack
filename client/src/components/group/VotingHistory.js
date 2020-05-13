@@ -1,12 +1,11 @@
-import React, {Fragment, useEffect, useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import Moment from 'react-moment'
 import {submitVote} from '../../actions/group'
-import {RadioButtonComponent} from '@syncfusion/ej2-react-buttons';
 import {connect} from 'react-redux'
-import {ProgressBarComponent} from '@syncfusion/ej2-react-progressbar';
+
 import VoteProgress from './VoteProgress';
-import {red, green} from '@material-ui/core/colors';
+
 import {Accordion,Card,Button} from 'react-bootstrap'
 
 const VotingHistory = ({
