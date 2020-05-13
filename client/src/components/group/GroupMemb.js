@@ -32,7 +32,7 @@ const GroupMemb = ({ getproject, project: { project }, group: { group } }) => {
         <h4> No Request Found</h4>
       )}
       <h2 className="text-primary"> Team Leader</h2>
-      <h4>{group.groupOwner.name}</h4>
+      <h4><strong>Name:</strong>{group.groupOwner.name}</h4>
       <h2 className="text-primary"> Members</h2>
       {group.members.length > 0 ? (
         <Fragment>
