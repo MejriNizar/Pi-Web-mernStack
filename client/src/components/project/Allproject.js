@@ -5,6 +5,7 @@ import { getactivatedprojects , deleteproject } from '../../actions/project';
 import {Link, withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 import Moment from 'react-moment';
+import { Col, Row } from 'react-bootstrap';
 
 
 const Allproject = ({history,deleteproject,getactivatedprojects,projects: {projects,loading},auth:{user}}) => {
@@ -14,59 +15,47 @@ const Allproject = ({history,deleteproject,getactivatedprojects,projects: {proje
         
     }, [loading]);
 
-    const projectss=projects.map(p => (
-        <tr key={p._id}>
-            <td>{p.name}</td>
-    <td className='hide-sm'>{p.description.substring(0, 30)}</td>
-    <td>
-        <Moment format='YYYY/MM/DD'>{p.startDate}</Moment> - 
-        <Moment format='YYYY/MM/DD'>{p.endDate}</Moment>
-        
-    </td>
-    { user._id !== p.projectOwner ? ( 
-        <td>
-        <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>&nbsp;&nbsp;&nbsp;&nbsp;
+    
+     
+    return loading || projects === null ?<Spinner /> : (
+        <Fragment> 
 
-        <Link to={`/add-group/${p._id}`} ><i className="fas fa-plus"></i> ADD GROUP </Link>
+
+      <h1 className="large text-primary">Projects</h1>
+      <p className="lead">
+        <i className="fab fa-connectdevelop"></i> Check projects list 
+      </p>  
+      <Row>
+      {projects.map(p => 
+      <Col md={4}>
+      <div className="e-card">
+        <div className="e-card-image">
+          <div className="e-card-title">{p.name} </div>
+        </div>
+        <div className="e-card-content">
+        {p.description}. </div>
+        <div className="e-card-actions e-card-vertical">
+        { user._id !== p.projectOwner ? ( 
+        <td>
+        <Link to={`/project-details/${p._id}`}> More </Link>
+        <Link to={`/add-group/${p._id}`} > Add group </Link>
     
         </td>):
       
         <td>
-    <Link to={`/project-details/${p._id}`}><i className="fas fa-eye"></i> </Link>
+    <Link to={`/project-details/${p._id}`}>More </Link>
     
-    <Link to={`/project-edit/${p._id}`} ><i className="fas fa-edit"></i> </Link>
+    <Link to={`/project-edit/${p._id}`} >Edit</Link>
     
-    <Link onClick={e=>deleteproject(p._id)}  ><i className='fas fa-trash'></i></Link>
+    <Link onClick={e=>deleteproject(p._id)}  >Delete</Link>
     </td>
   
     }
-    </tr>
-      
-    
-    
-    ))
-     
-    return loading || projects === null ?<Spinner /> : (
-        <Fragment>    
-               
-      <h1 className="large text-primary">Projects</h1>
-      <p className="lead">
-        <i className="fab fa-connectdevelop"></i> Check projects list 
-      </p>   
-           <table  className="table">
-               <thead>
-                   <tr>
-                       <th>Name</th>
-                       <th>Description</th>
-                       <th>Duration</th>
-                       <th colSpan="3">Actions</th>
-                       
-                   </tr>
-               </thead>
-               <tbody>
-               {projectss}   
-               </tbody>
-           </table>
+            </div>
+            </div>
+            </Col>
+    )} 
+    </Row>
            </Fragment>
        )    
 };

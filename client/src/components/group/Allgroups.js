@@ -5,12 +5,12 @@ import { getactivatedgroup,sendRequest } from '../../actions/group';
 import { withRouter} from 'react-router-dom'
 import Spinner from '../layout/spinner';
 import GroupItem from './GroupItem';
+import Sidebar from '../layout/Sidebar';
 
 
 const Allgroup = ({getactivatedgroup,groups:{groups,loading},auth}) => {
   const [dispalay, toggle] = useState(false);
   const [dispalay1, toggle1] = useState(false);
-
     useEffect(()=>{
       getactivatedgroup();
         console.log(groups.map(group => group.members))
@@ -27,17 +27,16 @@ const Allgroup = ({getactivatedgroup,groups:{groups,loading},auth}) => {
           })})
     }, [loading]);
 
-   
 
     return loading || groups === null ?<Spinner /> : (
+      
         <Fragment>    
-            
       <h1 className="large text-primary">Groups</h1>
       <p className="lead">
         <i className="fab fa-connectdevelop"></i> Check groups list 
       </p>
       <div className="profiles">
-      {groups.length > 0 ? (
+      {groups.length > 0 ? ( 
         groups.map(group =>  (    
        <GroupItem key={group._id} group={group}/>
     

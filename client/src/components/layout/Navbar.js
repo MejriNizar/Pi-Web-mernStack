@@ -3,9 +3,17 @@ import {Link} from  'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {logoutu} from '../../actions/auth';
+import Sidebar from './Sidebar';
 export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
   
   const authLinks = (
+    <Fragment>
+    <Sidebar/>
+    <nav className="navbar bg-dark">
+    
+     <h2>
+        <Link to="/"></Link>
+      </h2>
 <ul>
 <li><Link to="/profiles">
   Profiles 
@@ -21,10 +29,14 @@ export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
      <span className="hide-sm"> LOGOUT </span> </a>
   </li>
 </ul>
+</nav>
+</Fragment>
   );
   const guestsLinks = (
-      
-    
+    <nav className="navbar bg-dark">
+    <h2>
+    <Link to="/"><i className="fas fa-code"></i>EDUPS</Link>
+  </h2>
     <ul>
       <li><Link to="/profiles">
   Profiles 
@@ -32,16 +44,13 @@ export const Navbar = ({logoutu,auth:{user,isAuthenticated, loading}}) => {
       <li><Link to="/register">Register</Link></li>
       <li><Link to="/login">Login</Link></li>
     </ul>
+    </nav>
 
   );
     return (
-      
-        <nav className="navbar bg-dark">
-      <h2>
-        <Link to="/"><i className="fas fa-code"></i>EDUPS</Link>
-      </h2>
-    {!loading && (<Fragment>{isAuthenticated ? authLinks : guestsLinks}</Fragment>)}
-    </nav>
+     
+    !loading && (<Fragment>{isAuthenticated ? authLinks : guestsLinks}</Fragment>)
+    
     )
 };
 Navbar.propTypes = {
