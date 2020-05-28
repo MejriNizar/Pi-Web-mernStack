@@ -376,13 +376,14 @@ router.put('/request/:id', auth, async (req, res) => {
     if (! errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const user = User.findOne({_id: req.user.id})
     try {
-      
+        const user = await User.findOne({_id: req.user.id})
+
         const groupFileds = {};
         groupFileds.request = {};
         groupFileds.request.user = req.user.id;
-        groupFileds.request.userName = req.user.name;
+        console.log(user.name)
+        groupFileds.request.userName = user.name;
             const group = await Group.findOneAndUpdate({
                 _id: req.params.id
             }, {
@@ -392,7 +393,7 @@ router.put('/request/:id', auth, async (req, res) => {
             });
 
 
-            return res.json(group);
+            return res.json(await Group.find({activated : true}).populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']).populate('groupOwner',['name']));
        
 
     } catch (error) {
@@ -495,7 +496,7 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
                         }
         
                     });
-                    return res.json(group);
+                    return res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']));
 
                 }
             })
@@ -512,7 +513,7 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
                     }
                 }
             }, {new: false});
-            return res.json(group);
+            return res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']));
 
         }
     } catch (error) {

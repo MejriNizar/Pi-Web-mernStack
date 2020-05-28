@@ -44,7 +44,7 @@ export const REMOVE_COMMENT='REMOVE_COMMENT';
 export const ADD_TASK='ADD_TASK';
 export const GET_TASKS='GET_TASKS';
 export const TASK_ERROR='TASK_ERROR';
-
+export const CLEAR_USER='CLEAR_USER';
 
 
 

@@ -5,6 +5,7 @@ import GroupRequest from "./GroupRequest";
 import GroupMember from "./GroupMember";
 import { connect } from "react-redux";
 import { getproject } from "../../actions/project";
+import { Row, Col } from "reactstrap";
 const GroupMemb = ({ getproject, project: { project }, group: { group } }) => {
   useEffect(() => {
     getproject(group.project._id);
@@ -24,9 +25,13 @@ const GroupMemb = ({ getproject, project: { project }, group: { group } }) => {
       <h2 className="text-primary"> Requests</h2>
       {group.request.length > 0 ? (
         <Fragment>
+        <Row>
           {group.request.map((req) => (
-            <GroupRequest key={req._id} request={req} groupId={group._id} />
+            <Col md={4}> 
+             <GroupRequest key={req._id} request={req} groupId={group._id} />
+           </Col>
           ))}
+          </Row>
         </Fragment>
       ) : (
         <h4> No Request Found</h4>

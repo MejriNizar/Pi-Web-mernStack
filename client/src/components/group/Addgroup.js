@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const Addgroup = ({
     addGroup,
     history,
-    project:{project },
+    project:{project},
     match,
     group:{group,loading}
   

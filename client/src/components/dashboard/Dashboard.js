@@ -9,7 +9,7 @@ import Experience from "./Experience";
 import Education from "./Education";
 import Projects from "./Projects";
 import Groups from "./Groups";
-
+import Invitations from "./Invitations";
 const Dashboard = ({
   getCurrentProfile,
   auth: { user },
@@ -19,15 +19,21 @@ const Dashboard = ({
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-  if (user.role === "admin") {
-    return <Redirect to="/admin" />;
-  }
+ 
+  // if (user  && user.role === "admin") {
+  //   return <Redirect to="/admin" />;
+  // }
+  // else
+  // {
+    
 
   return (
     <Fragment>
       {loading && profile === null && user === null ? (
         <Spinner />
       ) : (
+        
+        user && user.role === "admin" ? (<Redirect to="/admin" />):(
         <Fragment>
           <h1 className="large text-primary">Dashboard</h1>
           <p className="lead">
@@ -36,15 +42,13 @@ const Dashboard = ({
           </p>
           {profile !== null ? (
             <Fragment>
-              <DashboardActions></DashboardActions>
+              {user && <DashboardActions></DashboardActions>}
               <Experience experience={profile.experience} />
               <Education education={profile.education} />
-              {/* {user.invitation !== null ? (<Invitations invitation={user.invitation} /> ):(<h4>No Invitation found</h4>)} */}
-              {/* {user.group.request !== null ? (<Request group={user.group} request={user.group.request} />  ):(<h4>No Request found</h4>)} */}
+              <h2 className="my-2">Invitations Recieved</h2>
 
-              {/* <Invitations invitation={user.invitation} />  */}
-              {/* <Request group={user.group} request={user.group.request} />  */}
-              {/* <Invitations invitation={user.invitation} />  */}
+               {user.invitation.length >0 ? (<Invitations invitation={user.invitation} /> ):(<h4>No Invitation found</h4>)} 
+              
 
               <div className="my-2">
                 <button
@@ -76,9 +80,11 @@ const Dashboard = ({
             </Fragment>
           )}
         </Fragment>
+        )
       )}
     </Fragment>
   );
+              
 };
 
 Dashboard.propTypes = {

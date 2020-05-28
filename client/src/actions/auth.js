@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE,GET_USERS,GET_STUDENTS, GET_STUDENT} from './types';
+import {RGISTER_SUCCESS, RGISTER_FAIL,LOGOUT, USER_LOADED, AUTH_ERROR,LOGIN_FAIL,LOGIN_SUCCESS, ENABELD_ACCOUNT, DISABELD_ACCOUNT, CLEAR_PROFILE,GET_USERS,GET_STUDENTS, GET_STUDENT, CLEAR_USER} from './types';
 
 import {setAlert} from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -123,7 +123,12 @@ export const login = ( email, password) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         });
-        dispatch(loadUser());
+        const res1 = await axios.get('/api/auth');
+        dispatch({
+            type:USER_LOADED,
+            payload: res1.data
+        });
+        //dispatch(loadUser());
     } catch (error) {
 
         const errors = error.response.data.errors;
@@ -168,5 +173,6 @@ export const verifyUser = ({ secretToken} ) => async dispatch => {
 export const logoutu = () => dispatch => {
     dispatch({type: LOGOUT});
     dispatch({type: CLEAR_PROFILE});
+    dispatch({type: CLEAR_USER});
 
 }

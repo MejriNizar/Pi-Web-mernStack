@@ -121,12 +121,10 @@ export const addGroup = (FormData,history,edit= false,id) => async dispatch => {
           type: GET_GROUP_DETAILS,
           payload: res.data
       });
-      console.log(res.data)
-      dispatch(setAlert(edit ? 'Group Updated': 'Group created', 'success'));
-  if(!edit) {
+      console.log(res.data)  
        if(res.data.project.settings.requiredSkills){history.push(`/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}/${res.data.project.settings.requiredSkills}`);}
       else{history.push(`/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}`);}
-  }
+  
         
     } catch (error) {
       const errors = error.response.data.errors;
@@ -309,14 +307,14 @@ export const AcceptRequest=(idG,idI)=>async dispatch =>  {
         const res = await axios.put(`/api/group/accpterReq/${idG}/${idI}`,data,config);
         console.log('req accep');
         dispatch({
-            type: GET_GROUP,
+            type: GET_GROUP_DETAILS,
             payload: res.data
         });
         dispatch(setAlert('Request Accepted', 'success'));
     } catch (error) {
 
          dispatch({
-          type: GET_GROUP,
+          type: GET_GROUP_DETAILS,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }
@@ -333,14 +331,14 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
         const res = await axios.put(`/api/group/accpterReq/${idG}/${idI}`,data,config);
         console.log('req delet');
         dispatch({
-            type: GET_GROUP,
+            type: GET_GROUP_DETAILS,
             payload: res.data
         });
         dispatch(setAlert('Request Deleted', 'danger'));
     } catch (error) {
 
          dispatch({
-          type: GET_GROUP,
+          type: GET_GROUP_DETAILS,
           payload: {msg:error.response.statusText, status: error.response.status }
       });
     }

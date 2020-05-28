@@ -22,7 +22,6 @@ const Invitations = ({DelteInvitation,AcceptInvitation,invitation}) => {
     ))
     return (
         <Fragment>
-            <h2 className="my-2">Invitations Recived</h2>
             <table className='table'>
                 <thead>
                     <tr>
