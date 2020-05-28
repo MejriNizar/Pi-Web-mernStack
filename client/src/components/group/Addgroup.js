@@ -56,7 +56,6 @@ const Addgroup = ({
                         form.append('file',file);
 
                         addGroup(form, history,false,match.params.id);
-                     //  return <Redirect to={`/add-members/${project.group[0]}/${project.settings.numberOfStudents}/${project.settings.requiredSkills}`} />
 
                     }
             }>
@@ -94,7 +93,9 @@ const Addgroup = ({
                 
                 <input type="submit" className="btn btn-primary my-1"/>
                 <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
-                <Link className='btn btn-success' to={`/add-members/${group && group}/${group && group.project.settings.numberOfStudents}/${group && group.project.settings.requiredSkills}`} >Add Members</Link>
+                {group && group.project.settings.requiredSkills !== null ? (<Link className='btn btn-success' to={`/add-members/${ group && group._id}/${group && group.project.settings.numberOfStudents}/${group && group.project.settings.requiredSkills}`} >Add Members</Link>
+):(                <Link className='btn btn-success' to={`/add-members/${group && group._id}/${group && group.project.settings.numberOfStudents}`} >Add Members</Link>
+)}
             </form>
         </Fragment>
     )

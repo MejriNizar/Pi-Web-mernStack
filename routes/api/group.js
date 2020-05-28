@@ -91,7 +91,7 @@ router.get('/alllimit', auth, async (req, res) => {
 router.get('/details/:id', auth, async (req, res) => {
     try {
         console.log(req.params.id)
-        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']);
+        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email','avatar']).populate('project', ['name','settings']).populate('groupOwner',['name']);
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
@@ -201,9 +201,9 @@ router.post('/:id', [
                 group: group.id
             }
         }, {new: false});
-       const  returngroup = await Group.findOne({name}).populate('project', ['settings']);
+       const  returngroup = await Group.findOne({_id: group._id}).populate('project', ['settings']);
        console.log(returngroup  )
-       return  res.json(returngroup)
+       return  res.json(await Group.findOne({_id: group._id}).populate('project', ['settings']))
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -731,15 +731,15 @@ router.put('/assignLeader/:idg/:ids',auth,async (req,res)=>{
     try {
         const idg=req.params.idg
         const ids=req.params.ids
-        const user= await User.findOne({ids});
-        const group= await Group.findOne({idg});
+        const user= await User.findOne({_id : ids});
+        const group= await Group.findOne({_id : idg});
         if(!user || !group){
             return res.status(400).json({msg:'something is wrong'});
         }else if(group.groupOwner === ids){
             return res.status(400).json({msg:'user already leader'});
         }else {
-           const groupp= await Group.findOneAndUpdate({idg},{$set:{groupOwner:ids}})
-           return res.json(groupp);
+           const groupp= await Group.findOneAndUpdate({_id : idg},{$set:{groupOwner:ids}})
+           return res.json(await Group.findOne({_id: idg}).populate('members', ['name', 'email','avatar']).populate('project', ['name','settings']).populate('groupOwner',['name']));
         }
 
 

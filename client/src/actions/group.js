@@ -139,17 +139,7 @@ export const addGroup = (FormData, history, edit = false, id) => async (
     });
     console.log(res.data);
     dispatch(setAlert(edit ? "Group Updated" : "Group created", "success"));
-    if (!edit) {
-      if (res.data.project.settings.requiredSkills) {
-        history.push(
-          `/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}/${res.data.project.settings.requiredSkills}`
-        );
-      } else {
-        history.push(
-          `/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}`
-        );
-      }
-    }
+    
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
@@ -444,7 +434,7 @@ export const assignLeader = (idg, ids) => async (dispatch) => {
     const res = await axios.put(`/api/group/assignleader/${idg}/${ids}`);
     console.log("groupleadr valide");
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: res.data,
     });
   } catch (error) {
