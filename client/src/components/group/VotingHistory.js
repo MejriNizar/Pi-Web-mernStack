@@ -73,7 +73,7 @@ const VotingHistory = ({
             
 
             
-                <Accordion defaultActiveKey="0">
+                <Accordion defaultActiveKey="1">
            <Card>
              <Card.Header>
                <Accordion.Toggle as={Button} variant="link" eventKey="0">

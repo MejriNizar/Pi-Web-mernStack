@@ -12,42 +12,38 @@ import Groups from "./Groups";
 import Invitations from "./Invitations";
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user },
+  auth: { user:{role,name,invitation} },
   deleteAccount,
   profile: { profile, loading },
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
- 
-  // if (user  && user.role === "admin") {
-  //   return <Redirect to="/admin" />;
-  // }
-  // else
-  // {
-    
+  if (role === "admin") {
+    return <Redirect to="/admin" />;
+  }
 
   return (
     <Fragment>
-      {loading && profile === null && user === null ? (
+      {loading && profile === null && name === null ? (
         <Spinner />
       ) : (
         
-        user && user.role === "admin" ? (<Redirect to="/admin" />):(
+        role === "admin" ? (<Redirect to="/admin" />):(
         <Fragment>
           <h1 className="large text-primary">Dashboard</h1>
           <p className="lead">
-            <i className="fas fa-user"></i> welcome {user && user.name}{" "}
-            {user && user.role}
+            <i className="fas fa-user"></i> welcome {name && name}{" "}
+            {role && role}
           </p>
           {profile !== null ? (
             <Fragment>
-              {user && <DashboardActions></DashboardActions>}
+            <DashboardActions></DashboardActions>
               <Experience experience={profile.experience} />
               <Education education={profile.education} />
               <h2 className="my-2">Invitations Recieved</h2>
 
-               {user.invitation.length >0 ? (<Invitations invitation={user.invitation} /> ):(<h4>No Invitation found</h4>)} 
+               {invitation.length >0 ? (<Invitations invitation={invitation} /> ):(<h4>No Invitation found</h4>)} 
               
 
               <div className="my-2">
@@ -63,7 +59,7 @@ const Dashboard = ({
           ) : (
             <Fragment>
               {" "}
-              {user && user.role === "Student" ? (
+              {role && role === "Student" ? (
                 <Fragment>
                   <p>You have not yet setup a profile , please add some info</p>
                   <Link to="/create-profile" className="btn btn-primary my-1">
