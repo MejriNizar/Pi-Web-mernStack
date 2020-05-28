@@ -12,27 +12,27 @@ import Groups from "./Groups";
 
 const Dashboard = ({
   getCurrentProfile,
-  auth: { user },
+  auth: { user:{role,name} },
   deleteAccount,
   profile: { profile, loading },
 }) => {
   useEffect(() => {
     getCurrentProfile();
   }, [getCurrentProfile]);
-  if (user.role === "admin") {
+  if (role === "admin") {
     return <Redirect to="/admin" />;
   }
 
   return (
     <Fragment>
-      {loading && profile === null && user === null ? (
+      {loading && profile === null && name === null ? (
         <Spinner />
       ) : (
         <Fragment>
           <h1 className="large text-primary">Dashboard</h1>
           <p className="lead">
-            <i className="fas fa-user"></i> welcome {user && user.name}{" "}
-            {user && user.role}
+            <i className="fas fa-user"></i> welcome {name && name}{" "}
+            {role && role}
           </p>
           {profile !== null ? (
             <Fragment>
@@ -59,7 +59,7 @@ const Dashboard = ({
           ) : (
             <Fragment>
               {" "}
-              {user && user.role === "Student" ? (
+              {role && role === "Student" ? (
                 <Fragment>
                   <p>You have not yet setup a profile , please add some info</p>
                   <Link to="/create-profile" className="btn btn-primary my-1">

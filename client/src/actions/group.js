@@ -402,6 +402,9 @@ export const DelteRequest=(idG,idI)=>async dispatch =>  {
   
   
   }
+  export const assignLeader=(idg,ids)=>async dispatch => {
+      
+  }
   export const SendVoteRequest=(idG,FormData)=>async dispatch =>  {
     try {
         const config = {

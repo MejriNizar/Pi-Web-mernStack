@@ -5,7 +5,20 @@ import GroupRequest from "./GroupRequest";
 import GroupMember from "./GroupMember";
 import { connect } from "react-redux";
 import { getproject } from "../../actions/project";
-const GroupMemb = ({ getproject, project: { project }, group: { group } }) => {
+import { assignLeader } from "../../actions/group";
+import { Select } from "@material-ui/core";
+const GroupMemb = ({
+  getproject,
+  project: { project },
+  group: { group },
+  auth: {
+    user: { role },
+  },
+}) => {
+  const ids=""
+  const setValue=e=>{
+ids=e;
+  }
   useEffect(() => {
     getproject(group.project._id);
   }, [getproject, group.project._id]);
@@ -31,8 +44,22 @@ const GroupMemb = ({ getproject, project: { project }, group: { group } }) => {
       ) : (
         <h4> No Request Found</h4>
       )}
+      {role && role === "teacher" ? <Fragment>
+      <h2 className="text-primary"> Assign team Leader</h2>
+      <form className="form"
+                onSubmit={
+                    e => {
+                        e.preventDefault();
+                        assignLeader(group._id,ids);
+                    }
+            }>
+        <Select options={group.members} onChange={(values) => setValue(values)} /> 
+        </form></Fragment> : <Fragment />}
       <h2 className="text-primary"> Team Leader</h2>
-      <h4><strong>Name:</strong>{group.groupOwner.name}</h4>
+      <h4>
+        <strong>Name:</strong>
+        {group.groupOwner.name}
+      </h4>
       <h2 className="text-primary"> Members</h2>
       {group.members.length > 0 ? (
         <Fragment>

@@ -723,62 +723,28 @@ router.put('/validate/:id', auth,async(req , res) => {
         res.status(500).send('server error');
     }
 });
-// // @route  PUT api/group/validate/id
-// // @desc  validate a project
-// // @access Private
-// router.put('/validate/:id', auth,async(req , res) => {
-//     try {
-//         const {etat} = req.body;
-        
-
-        
-//         group.Vote_Request.forEach(element => {
-//             if(element._id == req.params.idVR)
-//             {
-//               nbyes= element.yes;
-//               nbno= element.no;
-//               console.log(nbyes)
-//               console.log(nbno)
-//               return  res.status(200).json({nbyes: nbyes, nbno: nbno});
-//             }
-            
-            
-//         });
-
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send('server error');
-//     }
-// });
-// @route  PUT api/group/validate/id
-// @desc  validate a project
+// @route  PUT api/group/assignLeader/:idg/:ids
+// @desc  assign leader
 // @access Private
-// router.put('/validate/:id', auth,async(req , res) => {
-//     try {
-//         const {etat} = req.body;
-        
-
-//         const group = await Group.findOneAndUpdate({
-//             _id: req.params.id
-//         }, {
-//             $set: {
-//                 activated: etat
-//             }
-//         });
-//         if(!group)
-//         {
-//             return res.status(400).json({msg:'There is no group'});
-//         }
+router.put('/assignLeader/:idg/:ids',auth,async (req,res)=>{
+    try {
+        const idg=req.params.idg
+        const ids=req.params.ids
+        const user= await User.findOne({ids});
+        const group= await Group.findOne({idg});
+        if(!user || !group){
+            return res.status(400).json({msg:'something is wrong'});
+        }else if(group.groupOwner === ids){
+            return res.status(400).json({msg:'user already leader'});
+        }else {
+           const groupp= await Group.findOneAndUpdate({idg},{$set:{groupOwner:ids}})
+           return res.json(groupp);
+        }
 
 
-//         //return res.json(group);
-
-//         return res.json(await Group.find());
-
-    
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send('server error');
-//     }
-// });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send('server error');
+    }
+})
 module.exports = router;
