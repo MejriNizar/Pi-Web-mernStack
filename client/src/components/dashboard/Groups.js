@@ -23,7 +23,7 @@ const Groups = ({getactivatedgroup,groups:{groups,loading}}) => {
                    <tr>
                        <th>Name</th>
                        <th>slogan</th>
-                       <th colSpan="2">Project</th>
+                       <th >Project</th>
                        <th colSpan="3">Actions</th>
                        
                    </tr>

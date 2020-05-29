@@ -36,7 +36,7 @@ const CreateProfile = ({createprofile, history}) => {
         linkedin,
         youtube,
         instagram,
-        filename
+        
     }  = formData;
     const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
    const onSubmit = e =>{

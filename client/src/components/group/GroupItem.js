@@ -10,15 +10,19 @@ const GroupItem = ({sendRequest,group:{_id,logo,name,slogan,members},auth}) => {
   const [showDetaills,setShowDtails] = useState();
   
   useEffect(()=>{
-    members.map((member,index)=>
-      {
-        if((member._id === auth.user._id)|| auth.user.role === 'teacher')
-        {
-          setShowDtails(true);
-        }
-      } )
+    members.filter(mem => (mem._id === auth.user._id) || auth.user.role === 'teacher')
+    .map((member,index) =>{ return setShowDtails(true);
+    }
+    )
+    // members.map((member)=>
+    //   {
+    //     if((member._id === auth.user._id)|| auth.user.role === 'teacher')
+    //     {
+    //       setShowDtails(true);
+    //     }
+    //   } )
     
-}, [ members,setShowDtails]);
+}, [ members,setShowDtails,auth.user._id,auth.user.role]);
 
    
 

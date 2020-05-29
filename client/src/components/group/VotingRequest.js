@@ -92,7 +92,7 @@ const VotingRequest = ({
             setdisabledC3(true);
 
         }
-    }, [loading])
+    }, [loading,auth.user.votes,project.numberOfStudents,request._id,request.dueDate,request.nbVote])
 
     const onChange = e => {
         console.log(e);

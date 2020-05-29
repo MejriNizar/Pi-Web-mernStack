@@ -6,7 +6,6 @@ import { getproject } from '../../actions/project';
 import {loadStudents} from '../../actions/auth'
 
 import '../../assets/css/syncfusions.css';
-import { Link } from 'react-router-dom';
 import { MultiSelectComponent, Inject, CheckBoxSelection } from '@syncfusion/ej2-react-dropdowns';
 import { Spinner } from 'reactstrap';
 
@@ -39,7 +38,7 @@ const Addgroup = ({
          }
         loadStudents(skillsData);
         
-    }, [ getproject,match.params.id,loadStudents,skillsData]);
+    }, [ getproject,match.params.id,loadStudents,skillsData,project]);
 
     const [formData, setFormData] = useState({name: '', slogan: ''});
 

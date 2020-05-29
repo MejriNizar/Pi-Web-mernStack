@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getgroup, deletegroup } from "../../actions/group";
+import { getgroup } from "../../actions/group";
 
 import GroupActions from "./GroupActions";
 import VotingHistory from "./VotingHistory";
