@@ -19,7 +19,7 @@ const GroupRequest= ({AcceptRequest,DelteRequest,request:{
     
     
         <button onClick={()=>DelteRequest(groupId,_id)} className='btn btn-danger'> Delete </button>
-   
+        
         </div>
     
 

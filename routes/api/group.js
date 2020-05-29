@@ -7,6 +7,7 @@ const User = require('../../model/User');
 const Affectation = require('../../model/Affectation');
 const multer = require('multer');
 const fileUpload=require('express-fileupload')
+const Profile = require('../../model/Profile');
 
 
 const MIME_TYPE_MAP = {
@@ -91,7 +92,7 @@ router.get('/alllimit', auth, async (req, res) => {
 router.get('/details/:id', auth, async (req, res) => {
     try {
         console.log(req.params.id)
-        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']);
+        const group = await Group.findOne({_id: req.params.id}).populate('members', ['name', 'email','avatar']).populate('project', ['name','settings']).populate('groupOwner',['name']);
         if (! group) {
             return res.status(400).json({msg: 'There is no group'});
         }
@@ -130,6 +131,7 @@ router.post('/:id', [
         members,
 
     } = req.body;
+    console.log(members.split(','))
     const groupFileds = {};
     const file = req.files.file;
     if(req.files){
@@ -160,17 +162,8 @@ router.post('/:id', [
 
 
     if (slogan) 
-        groupFileds.slogan = slogan;
-    
-
-
-    if (members) 
-        groupFileds.members = members;
-    
-
-
+    groupFileds.slogan = slogan;
     groupFileds.project = req.params.id;
-    
     groupFileds.creationDate = Date.now();
     groupFileds.activated = false;
 
@@ -189,6 +182,20 @@ router.post('/:id', [
         }
         group = new Group(groupFileds);
         await group.save();
+
+        members.split(',').forEach(async (element) => {
+            const userFileds = {};
+            userFileds.invitation = {};
+            userFileds.invitation.groupe = group.id;
+            userFileds.invitation.groupeName = name;
+            const user = await User.findOneAndUpdate({
+                _id: element
+            }, {
+                $push: {
+                    invitation: userFileds.invitation
+                }
+            });
+        });
         user = await User.findOneAndUpdate({
             _id: req.user.id
         }, {
@@ -201,9 +208,10 @@ router.post('/:id', [
                 group: group.id
             }
         }, {new: false});
-       const  returngroup = await Group.findOne({name}).populate('project', ['settings']);
-       console.log(returngroup  )
-       return  res.json(returngroup)
+
+        
+        
+       return  res.json(await Group.findOne({_id: group._id}).populate('project', ['settings']))
     } catch (error) {
         console.error(error.message);
         res.status(500).send('server error');
@@ -333,41 +341,7 @@ router.post('/assign/:idG/:idP', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
-// @route  PUT api/group/assign
-// @desc  invit members to group
-// @access Private
-router.put('/assign/:idG', auth, async (req, res) => {
-    const errors = validationResult(req);
-    if (! errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
-    }
-    try {
-        const {members} = req.body;
-        members.forEach(async (element) => {
-            const userFileds = {};
-            userFileds.invitation = {};
-            userFileds.invitation.groupe = req.params.idG;
-            userFileds.invitation.groupeName = group.name;
-            console.log(group)
 
-
-            const user = await User.findOneAndUpdate({
-                _id: element
-            }, {
-                $push: {
-                    invitation: userFileds.invitation
-                }
-            });
-
-
-            return res.json(user);
-        });
-
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('server error');
-    }
-});
 // @route  PUT api/group/request/:id
 // @desc  send  request to group
 // @access Private
@@ -376,13 +350,14 @@ router.put('/request/:id', auth, async (req, res) => {
     if (! errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
     }
-    const user = User.findOne({_id: req.user.id})
     try {
-      
+        const user = await User.findOne({_id: req.user.id})
+
         const groupFileds = {};
         groupFileds.request = {};
         groupFileds.request.user = req.user.id;
-        groupFileds.request.userName = req.user.name;
+        console.log(user.name)
+        groupFileds.request.userName = user.name;
             const group = await Group.findOneAndUpdate({
                 _id: req.params.id
             }, {
@@ -392,7 +367,7 @@ router.put('/request/:id', auth, async (req, res) => {
             });
 
 
-            return res.json(group);
+            return res.json(await Group.find({activated : true}).populate('project', ['name']).sort( { creationDate: -1 } ).populate('members',['name']).populate('groupOwner',['name']));
        
 
     } catch (error) {
@@ -439,7 +414,8 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
                 }
 
             });
-            return res.json(user1);
+            return res.json(await Profile.findOne({ user: user._id })
+            .populate('user', ['name', 'avatar','invitation']));
 
         } else {
             const user2 = await User.findOneAndUpdate({
@@ -451,7 +427,8 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
                     }
                 }
             });
-            return res.json(user2);
+            return res.json(await Profile.findOne({ user: user._id })
+            .populate('user', ['name', 'avatar','invitation']));
 
         }
     } catch (error) {
@@ -495,7 +472,7 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
                         }
         
                     });
-                    return res.json(group);
+                    return res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']));
 
                 }
             })
@@ -512,7 +489,7 @@ router.put('/accpterReq/:idG/:idI', auth, async (req, res) => {
                     }
                 }
             }, {new: false});
-            return res.json(group);
+            return res.json(await Group.findOne({_id: req.params.idG}).populate('members', ['name', 'email']).populate('project', ['name','settings']).populate('groupOwner',['name']));
 
         }
     } catch (error) {
@@ -730,15 +707,15 @@ router.put('/assignLeader/:idg/:ids',auth,async (req,res)=>{
     try {
         const idg=req.params.idg
         const ids=req.params.ids
-        const user= await User.findOne({ids});
-        const group= await Group.findOne({idg});
+        const user= await User.findOne({_id : ids});
+        const group= await Group.findOne({_id : idg});
         if(!user || !group){
             return res.status(400).json({msg:'something is wrong'});
         }else if(group.groupOwner === ids){
             return res.status(400).json({msg:'user already leader'});
         }else {
-           const groupp= await Group.findOneAndUpdate({idg},{$set:{groupOwner:ids}})
-           return res.json(groupp);
+           const groupp= await Group.findOneAndUpdate({_id : idg},{$set:{groupOwner:ids}})
+           return res.json(await Group.findOne({_id: idg}).populate('members', ['name', 'email','avatar']).populate('project', ['name','settings']).populate('groupOwner',['name']));
         }
 
 

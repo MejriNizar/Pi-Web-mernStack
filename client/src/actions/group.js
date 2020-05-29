@@ -9,6 +9,7 @@ import {
   USER_LOADED,
   GET_USERS,
   GET_VOTE_PROG,
+  GET_PROFILE
 } from "./types";
 
 export const getallgroups = () => async (dispatch) => {
@@ -139,17 +140,7 @@ export const addGroup = (FormData, history, edit = false, id) => async (
     });
     console.log(res.data);
     dispatch(setAlert(edit ? "Group Updated" : "Group created", "success"));
-    if (!edit) {
-      if (res.data.project.settings.requiredSkills) {
-        history.push(
-          `/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}/${res.data.project.settings.requiredSkills}`
-        );
-      } else {
-        history.push(
-          `/add-members/${res.data._id}/${res.data.project.settings.numberOfStudents}`
-        );
-      }
-    }
+    
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
@@ -221,38 +212,7 @@ export const deletegroup = (id) => async (dispatch) => {
     });
   }
 };
-export const invitMember = (FormData, history, edit = false, id) => async (
-  dispatch
-) => {
-  try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await axios.put(`/api/group/assign/${id}`, FormData, config);
-    dispatch({
-      type: GET_GROUP,
-      payload: res.data,
-    });
-    dispatch(setAlert(edit ? "Group Updated" : "Group created", "success"));
-    if (edit) {
-      history.push("/dashboard");
-    }
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-    }
-    dispatch({
-      type: GROUP_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
+
 export const sendRequest = (id) => async (dispatch) => {
   try {
     const res = await axios.put(`/api/group/request/${id}`);
@@ -288,13 +248,13 @@ export const AcceptInvitation = (id) => async (dispatch) => {
     const res = await axios.put(`/api/group/accpterInv/${id}`, data, config);
     console.log("inv accep");
     dispatch({
-      type: USER_LOADED,
+      type: GET_PROFILE,
       payload: res.data,
     });
     dispatch(setAlert("Invitation Accepted", "success"));
   } catch (error) {
     dispatch({
-      type: USER_LOADED,
+      type: GET_PROFILE,
       payload: {
         msg: error.response.statusText,
         status: error.response.status,
@@ -344,13 +304,13 @@ export const AcceptRequest = (idG, idI) => async (dispatch) => {
     );
     console.log("req accep");
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: res.data,
     });
     dispatch(setAlert("Request Accepted", "success"));
   } catch (error) {
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: {
         msg: error.response.statusText,
         status: error.response.status,
@@ -374,13 +334,13 @@ export const DelteRequest = (idG, idI) => async (dispatch) => {
     );
     console.log("req delet");
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: res.data,
     });
     dispatch(setAlert("Request Deleted", "danger"));
   } catch (error) {
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: {
         msg: error.response.statusText,
         status: error.response.status,
@@ -444,7 +404,7 @@ export const assignLeader = (idg, ids) => async (dispatch) => {
     const res = await axios.put(`/api/group/assignleader/${idg}/${ids}`);
     console.log("groupleadr valide");
     dispatch({
-      type: GET_GROUP,
+      type: GET_GROUP_DETAILS,
       payload: res.data,
     });
   } catch (error) { 

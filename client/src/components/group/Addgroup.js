@@ -1,10 +1,14 @@
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {addGroup} from '../../actions/group'
+import { getproject } from '../../actions/project';
+import {loadStudents} from '../../actions/auth'
 
 import '../../assets/css/syncfusions.css';
 import { Link } from 'react-router-dom';
+import { MultiSelectComponent, Inject, CheckBoxSelection } from '@syncfusion/ej2-react-dropdowns';
+import { Spinner } from 'reactstrap';
 
 
 
@@ -12,20 +16,39 @@ import { Link } from 'react-router-dom';
 const Addgroup = ({
     addGroup,
     history,
-    project:{project },
+    getproject,project: {project,loading},
     match,
-    group:{group,loading}
+    group:{group},
+    loadStudents,
+    students: {
+        students
+        
+    },
   
 }) => {
-   
+    const [skillsData,setSkillsData] = useState({skills:''});
+
+    useEffect(()=>{
+        getproject(match.params.id);
+         if(project)
+         {
+             setSkillsData({
+                 ...skillsData,
+                 skills: project.settings.Skills.split(',')
+             })
+         }
+        loadStudents(skillsData);
+        
+    }, [ getproject,match.params.id,loadStudents,skillsData]);
+
     const [formData, setFormData] = useState({name: '', slogan: ''});
+
     const [file,setFile]=useState('');
     const [filename,setFilename]=useState('Choose Logo')
     const {
         name,
-      
-        slogan
-       
+        slogan,
+        members
     } = formData;
     const onChangeFile= e =>{
         setFile(e.target.files[0]);
@@ -36,7 +59,18 @@ const Addgroup = ({
         [e.target.name]: e.target.value
         
     }) ;
-    
+    const onChangeMembers = e => setFormData({
+        ...formData,
+        members: e
+    });
+    const fields = {
+        text: 'user.name',
+        value: 'user._id'
+    }
+    const fields1 = {
+        text: 'name',
+        value: '_id'
+    }
   
     return (
         <Fragment>
@@ -52,11 +86,11 @@ const Addgroup = ({
                         const form = new FormData();
                         form.set('name',name);
                         form.set('slogan',slogan);
+                        form.set('members',members)
                         form.set('logo',file)
                         form.append('file',file);
 
                         addGroup(form, history,false,match.params.id);
-                     //  return <Redirect to={`/add-members/${project.group[0]}/${project.settings.numberOfStudents}/${project.settings.requiredSkills}`} />
 
                     }
             }>
@@ -89,23 +123,63 @@ const Addgroup = ({
                         }
                         required/>
                 </div>
+                { loading || project === null ?<Spinner /> : (
+        <Fragment> 
+                { project.settings.Skills ?( <MultiSelectComponent id="membersS" name="members"
+                        dataSource={students}
+                        fields={fields}
+                        placeholder="Select members"
+                        mode="CheckBox"
+                        selectAllText="Select All"
+                        unSelectAllText="unSelect All"
+                        showSelectAll={true}
+                        maximumSelectionLength={project.settings.numberOfStudents}
+                        change={
+                            e => onChangeMembers(e.value)
+                    }
+                       
+                    >
+                        <Inject services={
+                            [CheckBoxSelection]
+                        }/>
+                    </MultiSelectComponent>):(<MultiSelectComponent id="membersS" name="members"
+                        dataSource={students}
+                        fields={fields1}
+                        placeholder="Select members"
+                        mode="CheckBox"
+                        selectAllText="Select All"
+                        unSelectAllText="unSelect All"
+                        showSelectAll={true}
+                        maximumSelectionLength={project.settings.numberOfStudents}
+                        change={
+                            e => onChangeMembers(e.value)
+                    }
+                       
+                    >
+                        <Inject services={
+                            [CheckBoxSelection]
+                        }/>
+                    </MultiSelectComponent>)}
                 
-               
+               </Fragment>)}
                 
                 <input type="submit" className="btn btn-primary my-1"/>
                 <a className="btn btn-light my-1" href="dashboard.html">Go Back</a>
-                <Link className='btn btn-success' to={`/add-members/${group && group}/${group && group.project.settings.numberOfStudents}/${group && group.project.settings.requiredSkills}`} >Add Members</Link>
+                
             </form>
         </Fragment>
     )
 } 
 Addgroup.propTypes = {
     addGroup: PropTypes.func.isRequired,
-    project: PropTypes.object.isRequired,
     group: PropTypes.object.isRequired,
+    getproject: PropTypes.func.isRequired,
+    loadStudents: PropTypes.func.isRequired,
+
 }
 const mapStateToProps = state => ({
     project: state.project,
-    group:state.group
+    group:state.group,
+    students: state.students
 });
-export default connect(mapStateToProps, {addGroup})(Addgroup)
+export default connect(mapStateToProps, {addGroup,getproject,loadStudents})(Addgroup)

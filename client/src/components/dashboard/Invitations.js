@@ -12,7 +12,7 @@ const Invitations = ({DelteInvitation,AcceptInvitation,invitation}) => {
             <td>{exp.groupeName}</td>
   
             <td>
-        <button onClick={()=>AcceptInvitation(exp._id)} className='btn btn-danger'> Accept </button>
+        <button onClick={()=>AcceptInvitation(exp._id)} className='btn btn-success'> Accept </button>
     </td>
     
     <td>
@@ -22,7 +22,6 @@ const Invitations = ({DelteInvitation,AcceptInvitation,invitation}) => {
     ))
     return (
         <Fragment>
-            <h2 className="my-2">Invitations Recived</h2>
             <table className='table'>
                 <thead>
                     <tr>
