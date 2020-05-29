@@ -12,7 +12,7 @@ const GroupItem = ({sendRequest,group:{_id,logo,name,slogan,members},auth}) => {
   useEffect(()=>{
     members.map((member,index)=>
       {
-        if(member._id === auth.user._id)
+        if((member._id === auth.user._id)|| auth.user.role === 'teacher')
         {
           setShowDtails(true);
         }
