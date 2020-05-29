@@ -447,7 +447,7 @@ export const assignLeader = (idg, ids) => async (dispatch) => {
       type: GET_GROUP,
       payload: res.data,
     });
-  } catch (error) {
+  } catch (error) { 
     dispatch({
       type: GROUP_ERROR,
       payload: {
