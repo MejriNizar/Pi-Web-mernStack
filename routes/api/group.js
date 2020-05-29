@@ -7,6 +7,7 @@ const User = require('../../model/User');
 const Affectation = require('../../model/Affectation');
 const multer = require('multer');
 const fileUpload=require('express-fileupload')
+const Profile = require('../../model/Profile');
 
 
 const MIME_TYPE_MAP = {
@@ -130,6 +131,7 @@ router.post('/:id', [
         members,
 
     } = req.body;
+    console.log(members.split(','))
     const groupFileds = {};
     const file = req.files.file;
     if(req.files){
@@ -160,17 +162,8 @@ router.post('/:id', [
 
 
     if (slogan) 
-        groupFileds.slogan = slogan;
-    
-
-
-    if (members) 
-        groupFileds.members = members;
-    
-
-
+    groupFileds.slogan = slogan;
     groupFileds.project = req.params.id;
-    
     groupFileds.creationDate = Date.now();
     groupFileds.activated = false;
 
@@ -189,6 +182,20 @@ router.post('/:id', [
         }
         group = new Group(groupFileds);
         await group.save();
+
+        members.split(',').forEach(async (element) => {
+            const userFileds = {};
+            userFileds.invitation = {};
+            userFileds.invitation.groupe = group.id;
+            userFileds.invitation.groupeName = name;
+            const user = await User.findOneAndUpdate({
+                _id: element
+            }, {
+                $push: {
+                    invitation: userFileds.invitation
+                }
+            });
+        });
         user = await User.findOneAndUpdate({
             _id: req.user.id
         }, {
@@ -201,8 +208,9 @@ router.post('/:id', [
                 group: group.id
             }
         }, {new: false});
-       const  returngroup = await Group.findOne({_id: group._id}).populate('project', ['settings']);
-       console.log(returngroup  )
+
+        
+        
        return  res.json(await Group.findOne({_id: group._id}).populate('project', ['settings']))
     } catch (error) {
         console.error(error.message);
@@ -333,41 +341,7 @@ router.post('/assign/:idG/:idP', auth, async (req, res) => {
         res.status(500).send('server error');
     }
 });
-// @route  PUT api/group/assign
-// @desc  invit members to group
-// @access Private
-router.put('/assign/:idG', auth, async (req, res) => {
-    const errors = validationResult(req);
-    if (! errors.isEmpty()) {
-        return res.status(400).json({errors: errors.array()});
-    }
-    try {
-        const {members} = req.body;
-        members.forEach(async (element) => {
-            const userFileds = {};
-            userFileds.invitation = {};
-            userFileds.invitation.groupe = req.params.idG;
-            userFileds.invitation.groupeName = group.name;
-            console.log(group)
 
-
-            const user = await User.findOneAndUpdate({
-                _id: element
-            }, {
-                $push: {
-                    invitation: userFileds.invitation
-                }
-            });
-
-
-            return res.json(user);
-        });
-
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('server error');
-    }
-});
 // @route  PUT api/group/request/:id
 // @desc  send  request to group
 // @access Private
@@ -440,7 +414,8 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
                 }
 
             });
-            return res.json(user1);
+            return res.json(await Profile.findOne({ user: user._id })
+            .populate('user', ['name', 'avatar','invitation']));
 
         } else {
             const user2 = await User.findOneAndUpdate({
@@ -452,7 +427,8 @@ router.put('/accpterInv/:id', auth, async (req, res) => {
                     }
                 }
             });
-            return res.json(user2);
+            return res.json(await Profile.findOne({ user: user._id })
+            .populate('user', ['name', 'avatar','invitation']));
 
         }
     } catch (error) {
