@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alert";
-
+import * as firebase from 'firebase'
 import {
   GET_GROUP,
   GROUP_ERROR,
@@ -12,6 +12,7 @@ import {
   GET_PROFILE
 } from "./types";
 
+import { messaging } from "../init-fcm";
 export const getallgroups = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/group/all");
@@ -214,12 +215,28 @@ export const deletegroup = (id) => async (dispatch) => {
 };
 
 export const sendRequest = (id) => async (dispatch) => {
-  try {
+
+ const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
+
+const token = await messaging.getToken();
+
+const FormData={
+  registrationToken:token,
+  message:"request Send"
+}
+
+try {
+
     const res = await axios.put(`/api/group/request/${id}`);
     dispatch({
       type: GET_GROUP,
       payload: res.data,
     });
+    await axios.post('/firebase/notification',FormData,config)
     dispatch(setAlert("Request send"));
   } catch (error) {
     const errors = error.response.data.errors;

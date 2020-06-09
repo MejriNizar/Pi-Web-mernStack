@@ -5,12 +5,11 @@ import { getactivatedgroup, sendRequest } from "../../actions/group";
 import { withRouter } from "react-router-dom";
 import Spinner from "../layout/spinner";
 import GroupItem from "./GroupItem";
-
 const Allgroup = ({ getactivatedgroup, groups: { groups, loading }, auth }) => {
   useEffect(() => {
     getactivatedgroup();
   }, [getactivatedgroup]);
-
+ 
   return loading || groups === null ? (
     <Spinner />
   ) : (
