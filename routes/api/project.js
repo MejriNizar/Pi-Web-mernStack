@@ -70,7 +70,6 @@ router.get('/details/:id',auth,async(req , res) => {
 // @access Private
 router.post('/',[auth,[
     check('name','name is required').not().isEmpty(),
-    check('name','name id bad').isAlpha(),
     check('name', 'enter a name with 6 or greater').isLength({min:6}),
     check('description','description is required').not().isEmpty(),
     check('description', 'enter a description with 20 or greater').isLength({min:20}),   

@@ -118,7 +118,6 @@ router.post('/allStudents', async (req, res) => {
     try {
         const {skills} = req.body;
         if (skills) {
-            console.log(skills)
             const profiles = await Profile.find({
                 skills: {
                     "$in": skills

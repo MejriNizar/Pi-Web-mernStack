@@ -29,17 +29,20 @@ const Addgroup = ({
 
     useEffect(()=>{
         getproject(match.params.id);
-         if(project)
-         {
-             setSkillsData({
-                 ...skillsData,
-                 skills: project.settings.Skills.split(',')
+         
+        
+    }, [ getproject,match.params.id,project]);
+   
+    useEffect(()=>{
+        if(project)
+        {
+            setSkillsData({
+            skills: project.settings.requiredSkills
              })
-         }
+        }     
         loadStudents(skillsData);
         
-    }, [ getproject,match.params.id,loadStudents,skillsData,project]);
-
+    }, [ loadStudents,skillsData]);
     const [formData, setFormData] = useState({name: '', slogan: ''});
 
     const [file,setFile]=useState('');
