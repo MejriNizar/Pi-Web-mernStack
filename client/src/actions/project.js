@@ -63,8 +63,8 @@ export const getallprojectslimit = () => async dispatch =>{
 }
 export const getproject = id => async dispatch =>{
     try {
+      
         const res = await axios.get(`/api/project/details/${id}`);
-        
         dispatch({
             type: GET_PROJECT_DETAILS,
             payload: res.data

@@ -36,13 +36,15 @@ const Allproject = ({history,deleteproject,getactivatedprojects,projects: {proje
         {p.description}. </div>
         <div className="e-card-actions e-card-vertical">
         { user._id !== p.projectOwner ? ( 
+          <tr>
         <td>
         <Link to={`/project-details/${p._id}`}> More </Link>
         <Link to={`/add-group/${p._id}`} > Add group </Link>
     
-        </td>):
+        </td>   </tr>):
       
         <td>
+     
     <Link to={`/project-details/${p._id}`}>More </Link>
     
     <Link to={`/project-edit/${p._id}`} >Edit</Link>

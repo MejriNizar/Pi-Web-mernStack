@@ -116,11 +116,12 @@ router.get('/all', async (req, res) => {
 // @access Private
 router.post('/allStudents', async (req, res) => {
     try {
-        const {skills} = req.body;
-        if (skills) {
+       
+        if (req.body) {
+            
             const profiles = await Profile.find({
                 skills: {
-                    "$in": skills
+                    "$in": req.body
                 }
                 
             }, {
