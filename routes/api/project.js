@@ -268,7 +268,7 @@ router.delete("/:id", auth, async (req, res) => {
 // @route  PUT api/project/validate/id
 // @desc  validate a project
 // @access Private
-router.put("/validate/:id", auth, async (req, res) => {
+router.put("/validate/:id", async (req, res) => {
   try {
     const { etat } = req.body;
 

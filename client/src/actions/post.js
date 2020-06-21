@@ -102,7 +102,7 @@ export const addPost = (formdata,id) => async dispatch=>{
 }
 
 
-export const addComment = (postid,formdata) => async dispatch=>{
+export const addComment = (postid,groupid,formdata) => async dispatch=>{
     const  config={
         headers:{
             'Content-Type': 'application/json'
@@ -110,7 +110,7 @@ export const addComment = (postid,formdata) => async dispatch=>{
     }
       try {
   
-         const res=  await axios.post(`/api/posts/comment/${postid}`,formdata,config);
+         const res=  await axios.post(`/api/posts/comment/${postid}/${groupid}`,formdata,config);
           dispatch({
               type:GET_POSTS,
               payload: res.data

@@ -145,7 +145,7 @@ router.put('/unlike/:id',auth,async(req,res)=>{
 // @route  POST api/posts/comment/:id
 // @desc  comment on a post route
 // @access Private
-router.post('/comment/:id',[auth,[
+router.post('/comment/:id/:idG',[auth,[
     check('textt','Text is required').not().isEmpty()
 
 ]], async(req , res) =>{
@@ -166,7 +166,7 @@ try {
 };
 post.comments.unshift(newComment);
  await post.save();
-res.json(await Post.find());
+res.json(await Post.find({group : req.params.idG}).sort({date: -1}));
     
 } catch (error) {
     console.error(error.message);

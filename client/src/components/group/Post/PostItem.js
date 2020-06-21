@@ -5,12 +5,12 @@ import Moment from 'react-moment'
 import {addLike, removeLike,deletePost,addComment} from '../../../actions/post'
 import {connect} from 'react-redux'
 import CommentItem from './CommentItem'
-const PostItem = ({auth,addComment,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions}) => {
+const PostItem = ({auth,addComment,post:{_id,text,name,avatar,user,likes,comments,date},addLike,removeLike,deletePost,showActions,groupId}) => {
   const [dispalayComment, toogledisplayComment] = useState(false);
   const [textt,setTextt] = useState('');
   const onSubmit = e =>{
     if (e.key === 'Enter'){e.preventDefault();
-          addComment(_id,{textt});
+          addComment(_id,groupId,{textt});
           setTextt('');
           toogledisplayComment(true);
         }
@@ -62,7 +62,7 @@ const PostItem = ({auth,addComment,post:{_id,text,name,avatar,user,likes,comment
                   {comments.length > 0 ? (<div className="comments">
                       
                           {comments.map(comm => (
-                              <CommentItem key={comm._id} comment={comm} postId={_id}/>
+                              <CommentItem key={comm._id} comment={comm} postId={_id} groupId={groupId}/>
                           ))}
                           <button onClick={() => toogledisplayComment(!dispalayComment)} className='btn'>CLOSE</button>
                       </div>
@@ -103,7 +103,8 @@ auth:PropTypes.object.isRequired,
 addLike:PropTypes.func.isRequired,
 removeLike:PropTypes.func.isRequired,
 deletePost: PropTypes.func.isRequired,
-addComment:PropTypes.func.isRequired
+addComment:PropTypes.func.isRequired,
+groupId:PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
     auth:state.auth

@@ -18,7 +18,7 @@ const PostDetails = ({getPost,post:{post,loading},match}) => {
         <CommentForm postId={post._id}></CommentForm>
         <div className="comments">
             {post.comments.map(comm => (
-                <CommentItem key={comm._id} comment={comm} postId={post._id}/>
+                <CommentItem key={comm._id} comment={comm} postId={post._id} />
             ))}
         </div>
         <Link to='/all-group' className='btn'>GO BACK</Link>
